@@ -1,0 +1,16 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static '/workout/style.css' %}">
+
+
+<H3>Workout number {{ workout.id }}</H3>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% for exercise in workout.exercises.all %}
+    {{ exercise.drill.name }}
+    {{ exercise.weight }}
+    {{ exercise.repetition }}
+    {{ exercise.round }}
+    <br>
+{% endfor %}
