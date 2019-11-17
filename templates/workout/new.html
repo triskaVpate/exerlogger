@@ -8,4 +8,5 @@ Please select exercises:
     {% csrf_token %}
     {{ workout_form.as_p }}
      <input type="submit" value="Save" class="btn btn-md btn-secondary">
+     <a class="btn btn-default" href="{% url 'home' %}"><button type="button" value="Cancel">Cancel</button></a>
 </form>

@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import render, render_to_response, get_object_or_404
+from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 
 # Create your views here.
 from exerlogger.forms import NewWorkoutForm
@@ -40,7 +40,11 @@ def new_workout(request):
 
     if workout_form.is_valid():
         instance = workout_form.save(commit=False)
+        # will save workout under currently logged user
+        instance.user = request.user
+        # save data to db
         instance.save()
+        return redirect('home')
 
     context = {
         "workout_form": workout_form

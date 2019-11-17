@@ -19,9 +19,6 @@ class Drill(TimeStampedModel):
 
     objects = models.Manager()
 
-    def __unicode__(self):
-        return self.get_name_display()
-
     def __str__(self):
         return self.name
 
@@ -36,7 +33,7 @@ class Workout(TimeStampedModel):
         # unique_together = ()
         # index_together = ()
 
-    def __unicode__(self):
+    def __string__(self):
         return self.date
 
 class Exercise(TimeStampedModel):
@@ -52,5 +49,5 @@ class Exercise(TimeStampedModel):
         # unique_together = ()
         # index_together = ()
 
-    def __unicode__(self):
+    def __string__(self):
         return self.workout
