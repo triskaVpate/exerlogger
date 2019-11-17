@@ -1,21 +1,21 @@
-from datetime import date
-
 from django import forms
+from django.forms import inlineformset_factory
 
-from exerlogger.models import Exercise, Drill, Workout
+from exerlogger.models import Exercise, Workout
 
 
 class NewWorkoutForm(forms.ModelForm):
-    #workout_date = forms.DateField(required=True, initial=date.today())
 
     class Meta:
         model = Workout
         fields = ["date"]
 
+
 class NewExerciseForm(forms.ModelForm):
-    drill = forms.ModelChoiceField(queryset=Drill.objects.all(), initial=0)
-    weight = forms.IntegerField()
 
     class Meta:
         model = Exercise
-        fields = ["drill", "weight"]
+        fields = ["drill", "weight", "round", "repetition"]
+
+
+NewExerciseFormSet = inlineformset_factory(Workout, Exercise, form=NewExerciseForm, extra=1, can_delete=True)

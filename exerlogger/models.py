@@ -36,12 +36,13 @@ class Workout(TimeStampedModel):
     def __string__(self):
         return self.date
 
+
 class Exercise(TimeStampedModel):
     workout = models.ForeignKey(Workout, verbose_name=_("workout"), on_delete=models.CASCADE)
     drill = models.ForeignKey(Drill, verbose_name=_("drill"), on_delete=models.CASCADE)
     weight = models.IntegerField(_("weight"), blank=True, null=True)
-    round = models.IntegerField(_("round"))
-    repetition = models.IntegerField(_("repetition"))
+    round = models.IntegerField(_("round"), default=1)
+    repetition = models.IntegerField(_("repetition"), default=1)
 
     class Meta:
         verbose_name = _("exercise")

@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 
 # Create your views here.
-from exerlogger.forms import NewWorkoutForm
+from exerlogger.forms import NewWorkoutForm, NewExerciseForm
 from .models import Drill, Exercise, Workout
 
 
@@ -37,6 +37,8 @@ def workout_detail(request, workout_id):
 def new_workout(request):
     # form to input a new workout
     workout_form = NewWorkoutForm(request.POST or None)
+    exercise_form = NewExerciseForm(request.POST or None)
+
 
     if workout_form.is_valid():
         instance = workout_form.save(commit=False)
@@ -46,10 +48,16 @@ def new_workout(request):
         instance.save()
         return redirect('home')
 
+    if exercise_form.is_valid():
+        exercise_instance = workout_form.save(commit=False)
+        exercise_instance.save()
+
     context = {
-        "workout_form": workout_form
+        "workout_form": workout_form,
+        "exercise_form": exercise_form
     }
 
     return render(request, "workout/new.html", context)
+
 
 

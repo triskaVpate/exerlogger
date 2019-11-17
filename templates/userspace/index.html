@@ -9,9 +9,7 @@
     <h3>List of User Workouts</h3>
 
     {% for workout in user_workouts %}
-    <tr>
       <li><a href="{% url 'workout_detail' workout.id %}"> {{ workout.id}} {{ workout.date }} </a></li>
-    </tr>
     {% endfor %}
 
   <p><a href="{% url 'new_workout' %}">Create new workout</a></p>
