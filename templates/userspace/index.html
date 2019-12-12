@@ -6,14 +6,7 @@
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
 
-    <h3>List of User Workouts</h3>
-
-    {% for workout in user_workouts %}
-      <li><a href="{% url 'workout_detail' workout.id %}"> {{ workout.id}} {{ workout.date }} </a></li>
-    {% endfor %}
-
-  <p><a href="{% url 'new_workout' %}">Create new workout</a></p>
-
+  <p><a href="{% url 'workouts' %}">workouts</a></p>
   <p><a href="{% url 'logout' %}">logout</a></p>
 {% else %}
   <p>You are not logged in</p>

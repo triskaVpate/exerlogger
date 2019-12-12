@@ -18,4 +18,4 @@ class NewExerciseForm(forms.ModelForm):
         fields = ["drill", "weight", "round", "repetition"]
 
 
-NewExerciseFormSet = inlineformset_factory(Workout, Exercise, form=NewExerciseForm, extra=1, can_delete=True)
+#NewExerciseFormSet = inlineformset_factory(Workout, Exercise, form=NewExerciseForm, extra=1, can_delete=True)

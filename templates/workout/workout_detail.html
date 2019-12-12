@@ -1,0 +1,29 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static '/workout/style.css' %}">
+
+
+<H3>Workout number {{ workout.id }}</H3>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% if exercise_form %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}>
+        {{ exercise_form.as_p }}
+    </form>
+{% endif %}
+
+
+<!--Show exercises for this workout id-->
+{% for exercise in exercises %}
+    <li><a href="{% url 'exercise_edit' workout.id exercise.id %}">
+        {{ exercise.id }}
+        {{ exercise.drill.name }}
+        {{ exercise.weight }}
+        {{ exercise.repetition }}
+        {{ exercise.round }}
+    </a></li>
+{% endfor %}
+
+

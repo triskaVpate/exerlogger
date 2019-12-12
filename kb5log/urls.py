@@ -24,9 +24,15 @@ app_name = 'exerlogger'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+
+#user homepage
     path('', user_homepage, name='home'),
-# workout detail page
-    path('<int:workout_id>/', views.workout_detail, name='workout_detail'),
-#create new workout page
-    path('new/', views.new_workout, name='new_workout')
+#user workouts list
+    path('workouts/', views.workouts, name='workouts'),
+# create new workout page
+    path('workouts/add/', views.workout_detail, name='workout_new'),
+# workout exercises list
+    path('workouts/<int:workout_id>/', views.workout_detail, name='workout_detail'),
+#edit exercise in workout
+    path('workouts/<int:workout_id>/<int:exercise_id>', views.workout_detail, name='exercise_edit')
 ]
