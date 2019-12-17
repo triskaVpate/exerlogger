@@ -2,6 +2,7 @@
 <html>
     <body>
         {% block content %}
+        <div id="workout_detail>"
             <!--testing info variable-->
             <div class="debug">
             {% if info %}
@@ -45,6 +46,7 @@
 
             <br>
             <a href="{% url 'workouts' %}" class="btn btn-md btn-secondary" >Done</a>
+        </div>
         {% endblock %}
     </body>
 
