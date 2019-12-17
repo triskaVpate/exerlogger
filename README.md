@@ -15,3 +15,4 @@ Future features:
 - personal "hit" charts
 - shareable "hit" charts - comparing workouts/exercise between users > optional
 - nicer UI
+- calendar view - killer feature :)
