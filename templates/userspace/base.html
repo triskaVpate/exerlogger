@@ -1,14 +1,17 @@
-<!-- templates/userspace/base.html -->
-<!DOCTYPE html>
+{% load static %}
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
-</head>
-<body>
-  <main>
-    {% block content %}
-    {% endblock %}
-  </main>
-</body>
+    <head>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static '/workout/style.css' %}">
+    </head>
+
+    <body>
+        <div>
+            <h1><a href="/"> KB5 Logger </a></h1>
+        </div>
+
+    {% block content %}{% endblock %}
+
+    </body>
 </html>

@@ -1,29 +1,51 @@
-{% load static %}
+{% extends 'userspace/base.html' %}
+<html>
+    <body>
+        {% block content %}
+            <!--testing info variable-->
+            <div class="debug">
+            {% if info %}
+                {{ info }}
+            {% endif %}
+            </div>
+            <br>
 
-<link rel="stylesheet" type="text/css" href="{% static '/workout/style.css' %}">
+            <!--Show form if there is context with form-->
+            {% if exercise_form %}
+                <br>
+                Add exercise to your workout:
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ exercise_form.as_p }}
+                    <input type="submit" value="Save" class="btn btn-md btn-secondary">
+                </form>
+            {% endif %}
 
+            <!--Show exercises for workout id-->
+            List of exercises for this workout:
+            {% for exercise in exercises %}
+                <li><a href="{% url 'exercise_edit' workout.id exercise.id %}">
+                    {{ exercise.id }}
+                    {{ exercise.drill.name }}
+                    {{ exercise.weight }}
+                    {{ exercise.repetition }}
+                    {{ exercise.round }}
+                    </a>
+                    <form action="{% url 'delete_exercise' workout.id exercise.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete" class="btn btn-md btn-secondary">
+                    </form>
+                </li>
 
-<H3>Workout number {{ workout.id }}</H3>
+            {% endfor %}
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            {% if workout %}
+            <a class="btn btn-md btn-secondary" href="{% url 'workout_detail' workout.id %}">Add Exercise</a>
+            {% endif %}
 
-{% if exercise_form %}
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}>
-        {{ exercise_form.as_p }}
-    </form>
-{% endif %}
+            <br>
+            <a href="{% url 'workouts' %}" class="btn btn-md btn-secondary" >Done</a>
+        {% endblock %}
+    </body>
 
-
-<!--Show exercises for this workout id-->
-{% for exercise in exercises %}
-    <li><a href="{% url 'exercise_edit' workout.id exercise.id %}">
-        {{ exercise.id }}
-        {{ exercise.drill.name }}
-        {{ exercise.weight }}
-        {{ exercise.repetition }}
-        {{ exercise.round }}
-    </a></li>
-{% endfor %}
-
-
+</html>

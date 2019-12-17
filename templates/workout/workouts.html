@@ -1,7 +1,21 @@
-<h3>List of User Workouts</h3>
+{% extends 'userspace/base.html' %}
+<html>
+    <body>
+        {% block content %}
+        <h3>List of User Workouts</h3>
 
-    {% for workout in user_workouts %}
-      <li><a href="{% url 'workout_detail' workout.id %}"> {{ workout.id}} {{ workout.date }} </a></li>
-    {% endfor %}
+            {% for workout in user_workouts %}
+              <li><a href="{% url 'workout_detail' workout.id %}"> {{ workout.id}} {{ workout.date }}
 
-  <p><a href="{% url 'workout_new' %}">Create new workout</a></p>
+              <form action="{% url 'delete_workout' workout.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete">
+              </form>
+
+              </a></li>
+            {% endfor %}
+
+          <p><a href="{% url 'workout_detail' 'add' %}">Create new workout</a></p>
+        {% endblock %}
+    </body>
+</html>

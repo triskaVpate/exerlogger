@@ -4,14 +4,25 @@ li a {
 
 body {
   background-color: lightblue;
+  padding-left: 15px;
+  font-size: 24px;
 }
 
-h1 {
-  color: white;
-  text-align: center;
+h1 a, h2 a, h3 a {
+  color: #C25100;
 }
+
+h1, h2, h3 {
+  color: black;
+}
+
+.debug {
+  color: red;
+}
+
 
 p {
   font-family: verdana;
   font-size: 20px;
 }
+

@@ -7,7 +7,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404, redi
 from exerlogger.forms import NewWorkoutForm, NewExerciseForm
 from .models import Drill, Exercise, Workout
 from django.forms import modelformset_factory
-
+import re
 
 @login_required
 def user_homepage(request, self=None):
@@ -26,76 +26,81 @@ def workouts(request):
 
 
 @login_required
-def workout_detail(request):
-    workout = get_object_or_404(Workout, pk=workout_id)
-    exercises = Exercise.objects.filter(workout=workout_id)
-
-    context = {
-        'workout': workout,
-        'exercises': exercises
-    }
-    # list of workouts /workouts/
-    if request.method == 'GET':
-        orkout = get_object_or_404(Workout, pk=workout_id)
-        exercises = Exercise.objects.filter(workout=workout_id)
-        }
+def delete_item(request, workout_id=None, exercise_id=None):
     if request.method == 'POST':
-        exercise_form = NewExerciseForm(request.POST or None)
-        if "add" in request.path_info:
-            # new workout object
-            workout_current = Workout.objects.create()
-            context = {
-                'workout_current': workout_current,
-                'form': exercise_form
-            }
-
-    return render(request, 'workout/workout_detail.html', context)
+        if exercise_id:
+            get_object_or_404(Exercise, id=exercise_id).delete()
+            return redirect(workout_detail, workout_id=workout_id)
+        else:
+            get_object_or_404(Workout, id=workout_id).delete()
+            return redirect(workouts)
 
 
 @login_required
-def new_workout(request): #TODO OBSOLETE
-    # form to input a new workout
-    # workout_form = NewWorkoutForm(request.POST or None)
+def workout_detail(request, workout_id, exercise_id=None):
+    # New workout branch
+    if workout_id == "add":
+        # show empty form
+        exercise_form = NewExerciseForm(request.POST)
+        # when POST is initialized for the first time, create workout and use it for form
+        if request.method == "POST":
+            workout_current = Workout.objects.create()
+            exercise_form.instance = Exercise(workout=workout_current)
+            if exercise_form.is_valid():
+                exercise_instance = exercise_form.save(commit=False)
+                exercise_instance.save()
+                # when first exercise is saved, redirect to the other branch of this view
+                return redirect(workout_detail, workout_id=workout_current.id)
+        context = {
+            'exercise_form': exercise_form
+        }
+        #render(request, 'workout/workout_detail.html', context)
 
-    # if workout_form.is_valid():
-    #     instance = workout_form.save(commit=False)
-    #     # will save workout under currently logged user
-    #     instance.user = request.user
-    #     # save data to db
-    #     instance.save()
-    # return
+    # workout details with list of exercises
+    # TODO pridat tlacitko na "pridat exercise" u stavajiciho workoutu, az pote se objevi prvni prazdny formular
+    elif exercise_id is not None:
+        workout = get_object_or_404(Workout, pk=workout_id)
+        exercises = Exercise.objects.filter(workout=workout_id)
+        exercise_item = get_object_or_404(Exercise, id=exercise_id)
+        exercise_form = NewExerciseForm(request.POST or None, instance=exercise_item)
 
-    #TODO ideal je mit pri otevreni stranky s new ulozen new workout a mit id workoutu k dispozici
-    #TODO s workout ID pracovat pri ukladani formulare pro exercise
+        if exercise_form.is_valid():
+            exercise_form.save()
 
+        # TODO DEBUG
+        info = "DEBUG: exercise vetev: workou_id {}, exercise_id {} a path {}".format(workout_id, exercise_id,
+                                                                                      request.path_info)
 
-    #vytvori workout object v db po kazdem zobrazeni new_worjout stranky > TODO vytvori po kazdem refresh to je CHYBA
-    workout_current = Workout.objects.create()
+        context = {
+            'workout': workout,
+            'exercises': exercises,
+            'exercise_form': exercise_form,
+            'info': info
+        }
 
-    #pokud je Post vytvori form
-    exercise_form = NewExerciseForm(request.POST.copy() or None)
+    else:
+        workout = get_object_or_404(Workout, pk=workout_id)
+        exercises = Exercise.objects.filter(workout=workout_id)
 
-    #pokud je form validni
-    if exercise_form.is_valid():
-        #exercise_form = exercise_form.copy()
-        #mel by pridat workout id k datum z formulare > TODO nefunguje > This QueryDict instance is immutable
+        exercise_form = NewExerciseForm(
+            request.POST,
+            instance=Exercise(workout=workout),
+        )
+        if exercise_form.is_valid():
+            exercise_instance = exercise_form.save(commit=False)
+            exercise_instance.save()
 
-        exercise_form.data['Workout'] = workout_current.id
-        #vytvori instanci a jeste neulozi
-        exercise_instance = exercise_form.save(commit=False)
-        #ulozi do db
-        exercise_instance.save()
+        # TODO DEBUG
+        info = "DEBUG: workout vetev {}".format(request.path_info)
 
-    # exercises
-    current_workout_exercises = Exercise.objects.filter(workout=workout_current)
+        context = {
+            'workout': workout,
+            'exercises': exercises,
+            'exercise_form': exercise_form,
+            'info': info
+        }
 
-    context = {
-        "exercise_form": exercise_form,
-        "current_workout": workout_current,
-        "current_workout_exercises": current_workout_exercises
-    }
-
-    return render(request, "workout/new.html", context)
+    return render(request, 'workout/workout_detail.html', context)
 
 
 

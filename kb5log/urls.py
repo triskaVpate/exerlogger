@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 
 from exerlogger import views
 from exerlogger.views import user_homepage
@@ -25,14 +26,19 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 
-#user homepage
+    # User homepage
     path('', user_homepage, name='home'),
-#user workouts list
+    # List of workouts
     path('workouts/', views.workouts, name='workouts'),
-# create new workout page
-    path('workouts/add/', views.workout_detail, name='workout_new'),
-# workout exercises list
-    path('workouts/<int:workout_id>/', views.workout_detail, name='workout_detail'),
-#edit exercise in workout
-    path('workouts/<int:workout_id>/<int:exercise_id>', views.workout_detail, name='exercise_edit')
+    # New Workout
+    url(r'workouts/(add)/', views.workout_detail, name='workout_new'),
+    # List of exercises for single workout
+    path('workouts/<workout_id>/', views.workout_detail, name='workout_detail'),
+    # Edit single exercise in single workout
+    path('workouts/<int:workout_id>/<int:exercise_id>/', views.workout_detail, name='exercise_edit'),
+    # Delete exercise
+    path('workouts/<int:workout_id>/<int:exercise_id>/delete', views.delete_item, name='delete_exercise'),
+    # Delete Workout
+    path('workouts/<int:workout_id>/delete', views.delete_item, name='delete_workout')
+
 ]
