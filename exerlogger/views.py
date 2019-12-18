@@ -47,17 +47,14 @@ def workout_detail(request, workout_id, exercise_id=None):
             workout_current = Workout.objects.create()
             exercise_form.instance = Exercise(workout=workout_current)
             if exercise_form.is_valid():
-                exercise_instance = exercise_form.save(commit=False)
-                exercise_instance.save()
+                exercise_form.save(commit=True)
                 # when first exercise is saved, redirect to the other branch of this view
                 return redirect(workout_detail, workout_id=workout_current.id)
         context = {
             'exercise_form': exercise_form
         }
-        #render(request, 'workout/workout_detail.html', context)
 
-    # workout details with list of exercises
-    # TODO pridat tlacitko na "pridat exercise" u stavajiciho workoutu, az pote se objevi prvni prazdny formular
+    # editing exercise - load exercise parametr in form
     elif exercise_id is not None:
         workout = get_object_or_404(Workout, pk=workout_id)
         exercises = Exercise.objects.filter(workout=workout_id)
@@ -67,17 +64,12 @@ def workout_detail(request, workout_id, exercise_id=None):
         if exercise_form.is_valid():
             exercise_form.save()
 
-        # TODO DEBUG
-        info = "DEBUG: exercise vetev: workou_id {}, exercise_id {} a path {}".format(workout_id, exercise_id,
-                                                                                      request.path_info)
-
         context = {
             'workout': workout,
             'exercises': exercises,
-            'exercise_form': exercise_form,
-            'info': info
+            'exercise_form': exercise_form
         }
-
+    # workout details?
     else:
         workout = get_object_or_404(Workout, pk=workout_id)
         exercises = Exercise.objects.filter(workout=workout_id)
@@ -87,17 +79,13 @@ def workout_detail(request, workout_id, exercise_id=None):
             instance=Exercise(workout=workout),
         )
         if exercise_form.is_valid():
-            exercise_instance = exercise_form.save(commit=False)
-            exercise_instance.save()
+            exercise_form.save(commit=True)
 
-        # TODO DEBUG
-        info = "DEBUG: workout vetev {}".format(request.path_info)
 
         context = {
             'workout': workout,
             'exercises': exercises,
-            'exercise_form': exercise_form,
-            'info': info
+            'exercise_form': exercise_form
         }
 
     return render(request, 'workout/workout_detail.html', context)

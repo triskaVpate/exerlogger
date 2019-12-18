@@ -2,14 +2,6 @@
 <html>
     <body>
         {% block content %}
-            <!--testing info variable-->
-            <div class="debug">
-            {% if info %}
-                {{ info }}
-            {% endif %}
-            </div>
-            <br>
-
             <!--Show form if there is context with form-->
             {% if exercise_form %}
                 <br>
