@@ -14,6 +14,7 @@
             {% endif %}
 
             <!--Show exercises for workout id-->
+            <div id="exercises" >
             List of exercises for this workout:
             {% for exercise in exercises %}
                 <li><a href="{% url 'exercise_edit' workout.id exercise.id %}">
@@ -22,14 +23,15 @@
                     {{ exercise.weight }}
                     {{ exercise.repetition }}
                     {{ exercise.round }}
-                    </a>
+
                     <form action="{% url 'delete_exercise' workout.id exercise.id %}" method="POST">
                         {% csrf_token %}
                         <input type="submit" value="Delete" class="btn btn-md btn-secondary">
                     </form>
+                </a>
                 </li>
-
             {% endfor %}
+            </div>
 
             {% if workout %}
             <a class="btn btn-md btn-secondary" href="{% url 'workout_detail' workout.id %}">Add Exercise</a>

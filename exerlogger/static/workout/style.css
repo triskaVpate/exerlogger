@@ -18,6 +18,21 @@
     justify-content: space-around;
 }
 
+#exercises li {
+    list-style: none;
+}
+
+#exercises li a {
+    color: green;
+    display: flex;
+    padding: 0.5rem;
+    justify-content: space-between;
+}
+
+#exercises {
+    text-align: left;
+}
+
 #workouts #create_account{
     text-align: center;
 }
