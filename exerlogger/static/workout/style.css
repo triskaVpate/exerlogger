@@ -1,5 +1,25 @@
-li a {
+#kb5_log{
+    text-align: center;
+}
+
+#workouts h1, h2, h3 {
+  color: black;
+  text-align: center;
+}
+
+#workouts li {
+    list-style: none;
+}
+
+#workouts li a {
     color: green;
+    display: flex;
+    padding: 0.5rem;
+    justify-content: space-around;
+}
+
+#workouts #create_account{
+    text-align: center;
 }
 
 body {
@@ -25,4 +45,5 @@ p {
   font-family: verdana;
   font-size: 20px;
 }
+
 
