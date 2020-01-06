@@ -1,7 +1,21 @@
 from django import forms
-from django.forms import inlineformset_factory
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from exerlogger.models import Exercise, Workout
+from exerlogger.models import Exercise, Workout, CustomUser
+
+
+class CustomUserCreationForm(UserCreationForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email')
+
+
+class CustomUserChangeForm(UserChangeForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email')
 
 
 class NewWorkoutForm(forms.ModelForm):
@@ -16,6 +30,3 @@ class NewExerciseForm(forms.ModelForm):
     class Meta:
         model = Exercise
         fields = ["drill", "weight", "round", "repetition"]
-
-
-#NewExerciseFormSet = inlineformset_factory(Workout, Exercise, form=NewExerciseForm, extra=1, can_delete=True)

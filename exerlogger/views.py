@@ -1,19 +1,29 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import render, render_to_response, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
-from exerlogger.forms import NewWorkoutForm, NewExerciseForm
-from .models import Drill, Exercise, Workout
-from django.forms import modelformset_factory
-import re
+from exerlogger.forms import NewExerciseForm, CustomUserCreationForm
+from .models import Exercise, Workout
+
 
 @login_required
-def user_homepage(request, self=None):
+def user_homepage(request):
     context = {}
 
     return render(request, 'userspace/index.html', context)
+
+
+def signup_view(request):
+    form = CustomUserCreationForm(request.POST)
+    if form.is_valid():
+        form.save()
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        return redirect('home')
+    return render(request, 'signup.html', {'form': form})
 
 
 @login_required
@@ -54,7 +64,7 @@ def workout_detail(request, workout_id, exercise_id=None):
             'exercise_form': exercise_form
         }
 
-    # editing exercise - load exercise parametr in form
+    # editing exercise - load exercise parameter in form
     elif exercise_id is not None:
         workout = get_object_or_404(Workout, pk=workout_id)
         exercises = Exercise.objects.filter(workout=workout_id)
@@ -76,11 +86,10 @@ def workout_detail(request, workout_id, exercise_id=None):
 
         exercise_form = NewExerciseForm(
             request.POST,
-            instance=Exercise(workout=workout),
+            instance=Exercise(workout=workout)
         )
         if exercise_form.is_valid():
             exercise_form.save(commit=True)
-
 
         context = {
             'workout': workout,
@@ -89,6 +98,3 @@ def workout_detail(request, workout_id, exercise_id=None):
         }
 
     return render(request, 'workout/workout_detail.html', context)
-
-
-

@@ -37,6 +37,10 @@
     text-align: center;
 }
 
+#login {
+    text-align: center;
+}
+
 body {
   background-color: lightblue;
   padding-left: 15px;
@@ -54,7 +58,6 @@ h1, h2, h3 {
 .debug {
   color: red;
 }
-
 
 p {
   font-family: verdana;
