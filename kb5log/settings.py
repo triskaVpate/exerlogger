@@ -124,3 +124,7 @@ LOGOUT_REDIRECT_URL = 'home'
 
 # custom auth
 AUTH_USER_MODEL = 'exerlogger.CustomUser'
+
+#email mockup
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
