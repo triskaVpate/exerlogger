@@ -33,7 +33,7 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ['email', 'username', 'groups_']
+    list_display = ['email', 'username', 'groups_', 'lesson']
 # fieldsets are used for choosing what should be visible in admin page
 # I used it here to hide access rights setup
     fieldsets = (
@@ -42,7 +42,7 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups'),
         }),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
-        # (_('Training attendance'), {'fields': ('training',)})
+        (_('KB5'), {'fields': ('lesson',)})
     )
     # add_fieldsets = (
     #     (None, {

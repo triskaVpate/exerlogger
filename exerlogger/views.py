@@ -9,6 +9,10 @@ from .models import Exercise, Workout
 
 @login_required
 def user_homepage(request):
+
+    #which lesson is user member of
+    #user_lesson =
+
     context = {}
 
     return render(request, 'userspace/index.html', context)
@@ -31,7 +35,6 @@ def workouts(request):
     # workouts only for user
     user_workouts = Workout.objects.filter(user=request.user).order_by('-id')
     context = {'user_workouts': user_workouts}
-
     return render(request, 'workout/workouts.html', context)
 
 

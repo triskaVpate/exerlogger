@@ -61,7 +61,7 @@ class Lesson(TimeStampedModel):
 class CustomUser(AbstractUser):
     pass
     # add additional fields in here
-    # training = models.ForeignKey(Training, verbose_name=_("training"), on_delete=models.CASCADE, default=1)
+    lesson = models.ForeignKey(Lesson, verbose_name=_("lesson"), on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return self.username
@@ -70,7 +70,7 @@ class CustomUser(AbstractUser):
 # Training is a instance of a class/lesson taking place at particular day/hour
 class Training(TimeStampedModel):
     date = models.DateField(_("date"), default=date.today)
-    lesson = models.ForeignKey(Lesson, verbose_name=_("lesson"), on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, verbose_name=_("lesson"), on_delete=models.SET("Lesson no longer exists"))
     users = models.ManyToManyField(CustomUser)
 
     class Meta:
@@ -99,7 +99,7 @@ class Workout(TimeStampedModel):
 
 class Exercise(TimeStampedModel):
     workout = models.ForeignKey(Workout, verbose_name=_("workout"), on_delete=models.CASCADE)
-    drill = models.ForeignKey(Drill, verbose_name=_("drill"), on_delete=models.CASCADE)
+    drill = models.ForeignKey(Drill, verbose_name=_("drill"), on_delete=models.SET("Drill no longer exists"))
     weight = models.IntegerField(_("weight"), blank=True, null=True)
     round = models.IntegerField(_("round"), default=1)
     repetition = models.IntegerField(_("repetition"), default=1)
