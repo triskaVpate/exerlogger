@@ -7,6 +7,7 @@ from django.db.models import CharField
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.models import TimeStampedModel
 from datetime import date
+#from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Drill(TimeStampedModel):
@@ -62,6 +63,7 @@ class CustomUser(AbstractUser):
     pass
     # add additional fields in here
     lesson = models.ForeignKey(Lesson, verbose_name=_("lesson"), on_delete=models.SET_NULL, blank=True, null=True)
+    # phone = models.CharField(max_length=15, unique=True)
 
     def __str__(self):
         return self.username

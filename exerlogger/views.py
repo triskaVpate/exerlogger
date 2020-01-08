@@ -3,8 +3,32 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
-from exerlogger.forms import NewExerciseForm, CustomUserCreationForm
-from .models import Exercise, Workout
+from exerlogger.forms import NewExerciseForm, CustomUserCreationForm, CustomUserChangeForm, CustomUserEmailChangeForm
+from .models import Exercise, Workout, CustomUser, Training
+
+
+@login_required
+def attendance(request):
+    user_trainings = request.user.training_set.all()
+    list_user_trainings = []
+    for training in user_trainings:
+        list_user_trainings.append(training.id)
+    all_trainings = Training.objects.filter(lesson=request.user.lesson).order_by('-date')
+    context = {'user_trainings': user_trainings, 'list_user_trainings': list_user_trainings, 'all_trainings': all_trainings}
+    return render(request, 'attendance/attendance.html', context)
+
+
+@login_required
+def user_email_change(request):
+    user = get_object_or_404(CustomUser, username=request.user)
+    form = CustomUserEmailChangeForm(request.POST or None, instance=user)
+
+    if form.is_valid():
+        form.save(commit=True)
+        return redirect('home')
+
+    context = {'form': form, 'user': user}
+    return render(request, 'registration/email_change_form.html', context)
 
 
 @login_required

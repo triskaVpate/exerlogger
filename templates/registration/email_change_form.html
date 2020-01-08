@@ -1,0 +1,16 @@
+<!-- templates/registration/password_reset_form.html -->
+{% extends 'userspace/base.html' %}
+
+{% block title %}Change Your Email{% endblock %}
+
+{% block content %}
+  <h1>Email change</h1>
+  <p>Your old email is: {{ user.email }}</p>
+  <p>Put Your new email adress</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Change my email">
+  </form>
+{% endblock %}

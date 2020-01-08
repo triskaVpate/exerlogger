@@ -39,6 +39,9 @@ urlpatterns = [
     # Delete exercise
     path('workouts/<int:workout_id>/<int:exercise_id>/delete', views.delete_item, name='delete_exercise'),
     # Delete Workout
-    path('workouts/<int:workout_id>/delete', views.delete_item, name='delete_workout')
-
+    path('workouts/<int:workout_id>/delete', views.delete_item, name='delete_workout'),
+    # Email change
+    path('/change_email', views.user_email_change, name='user_email_change'),
+    # User attendance
+    path('/attendance', views.attendance, name='attendance')
 ]

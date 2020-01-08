@@ -1,0 +1,36 @@
+{% extends 'userspace/base.html' %}
+<html>
+    <body>
+        {% block content %}
+        <div id="attendance">
+            <h3>List of User attendance in KB5 class {{ user.lesson }} </h3>
+
+            {% for training in all_trainings %}
+                {% if training.id in list_user_trainings %}
+                    <div id="attendance_ok">
+                    <p> {{ training.id }} {{ training.date }} OK</p>
+                    </div>
+                {% else %}
+                    <div id="attendance_absent">
+                    <p> {{ training.id }} {{ training.date }} Absent</p>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+
+<!--                {% for workout in user_workouts %}-->
+<!--                  <li><a href="{% url 'workout_detail' workout.id %}"> {{ workout.id}} {{ workout.date }}-->
+
+<!--                  <form action="{% url 'delete_workout' workout.id %}" method="POST" onsubmit="return confirm('Are you sure?')">-->
+<!--                        {% csrf_token %}-->
+<!--                        <input type="submit" value="Delete">-->
+<!--                  </form>-->
+
+<!--                  </a></li>-->
+<!--                {% endfor %}-->
+
+<!--              <p id="create_account"><a href="{% url 'workout_detail' 'add' %}">Create new workout</a></p>-->
+        </div>
+        {% endblock %}
+    </body>
+</html>

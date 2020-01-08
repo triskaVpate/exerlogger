@@ -41,6 +41,14 @@
     text-align: center;
 }
 
+#attendance_ok {
+    color: green;
+}
+
+#attendance_absent {
+    color: red;
+}
+
 body {
   background-color: lightblue;
   padding-left: 15px;

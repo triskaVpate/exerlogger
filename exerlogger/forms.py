@@ -18,6 +18,13 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ('username', 'email')
 
 
+class CustomUserEmailChangeForm(forms.ModelForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ['email']
+
+
 class NewWorkoutForm(forms.ModelForm):
 
     class Meta:
