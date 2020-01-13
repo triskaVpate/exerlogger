@@ -43,5 +43,7 @@ urlpatterns = [
     # Email change
     path('/change_email', views.user_email_change, name='user_email_change'),
     # User attendance
-    path('/attendance', views.attendance, name='attendance')
+    path('/attendance', views.attendance, name='attendance'),
+    # Calendar view
+    path('/calendar', views.calendar_view, name='calendar')
 ]

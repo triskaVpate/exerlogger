@@ -3,8 +3,28 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
+from django.utils.safestring import mark_safe
+
 from exerlogger.forms import NewExerciseForm, CustomUserCreationForm, CustomUserChangeForm, CustomUserEmailChangeForm
 from .models import Exercise, Workout, CustomUser, Training
+from .utils import Calendar
+from calendar import HTMLCalendar
+#from datetime import datetime
+import datetime
+
+
+@login_required
+def calendar_view(request):
+    context = {}
+    # Instantiate our calendar class with today's year and date
+
+    d = datetime.date.today()
+    cal = HTMLCalendar()
+
+    # Call the formatmonth method, which returns our calendar as a table
+    html_cal = cal.formatmonth(d.year, d.month, withyear=True)
+    context['calendar'] = mark_safe(html_cal)
+    return render(request, 'calendar/calendar.html', context)
 
 
 @login_required
