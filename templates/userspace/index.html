@@ -1,33 +1,26 @@
 {% extends 'userspace/base.html' %}
 <html>
     <body>
-        {% block title %}Home{% endblock %}
+    {% block title %}Home{% endblock %}
 
-        {% block content %}
-          {% if user.is_authenticated %}
+    {% block content %}
+        {% if user.is_authenticated %}
             <p>Hi {{ user.username }}!</p>
             <p> Debug info: </p>
-                <p>Email: {{ user.email }} </p>
-                <p>First name: {{ user.first_name }} </p>
-                <p>Second name: {{ user.last_name }} </p>
-                <p>Phone number: </p>
-                {% if user.lesson %}
-                    <p>KB5 member?: yes</p>
-                {% else %}
-                    <p>KB5 member?: no</p>
-                {% endif %}
-                <p>which class are you in: {{ user.lesson }}</p>
-
-            <p><a href="{% url 'workouts' %}">workouts</a></p>
-            <p><a href="{% url 'attendance' %}">attendance</a></p>
-            <p><a href="{% url 'calendar' %}">calendar</a></p>
-            <p><a href="{% url 'password_change' %}">change password</a></p>
-            <p><a href="{% url 'user_email_change' %}">change email</a></p>
-            <p><a href="{% url 'logout' %}">logout</a></p>
-          {% else %}
+            <p>Email: {{ user.email }} </p>
+            <p>First name: {{ user.first_name }} </p>
+            <p>Second name: {{ user.last_name }} </p>
+            <p>Phone number: </p>
+            {% if user.lesson %}
+            <p>KB5 member?: yes</p>
+            {% else %}
+            <p>KB5 member?: no</p>
+            {% endif %}
+            <p>which class are you in: {{ user.lesson }}</p>
+        {% else %}
             <p>You are not logged in</p>
             <a href="{% url 'login' %}">login</a>
-          {% endif %}
-        {% endblock %}
+        {% endif %}
+    {% endblock %}
     </body>
 </html>
