@@ -7,6 +7,7 @@
         <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
         <script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     </head>
 
     <body>
@@ -43,7 +44,7 @@
                 </section>
             </div>
         </header>
-        <aside class="mdc-drawer mdc-drawer--dismissible mdc-top-app-bar--fixed-adjust">
+        <aside class="mdc-drawer mdc-drawer--dismissible mdc-top-app-bar--fixed-adjust" id = "bar-adjust-aside">
             <div class="mdc-drawer__content">
                 <div class="mdc-list">
                     <a class="mdc-list-item mdc-list-item--activated" aria-current="page" href="{% url 'workouts' %}">workouts</a>
@@ -59,7 +60,7 @@
             </div>
         </aside>
     </div>
-    <div class="mdc-drawer-app-content mdc-top-app-bar--fixed-adjust">
+    <div class="mdc-drawer-app-content mdc-top-app-bar--fixed-adjust" id="bar-adjust-content">
         <main class="main-content" id="main-content">
             {% block content %}
         </main>

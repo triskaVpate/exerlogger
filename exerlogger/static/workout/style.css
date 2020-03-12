@@ -1,7 +1,64 @@
 @use "@material/drawer/mdc-drawer";
 @use "@material/list/mdc-list";
 
+body{
+    --mdc-theme-primary: #A00004;
+    --mdc-theme-secondary: #000000;
+    --mdc-theme-background: #3C3C3C;
+    background-color: #3C3C3C;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1{
+    font-family: 'Roboto Light', sans-serif;
+    font-size: 60px;
+    letter-spacing: -0.5px;
+    font-style: light;
+}
+
+h2{
+    font-family: 'Roboto Regular', sans-serif;
+    font-size: 48px;
+    letter-spacing: 0;
+    font-style: regular;
+}
+
+h3{
+    font-family: 'Roboto Regular', sans-serif;
+    font-size: 34px;
+    letter-spacing: 0.25;
+    font-style: regular;
+}
+
+p a{
+    font-family: 'Roboto Regular', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    font-style: regular;
+}
+
+h1, h2, h3, p, a{
+    color: #E9E9E9;
+}
+
+h1 a, h2 a, h3, a {
+  color: #E9E9E9;
+}
+
+#app-bar{
+    height: 88px;
+}
+
+#bar-adjust-aside{
+    padding-top: 85px;
+}
+
+#bar-adjust-content{
+    padding-top: 85px;
+}
+
 //<navigation>
+
 body {
   display: flex;
   height: 100vh;
@@ -33,7 +90,7 @@ body {
 }
 
 #workouts h1, h2, h3 {
-  color: black;
+  color: white;
   text-align: center;
 }
 
@@ -79,27 +136,8 @@ body {
     color: red;
 }
 
-body {
-  background-color: lightblue;
-  padding-left: 15px;
-  font-size: 24px;
-}
-
-h1 a, h2 a, h3 a {
-  color: #C25100;
-}
-
-h1, h2, h3 {
-  color: black;
-}
-
 .debug {
   color: red;
-}
-
-p {
-  font-family: verdana;
-  font-size: 20px;
 }
 
 
