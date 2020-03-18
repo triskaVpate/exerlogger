@@ -5,18 +5,42 @@
 
     {% block content %}
         {% if user.is_authenticated %}
-            <p>Hi {{ user.username }}!</p>
-            <p> Debug info: </p>
-            <p>Email: {{ user.email }} </p>
-            <p>First name: {{ user.first_name }} </p>
-            <p>Second name: {{ user.last_name }} </p>
-            <p>Phone number: </p>
-            {% if user.lesson %}
-            <p>KB5 member?: yes</p>
-            {% else %}
-            <p>KB5 member?: no</p>
-            {% endif %}
-            <p>which class are you in: {{ user.lesson }}</p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Hi</td>
+                        <td> {{ user.username }}! </td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td> {{ user.first_name }} </td>
+                    </tr>
+                    <tr>
+                        <td>First name:</td>
+                        <td> {{ user.first_name }} </td>
+                    </tr>
+                    <tr>
+                        <td>Second name:</td>
+                        <td> {{ user.last_name }} </td>
+                    </tr>
+                    <tr>
+                        <td>Phone number:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>KB5 member?:</td>
+                        {% if user.lesson %}
+                        <td>yes</td>
+                        {% else %}
+                        <td>no</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>which class are you in:</td>
+                        <td> {{ user.lesson }} </td>
+                    </tr>
+                </tbody>
+            </table>
         {% else %}
             <p>You are not logged in</p>
             <a href="{% url 'login' %}">login</a>

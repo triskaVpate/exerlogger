@@ -1,12 +1,15 @@
-@use "@material/drawer/mdc-drawer";
-@use "@material/list/mdc-list";
-
 body{
-    --mdc-theme-primary: #A00004;
-    --mdc-theme-secondary: #000000;
-    --mdc-theme-background: #3C3C3C;
-    background-color: #3C3C3C;
     font-family: 'Roboto', sans-serif;
+    color: #212529;
+}
+
+body a{
+    color: #212529;
+}
+
+body a:hover{
+    color: #CD5C5C;
+    text-decoration: none;
 }
 
 h1{
@@ -30,63 +33,31 @@ h3{
     font-style: regular;
 }
 
+button {
+    outline: none;
+}
+
+.app-name{
+    text-align: center;
+}
+
+.navbar{
+    background-color: #CD5C5C;
+}
+
+.navbar-nav {
+    text-transform: uppercase;
+}
+
+#logo {
+    width: 4em;
+}
+
 p a{
     font-family: 'Roboto Regular', sans-serif;
     font-size: 16px;
     letter-spacing: 0.5px;
     font-style: regular;
-}
-
-h1, h2, h3, p, a{
-    color: #E9E9E9;
-}
-
-h1 a, h2 a, h3, a {
-  color: #E9E9E9;
-}
-
-#app-bar{
-    height: 88px;
-}
-
-#bar-adjust-aside{
-    padding-top: 85px;
-}
-
-#bar-adjust-content{
-    padding-top: 85px;
-}
-
-//<navigation>
-
-body {
-  display: flex;
-  height: 100vh;
-}
-
-.mdc-drawer-app-content {
-  flex: auto;
-  overflow: auto;
-  position: relative;
-}
-
-.main-content {
-  overflow: auto;
-  height: 100%;
-}
-
-.app-bar {
-  position: absolute;
-}
-
-// only apply this style if below top app bar
-.mdc-top-app-bar {
-  z-index: 7;
-}
-//</navigation>
-
-#kb5_log{
-    text-align: center;
 }
 
 #workouts h1, h2, h3 {
