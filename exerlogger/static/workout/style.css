@@ -33,7 +33,7 @@ h3{
     font-style: regular;
 }
 
-button {
+button, input{
     outline: none;
 }
 
