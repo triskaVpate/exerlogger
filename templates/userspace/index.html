@@ -5,40 +5,37 @@
 
     {% block content %}
         {% if user.is_authenticated %}
+        <h3>Hi {{ user.username }}!</h3>
         <div class="table-responsive">
             <table>
                 <tbody>
                     <tr>
-                        <td>Hi</td>
-                        <td> {{ user.username }}! </td>
+                        <td><p>Email:</p></td>
+                        <td><p>{{ user.first_name }}</p></td>
                     </tr>
                     <tr>
-                        <td>Email:</td>
-                        <td> {{ user.first_name }} </td>
+                        <td><p>First name:</p></td>
+                        <td><p>{{ user.first_name }}</p></td>
                     </tr>
                     <tr>
-                        <td>First name:</td>
-                        <td> {{ user.first_name }} </td>
+                        <td><p>Second name:</p></td>
+                        <td><p>{{ user.last_name }}</p></td>
                     </tr>
                     <tr>
-                        <td>Second name:</td>
-                        <td> {{ user.last_name }} </td>
-                    </tr>
-                    <tr>
-                        <td>Phone number:</td>
+                        <td><p>Phone number:</p></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>KB5 member?:</td>
+                        <td><p>KB5 member?:</p></td>
                         {% if user.lesson %}
-                        <td>yes</td>
+                        <td><p>yes</p></td>
                         {% else %}
-                        <td>no</td>
+                        <td><p>no</p></td>
                         {% endif %}
                     </tr>
                     <tr>
-                        <td>which class are you in:</td>
-                        <td> {{ user.lesson }} </td>
+                        <td><p>which class are you in:</p></td>
+                        <td><p>{{ user.lesson }}</p></td>
                     </tr>
                 </tbody>
             </table>

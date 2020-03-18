@@ -33,12 +33,27 @@ h3{
     font-style: regular;
 }
 
+p{
+    font-family: 'Roboto Regular', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    font-style: regular;
+}
+
 button, input{
     outline: none;
 }
 
+main {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
 .app-name{
     text-align: center;
+    padding: 0.5em;
+    margin: 0;
 }
 
 .navbar{
@@ -49,20 +64,12 @@ button, input{
     text-transform: uppercase;
 }
 
+.navbar-toggler:focus{
+    outline: none;
+}
+
 #logo {
     width: 4em;
-}
-
-p a{
-    font-family: 'Roboto Regular', sans-serif;
-    font-size: 16px;
-    letter-spacing: 0.5px;
-    font-style: regular;
-}
-
-#workouts h1, h2, h3 {
-  color: white;
-  text-align: center;
 }
 
 #workouts li {
