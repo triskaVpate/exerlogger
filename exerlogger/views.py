@@ -101,7 +101,7 @@ def workout_detail(request, workout_id, exercise_id=None):
         exercise_form = NewExerciseForm(request.POST)
         # when POST is initialized for the first time, create workout and use it for form
         if request.method == "POST":
-            workout_current = Workout.objects.create()
+            workout_current = Workout.objects.create(user=request.user)
             exercise_form.instance = Exercise(workout=workout_current)
             if exercise_form.is_valid():
                 exercise_form.save(commit=True)
