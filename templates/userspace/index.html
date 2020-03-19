@@ -5,18 +5,41 @@
 
     {% block content %}
         {% if user.is_authenticated %}
-            <p>Hi {{ user.username }}!</p>
-            <p> Debug info: </p>
-            <p>Email: {{ user.email }} </p>
-            <p>First name: {{ user.first_name }} </p>
-            <p>Second name: {{ user.last_name }} </p>
-            <p>Phone number: </p>
-            {% if user.lesson %}
-            <p>KB5 member?: yes</p>
-            {% else %}
-            <p>KB5 member?: no</p>
-            {% endif %}
-            <p>which class are you in: {{ user.lesson }}</p>
+        <h3>Hi {{ user.username }}!</h3>
+        <div class="table-responsive">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><p>Email:</p></td>
+                        <td><p>{{ user.first_name }}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>First name:</p></td>
+                        <td><p>{{ user.first_name }}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Second name:</p></td>
+                        <td><p>{{ user.last_name }}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Phone number:</p></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><p>KB5 member?:</p></td>
+                        {% if user.lesson %}
+                        <td><p>yes</p></td>
+                        {% else %}
+                        <td><p>no</p></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td><p>which class are you in:</p></td>
+                        <td><p>{{ user.lesson }}</p></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         {% else %}
             <p>You are not logged in</p>
             <a href="{% url 'login' %}">login</a>

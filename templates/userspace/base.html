@@ -1,70 +1,54 @@
 {% load static %}
 <html>
-    <head>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static '/workout/style.css' %}">
-        <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
-        <script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    </head>
+<head>
+    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
+    <link rel="stylesheet" href="{% static '/workout/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
 
-    <body>
-
-    <script>
-        import {MDCDrawer} from "@material/drawer";
-        const drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
-
-        import {MDCTopAppBar} from "@material/top-app-bar";
-        const topAppBar = MDCTopAppBar.attachTo(document.getElementById('app-bar'));
-        topAppBar.setScrollTarget(document.getElementById('main-content'));
-        topAppBar.listen('MDCTopAppBar:nav', () => {
-          drawer.open = !drawer.open;
-        });
-
-        const listEl = document.querySelector('.mdc-drawer .mdc-list');
-        const mainContentEl = document.querySelector('.main-content');
-
-        listEl.addEventListener('click', (event) => {
-          mainContentEl.querySelector('input, button').focus();
-        });
-
-        document.body.addEventListener('MDCDrawer:closed', () => {
-          mainContentEl.querySelector('input, button').focus();
-        });
-    </script>
-
-    <div>
-        <header class="mdc-top-app-bar app-bar" id="app-bar">
-            <div class="mdc-top-app-bar__row">
-                <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-                    <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
-                    <span class="mdc-top-app-bar__title"> <h1 id="kb5_log"><a href="/"> KB5 Logger </a></h1></span>
-                </section>
-            </div>
-        </header>
-        <aside class="mdc-drawer mdc-drawer--dismissible mdc-top-app-bar--fixed-adjust" id = "bar-adjust-aside">
-            <div class="mdc-drawer__content">
-                <div class="mdc-list">
-                    <a class="mdc-list-item mdc-list-item--activated" aria-current="page" href="{% url 'workouts' %}">workouts</a>
-                    <a class="mdc-list-item mdc-list-item--activated" aria-current="page" href="{% url 'attendance' %}">attendance</a>
-                    <a class="mdc-list-item mdc-list-item--activated" aria-current="page" href="{% url 'calendar' %}">calendar</a>
-                    <a class="mdc-list-item mdc-list-item--activated" aria-current="page"
-                       href="{% url 'password_change' %}">change password</a>
-                    <a class="mdc-list-item mdc-list-item--activated" aria-current="page"
-                       href="{% url 'user_email_change' %}">change email</a>
-                    <a class="mdc-list-item mdc-list-item--activated" aria-current="page"
-                       href="{% url 'logout' %}">logout</a>
-                </div>
-            </div>
-        </aside>
-    </div>
-    <div class="mdc-drawer-app-content mdc-top-app-bar--fixed-adjust" id="bar-adjust-content">
-        <main class="main-content" id="main-content">
-            {% block content %}
-        </main>
-    </div>
-    {% endblock %}
-    </body>
+<body>
+<div id="top-section" >
+    <h1 class="app-name"><a class="app-name" href="/"> KB5 Logger </a></h1>
+    <nav class="navbar navbar-expand-sm navbar-light">
+        <a class="navbar-brand" href="/">
+            <img id="logo" src="http://www.kb5.cz/wp-content/uploads/2015/05/kettlebell-kb5-logo.png" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#collapse_Navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapse_Navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'workouts' %}">workouts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'attendance' %}">attendance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'calendar' %}">calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'password_change' %}">change password</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_email_change' %}">change email</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<main>
+    {% block content %}
+</main>
+{% endblock %}
+</body>
 </html>
