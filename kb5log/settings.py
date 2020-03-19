@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -25,7 +24,7 @@ SECRET_KEY = '22*sd5v6wtq28jl@jewy5yptrr%hrq8+(svnqultedvpr5x()r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['kb5.mirovsky.cz']
 
 
 # Application definition
@@ -128,3 +127,6 @@ AUTH_USER_MODEL = 'exerlogger.CustomUser'
 #email mockup
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+# kuba - fix for admin couldnt load static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
