@@ -12,7 +12,7 @@
                             <form method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {{ exercise_form.as_p }}
-                                <input type="submit" value="Save" class="btn btn-outline-primary">
+                                <input type="submit" value="Save" class="btn btn-outline-danger">
                             </form>
                         {% endif %}
                     </div>
@@ -29,17 +29,17 @@
 
                                 <form action="{% url 'delete_exercise' workout.id exercise.id %}" method="POST">
                                     {% csrf_token %}
-                                    <input type="submit" value="Delete" class="btn btn-outline-primary">
+                                    <input type="submit" value="Delete" class="btn btn-outline-danger">
                                 </form>
                             </a>
                             </li>
                         {% endfor %}
                         {% if workout %}
-                        <a class="btn btn-outline-primary" href="{% url 'workout_detail' workout.id %}">Add Exercise</a>
+                        <a class="btn btn-outline-danger" href="{% url 'workout_detail' workout.id %}">Add Exercise</a>
                         {% endif %}
                     </div>
                 </div>
-                <a href="{% url 'workouts' %}" class="btn btn-outline-primary" id="workout-done">Done</a>
+                <a href="{% url 'workouts' %}" class="btn btn-outline-danger" id="workout-done">Done</a>
             </div>
         {% endblock %}
     </body>

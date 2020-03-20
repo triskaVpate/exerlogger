@@ -44,6 +44,8 @@ urlpatterns = [
     path('change_profile', views.user_profile_change, name='user_profile_change'),
     # User attendance
     path('attendance', views.attendance, name='attendance'),
+    # User attendance
+    path('payments', views.payments, name='payments'),
     # Calendar view
     path('calendar', views.calendar_view, name='calendar')
 ]

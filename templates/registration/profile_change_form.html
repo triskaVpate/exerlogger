@@ -9,6 +9,7 @@
   <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Save my changes">
+    <input type="submit" value="Save my changes" class="btn btn-outline-danger">
   </form>
+  <a href="{% url 'password_change' %}" class="btn btn-outline-danger" role="button">Change Password</a>
 {% endblock %}
