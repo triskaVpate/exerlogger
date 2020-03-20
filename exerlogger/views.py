@@ -7,7 +7,7 @@ from django.utils.safestring import mark_safe
 
 from exerlogger.forms import NewExerciseForm, CustomUserCreationForm, CustomUserChangeForm, CustomUserEmailChangeForm, \
     CustomUserAdvancedChangeForm
-from .models import Exercise, Workout, CustomUser, Training
+from .models import Exercise, Workout, CustomUser, Training, Payment
 from .utils import Calendar
 from calendar import HTMLCalendar
 #from datetime import datetime
@@ -16,7 +16,8 @@ import datetime
 
 @login_required
 def payments(request):
-    context = {}
+    user_payments = Payment.objects.filter(var_num=request.user.var_num).order_by('-date')
+    context = {'user_payments': user_payments}
     return render(request, 'payments/payments.html', context)
 
 

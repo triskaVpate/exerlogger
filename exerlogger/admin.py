@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 # custom auth model
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import Drill, Exercise, Workout, CustomUser, Gym, Lesson, Training
+from .models import Drill, Exercise, Workout, CustomUser, Gym, Lesson, Training, Payment
 # used for fieldsets
 from django.utils.translation import ugettext_lazy as _
 
@@ -33,33 +33,22 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ['username', 'email', 'phone_number', 'groups_', 'lesson']
+    list_display = ['username', 'email', 'phone_number', 'groups_', 'lesson', 'var_num']
 # fieldsets are used for choosing what should be visible in admin page
 # I used it here to hide access rights setup
     fieldsets = (
-        (_('Personal info'), {'fields': ('username', 'first_name', 'last_name', 'email', 'phone_number')}),
+        (_('Personal info'), {'fields': ('username', 'first_name', 'last_name', 'email', 'phone_number', 'var_num')}),
         (_('Permissions'), {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups'),
         }),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         (_('KB5'), {'fields': ('lesson',)})
     )
-    # add_fieldsets = (
-    #     (None, {
-    #         'classes': ('wide',),
-    #         'fields': ('username', 'password1', 'password2'),
-    #     }),
-    # )
 
     def groups_(self, obj):
         return ", ".join(
             group.name for group in obj.groups.all()
         )
-
-    # def trainings_(self, obj):
-    #     return ", ".join(
-    #         training.id for training in obj.training.all()
-    #     )
 
 
 class GymAdmin(admin.ModelAdmin):
@@ -88,6 +77,13 @@ class TrainingAdmin(admin.ModelAdmin):
         )
 
 
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ('money', 'var_num', 'date')
+    list_filter = ()
+    search_fields = ()
+    date_hierarchy = 'created'
+
+
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Drill, DrillAdmin)
 admin.site.register(Exercise, ExerciseAdmin)
@@ -95,3 +91,4 @@ admin.site.register(Workout, WorkoutAdmin)
 admin.site.register(Gym, GymAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Training, TrainingAdmin)
+admin.site.register(Payment, PaymentAdmin)

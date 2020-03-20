@@ -20,19 +20,20 @@
                     <div>
                         List of exercises for this workout:
                         {% for exercise in exercises %}
-                            <li><a href="{% url 'exercise_edit' workout.id exercise.id %}">
+                            <a href="{% url 'exercise_edit' workout.id exercise.id %}" class="list-exercises">
                                 {{ exercise.id }}
                                 {{ exercise.drill.name }}
                                 {{ exercise.weight }}
                                 {{ exercise.repetition }}
                                 {{ exercise.round }}
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <form action="{% url 'delete_exercise' workout.id exercise.id %}" method="POST">
+                                        {% csrf_token %}
 
-                                <form action="{% url 'delete_exercise' workout.id exercise.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="submit" value="Delete" class="btn btn-outline-danger">
-                                </form>
-                            </a>
-                            </li>
+                                        <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
+                                    </form>
+                                </div>
+                             </a>
                         {% endfor %}
                         {% if workout %}
                         <a class="btn btn-outline-danger" href="{% url 'workout_detail' workout.id %}">Add Exercise</a>

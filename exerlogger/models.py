@@ -124,3 +124,18 @@ class Exercise(TimeStampedModel):
 
     def __string__(self):
         return self.workout
+
+
+class Payment(TimeStampedModel):
+    date = models.DateField(_("date"), default=date.today)
+    money = models.DecimalField(max_digits=6, decimal_places=2)
+    var_num = models.IntegerField(_("var_num"), null=True)
+
+    class Meta:
+        verbose_name = _("payment")
+        verbose_name_plural = _("payments")
+        # unique_together = ()
+        # index_together = ()w
+
+    def __string__(self):
+        return self.date

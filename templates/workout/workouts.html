@@ -10,7 +10,7 @@
 
                   <form action="{% url 'delete_workout' workout.id %}" method="POST" onsubmit="return confirm('Are you sure?')">
                         {% csrf_token %}
-                        <input type="submit" value="Delete">
+                        <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
                   </form>
 
                   </a></li>

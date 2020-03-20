@@ -2,7 +2,15 @@
 <html>
     <body>
         {% block content %}
-        PAYMENTS PLACEHOLDER
+        <div id="workouts">
+            <h3>List of User Payments</h3>
+
+                {% for payment in user_payments %}
+                  <li>
+                      {{ payment.date}} {{ payment.money }} CZK
+                  </li>
+                {% endfor %}
+        </div>
         {% endblock %}
     </body>
 </html>
