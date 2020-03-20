@@ -2,43 +2,45 @@
 <html>
     <body>
         {% block content %}
-            <!--Show form if there is context with form-->
-            {% if exercise_form %}
-                <br>
-                Add exercise to your workout:
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ exercise_form.as_p }}
-                    <input type="submit" value="Save" class="btn btn-outline-primary">
-                </form>
-            {% endif %}
+            <div id="workout">
+                <!--Show form if there is context with form-->
+                <div id="excerice-view">
+                    <div>
+                        {% if exercise_form %}
+                            <br>
+                            Add exercise to your workout:
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ exercise_form.as_p }}
+                                <input type="submit" value="Save" class="btn btn-outline-primary">
+                            </form>
+                        {% endif %}
+                    </div>
+                    <!--Show exercises for workout id-->
+                    <div>
+                        List of exercises for this workout:
+                        {% for exercise in exercises %}
+                            <li><a href="{% url 'exercise_edit' workout.id exercise.id %}">
+                                {{ exercise.id }}
+                                {{ exercise.drill.name }}
+                                {{ exercise.weight }}
+                                {{ exercise.repetition }}
+                                {{ exercise.round }}
 
-            <!--Show exercises for workout id-->
-            <div id="exercises" >
-            List of exercises for this workout:
-            {% for exercise in exercises %}
-                <li><a href="{% url 'exercise_edit' workout.id exercise.id %}">
-                    {{ exercise.id }}
-                    {{ exercise.drill.name }}
-                    {{ exercise.weight }}
-                    {{ exercise.repetition }}
-                    {{ exercise.round }}
-
-                    <form action="{% url 'delete_exercise' workout.id exercise.id %}" method="POST">
-                        {% csrf_token %}
-                        <input type="submit" value="Delete" class="btn btn-outline-primary">
-                    </form>
-                </a>
-                </li>
-            {% endfor %}
+                                <form action="{% url 'delete_exercise' workout.id exercise.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Delete" class="btn btn-outline-primary">
+                                </form>
+                            </a>
+                            </li>
+                        {% endfor %}
+                        {% if workout %}
+                        <a class="btn btn-outline-primary" href="{% url 'workout_detail' workout.id %}">Add Exercise</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <a href="{% url 'workouts' %}" class="btn btn-outline-primary" id="workout-done">Done</a>
             </div>
-
-            {% if workout %}
-            <a class="btn btn-outline-primary" href="{% url 'workout_detail' workout.id %}">Add Exercise</a>
-            {% endif %}
-
-            <br>
-            <a href="{% url 'workouts' %}" class="btn btn-outline-primary" >Done</a>
         {% endblock %}
     </body>
 
