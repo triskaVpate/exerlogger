@@ -72,6 +72,8 @@ class CustomUser(AbstractUser):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Phone number must be entered in the format: '+420123456789'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)  # validators should be a list
+    # var number unique for every user will be used for payments
+    var_num = models.IntegerField(_("var_num"), unique=True, null=True)
 
     def __str__(self):
         return self.username

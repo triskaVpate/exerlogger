@@ -15,6 +15,12 @@ import datetime
 
 
 @login_required
+def payments(request):
+    context = {}
+    return render(request, 'payments/payments.html', context)
+
+
+@login_required
 def calendar_view(request):
     context = {}
     # Instantiate our calendar class with today's year and date
