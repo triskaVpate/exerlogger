@@ -64,6 +64,8 @@ class Lesson(TimeStampedModel):
 
 class CustomUser(AbstractUser):
     pass
+    # email field should be unique in db
+    email = models.EmailField(_('email address'), blank=True, unique=True)
     # add additional fields in here
     lesson = models.ForeignKey(Lesson, verbose_name=_("lesson"), on_delete=models.SET_NULL, blank=True, null=True)
     # taking care of phone number
