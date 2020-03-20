@@ -5,41 +5,68 @@
 
     {% block content %}
         {% if user.is_authenticated %}
-        <h3>Hi {{ user.username }}!</h3>
-        <div class="table-responsive">
-            <table>
-                <tbody>
-                    <tr>
-                        <td><p>Email:</p></td>
-                        <td><p>{{ user.email }}</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>First name:</p></td>
-                        <td><p>{{ user.first_name }}</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>Second name:</p></td>
-                        <td><p>{{ user.last_name }}</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>Phone number:</p></td>
-                        <td><p>{{ user.phone_number }}</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>KB5 member?:</p></td>
-                        {% if user.lesson %}
-                        <td><p>yes</p></td>
-                        {% else %}
-                        <td><p>no</p></td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        <td><p>which class are you in:</p></td>
-                        <td><p>{{ user.lesson }}</p></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <h3>Zdar a sílu {{ user.username }}!</h3>
+
+            <p>
+                <br>Vítej v KB5 informačním systému, momentálně v beta verzi.
+                <br>Přidavájí se nové možnosti a upravují existující, nic neni finální.
+                <br>Pokud najdeš chybu nebo budeš mít návrh na zlepšení, pošli mi email na:
+                <br>jakub.mirovsky@gmail.com
+            </p>
+            <p> <b>Change List</b>
+                <br>verze 0.3 Nyni ve vyvoji
+                <br> * Informace o platbách v Payments
+
+                <br>verze 0.2
+                <br> * Moznost menit informace o uzivateli v Profile
+                <br> * Moznost menit heslo v Profile
+                <br> * Reset hesla pri zapomenuti pres email odkaz
+                <br> * Lepsi vzhled (Tomas)
+                <br> * Mnoho fixu
+
+                <br>verze 0.1
+                <br> * Zakladni db modely
+                <br> * Zakladni ukladani cviceni - workoutu
+                <br> * Mnoho fixu
+
+
+            </p>
+
+<!--        <div class="table-responsive">-->
+<!--            DEBUG INFO:-->
+<!--            <table>-->
+<!--                <tbody>-->
+<!--                    <tr>-->
+<!--                        <td><p>Email:</p></td>-->
+<!--                        <td><p>{{ user.email }}</p></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><p>First name:</p></td>-->
+<!--                        <td><p>{{ user.first_name }}</p></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><p>Second name:</p></td>-->
+<!--                        <td><p>{{ user.last_name }}</p></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><p>Phone number:</p></td>-->
+<!--                        <td><p>{{ user.phone_number }}</p></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><p>KB5 member?:</p></td>-->
+<!--                        {% if user.lesson %}-->
+<!--                        <td><p>yes</p></td>-->
+<!--                        {% else %}-->
+<!--                        <td><p>no</p></td>-->
+<!--                        {% endif %}-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><p>which class are you in:</p></td>-->
+<!--                        <td><p>{{ user.lesson }}</p></td>-->
+<!--                    </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
         {% else %}
             <p>You are not logged in</p>
             <a href="{% url 'login' %}">login</a>
