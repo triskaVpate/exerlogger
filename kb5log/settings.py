@@ -125,7 +125,7 @@ LOGOUT_REDIRECT_URL = 'home'
 AUTH_USER_MODEL = 'exerlogger.CustomUser'
 
 # email
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = ''
