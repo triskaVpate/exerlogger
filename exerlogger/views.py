@@ -5,7 +5,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 from django.utils.safestring import mark_safe
 
-from exerlogger.forms import NewExerciseForm, CustomUserCreationForm, CustomUserChangeForm, CustomUserEmailChangeForm
+from exerlogger.forms import NewExerciseForm, CustomUserCreationForm, CustomUserChangeForm, CustomUserEmailChangeForm, \
+    CustomUserAdvancedChangeForm
 from .models import Exercise, Workout, CustomUser, Training
 from .utils import Calendar
 from calendar import HTMLCalendar
@@ -39,16 +40,17 @@ def attendance(request):
 
 
 @login_required
-def user_email_change(request):
+def user_profile_change(request):
     user = get_object_or_404(CustomUser, username=request.user)
-    form = CustomUserEmailChangeForm(request.POST or None, instance=user)
+    # form = CustomUserEmailChangeForm(request.POST or None, instance=user)
+    form = CustomUserAdvancedChangeForm(request.POST or None, instance=user)
 
     if form.is_valid():
         form.save(commit=True)
-        return redirect('home')
+        return redirect(user_profile_change)
 
     context = {'form': form, 'user': user}
-    return render(request, 'registration/email_change_form.html', context)
+    return render(request, 'registration/profile_change_form.html', context)
 
 
 @login_required

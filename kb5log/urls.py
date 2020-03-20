@@ -41,7 +41,7 @@ urlpatterns = [
     # Delete Workout
     path('workouts/<int:workout_id>/delete', views.delete_item, name='delete_workout'),
     # Email change
-    path('change_email', views.user_email_change, name='user_email_change'),
+    path('change_profile', views.user_profile_change, name='user_profile_change'),
     # User attendance
     path('attendance', views.attendance, name='attendance'),
     # Calendar view

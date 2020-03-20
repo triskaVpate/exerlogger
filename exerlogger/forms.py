@@ -37,3 +37,10 @@ class NewExerciseForm(forms.ModelForm):
     class Meta:
         model = Exercise
         fields = ["drill", "weight", "round", "repetition"]
+
+
+class CustomUserAdvancedChangeForm(forms.ModelForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ['first_name', 'last_name', 'email', 'phone_number']
