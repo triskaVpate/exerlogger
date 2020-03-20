@@ -124,9 +124,16 @@ LOGOUT_REDIRECT_URL = 'home'
 # custom auth
 AUTH_USER_MODEL = 'exerlogger.CustomUser'
 
-#email mockup
+# email
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'KB5 <liberec@kb5.cz>'
 
-# kuba - fix for admin couldnt load static files
+# EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+# Jakub - fix for admin couldn't load static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
