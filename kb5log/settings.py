@@ -24,7 +24,7 @@ SECRET_KEY = '22*sd5v6wtq28jl@jewy5yptrr%hrq8+(svnqultedvpr5x()r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kb5.mirovsky.cz']
+ALLOWED_HOSTS = ['kb5.mirovsky.cz', '127.0.0.1']
 
 
 # Application definition

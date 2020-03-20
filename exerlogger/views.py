@@ -120,7 +120,8 @@ def workout_detail(request, workout_id, exercise_id=None):
 
         if exercise_form.is_valid():
             exercise_form.save()
-
+            # once form is saved, redirect on the same page to have clear form ready
+            return redirect(workout_detail, workout_id=workout.id)
         context = {
             'workout': workout,
             'exercises': exercises,
@@ -137,6 +138,8 @@ def workout_detail(request, workout_id, exercise_id=None):
         )
         if exercise_form.is_valid():
             exercise_form.save(commit=True)
+            # once form is saved, redirect on the same page to have clear form ready
+            return redirect(workout_detail, workout_id=workout.id)
 
         context = {
             'workout': workout,

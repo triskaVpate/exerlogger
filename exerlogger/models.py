@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 from django.db import models
 
 # Create your models here.
@@ -7,7 +8,9 @@ from django.db.models import CharField
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.models import TimeStampedModel
 from datetime import date
-#from phonenumber_field.modelfields import PhoneNumberField
+
+
+# from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Drill(TimeStampedModel):
@@ -63,7 +66,10 @@ class CustomUser(AbstractUser):
     pass
     # add additional fields in here
     lesson = models.ForeignKey(Lesson, verbose_name=_("lesson"), on_delete=models.SET_NULL, blank=True, null=True)
-    # phone = models.CharField(max_length=15, unique=True)
+    # taking care of phone number
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                                 message="Phone number must be entered in the format: '+420123456789'. Up to 15 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)  # validators should be a list
 
     def __str__(self):
         return self.username
@@ -73,7 +79,7 @@ class CustomUser(AbstractUser):
 class Training(TimeStampedModel):
     date = models.DateField(_("date"), default=date.today)
     lesson = models.ForeignKey(Lesson, verbose_name=_("lesson"), on_delete=models.SET("Lesson no longer exists"))
-    users = models.ManyToManyField(CustomUser)
+    participants = models.ManyToManyField(CustomUser)
 
     class Meta:
         verbose_name = _("training")

@@ -33,11 +33,11 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ['email', 'username', 'groups_', 'lesson']
+    list_display = ['username', 'email', 'phone_number', 'groups_', 'lesson']
 # fieldsets are used for choosing what should be visible in admin page
 # I used it here to hide access rights setup
     fieldsets = (
-        (_('Personal info'), {'fields': ('username', 'first_name', 'last_name', 'email')}),
+        (_('Personal info'), {'fields': ('username', 'first_name', 'last_name', 'email', 'phone_number')}),
         (_('Permissions'), {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups'),
         }),
@@ -77,14 +77,14 @@ class LessonAdmin(admin.ModelAdmin):
 
 
 class TrainingAdmin(admin.ModelAdmin):
-    list_display = ('created', 'date', 'lesson', 'users_')
+    list_display = ('created', 'date', 'lesson', 'participants_')
     list_filter = ()
     search_fields = ()
     date_hierarchy = 'created'
 
-    def users_(self, obj):
+    def participants_(self, obj):
         return ", ".join(
-            user.username for user in obj.users.all()
+            user.username for user in obj.participants.all()
         )
 
 
