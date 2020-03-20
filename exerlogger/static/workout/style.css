@@ -57,7 +57,8 @@ main {
 }
 
 .navbar{
-    background-color: #CD5C5C;
+    border-top: 0.1em solid #CD5C5C;
+    border-bottom: 0.1em solid #CD5C5C
 }
 
 .navbar-nav {
