@@ -84,6 +84,29 @@ main {
     justify-content: space-around;
 }
 
+#workout{
+    display: flex;
+    flex-direction: column;
+}
+
+#excerice-view{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1em;
+}
+
+@media (max-width: 576px){
+    #excerice-view{
+        justify-content: normal;
+        flex-direction: column;
+    }
+}
+
+#workout-done{
+    margin: 0 auto;
+    width: 15rem;
+}
+
 #exercises li {
     list-style: none;
 }
