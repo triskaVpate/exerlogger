@@ -4,7 +4,7 @@ body{
 }
 
 body a{
-    color: #212529;
+    color: #CD5C5C;
 }
 
 body a:hover{
@@ -71,6 +71,12 @@ main {
 
 #logo {
     width: 4em;
+}
+
+.errorlist{
+    color: red;
+    list-style: none;
+    padding: 0;
 }
 
 #workouts li {
