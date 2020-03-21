@@ -10,7 +10,7 @@ from exerlogger.forms import NewExerciseForm, CustomUserCreationForm, CustomUser
 from .models import Exercise, Workout, CustomUser, Training, Payment
 from .utils import Calendar
 from calendar import HTMLCalendar
-#from datetime import datetime
+# from datetime import datetime
 import datetime
 
 
@@ -42,7 +42,8 @@ def attendance(request):
     for training in user_trainings:
         list_user_trainings.append(training.id)
     all_trainings = Training.objects.filter(lesson=request.user.lesson).order_by('-date')
-    context = {'user_trainings': user_trainings, 'list_user_trainings': list_user_trainings, 'all_trainings': all_trainings}
+    context = {'user_trainings': user_trainings, 'list_user_trainings': list_user_trainings,
+               'all_trainings': all_trainings}
     return render(request, 'attendance/attendance.html', context)
 
 
@@ -62,9 +63,8 @@ def user_profile_change(request):
 
 @login_required
 def user_homepage(request):
-
-    #which lesson is user member of
-    #user_lesson =
+    # which lesson is user member of
+    # user_lesson =
 
     context = {}
 
@@ -107,10 +107,12 @@ def workout_detail(request, workout_id, exercise_id=None):
     # New workout branch
     if workout_id == "add":
         # show empty form
-        exercise_form = NewExerciseForm(request.POST)
+        submitted = False
+        exercise_form = NewExerciseForm()
         # when POST is initialized for the first time, create workout and use it for form
-        if request.method == "POST":
+        if request.method == 'POST':
             workout_current = Workout.objects.create(user=request.user)
+            exercise_form = NewExerciseForm(request.POST)
             exercise_form.instance = Exercise(workout=workout_current)
             if exercise_form.is_valid():
                 exercise_form.save(commit=True)
@@ -142,7 +144,7 @@ def workout_detail(request, workout_id, exercise_id=None):
         exercises = Exercise.objects.filter(workout=workout_id)
 
         exercise_form = NewExerciseForm(
-            request.POST,
+            request.POST or None,
             instance=Exercise(workout=workout)
         )
         if exercise_form.is_valid():
