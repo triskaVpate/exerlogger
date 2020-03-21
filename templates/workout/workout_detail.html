@@ -7,25 +7,27 @@
                 <div id="excerice-view">
                     <div>
                         {% if exercise_form %}
-                            <br>
-                            Add exercise to your workout:
+                            <h5> Add exercise to your workout: </h5>
                             <form method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {{ exercise_form.as_p }}
                                 <input type="submit" value="Save" class="btn btn-outline-danger">
+                                <input type="reset" value="Clear" class="btn btn-outline-danger">
                             </form>
                         {% endif %}
+                        <a href="{% url 'workouts' %}" class="btn btn-outline-danger" id="workout-done">Done</a>
                     </div>
                     <!--Show exercises for workout id-->
                     <div>
-                        List of exercises for this workout:
+                        <h5> Saved exercises for this workout: </h5>
+                        <br>
+                        <br>
                         {% for exercise in exercises %}
                             <a href="{% url 'exercise_edit' workout.id exercise.id %}" class="list-exercises">
-                                {{ exercise.id }}
                                 {{ exercise.drill.name }}
-                                {{ exercise.weight }}
-                                {{ exercise.repetition }}
-                                {{ exercise.round }}
+                                Weight: {{ exercise.weight }} Kg
+                                Rounds: {{ exercise.round }}
+                                Repetiotions: {{ exercise.repetition }}
                                 <div class="form-group mx-sm-3 mb-2">
                                     <form action="{% url 'delete_exercise' workout.id exercise.id %}" method="POST">
                                         {% csrf_token %}
@@ -36,11 +38,10 @@
                              </a>
                         {% endfor %}
                         {% if workout %}
-                        <a class="btn btn-outline-danger" href="{% url 'workout_detail' workout.id %}">Add Exercise</a>
                         {% endif %}
                     </div>
                 </div>
-                <a href="{% url 'workouts' %}" class="btn btn-outline-danger" id="workout-done">Done</a>
+<!--                <a href="{% url 'workouts' %}" class="btn btn-outline-danger" id="workout-done">Done</a>-->
             </div>
         {% endblock %}
     </body>
