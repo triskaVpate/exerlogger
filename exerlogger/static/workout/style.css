@@ -73,6 +73,12 @@ main {
     width: 4em;
 }
 
+.errorlist{
+    color: red;
+    list-style: none;
+    padding: 0;
+}
+
 #workouts li {
     list-style: none;
 }
