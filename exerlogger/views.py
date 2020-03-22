@@ -63,7 +63,7 @@ def attendance(request):
     cal = Calendar(d.year, d.month)
 
     # Call the formatmonth method, which returns our calendar as a table
-    html_cal = cal.formatmonth(withyear=True)
+    html_cal = cal.formatmonth(withyear=True, username=request.user)
     context['calendar'] = mark_safe(html_cal)
     # this exist cause of moving to diferent months
     context['month_id'] = d.month
