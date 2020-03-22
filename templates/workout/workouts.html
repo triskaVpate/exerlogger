@@ -5,14 +5,12 @@
         <div id="workouts">
             <h3>List of User Workouts</h3>
                 {% for workout in user_workouts %}
-                  <a href="{% url 'workout_detail' workout.id %}"> ID: {{ workout.id }} Date: {{ workout.date }}
-
+                    ID: {{ workout.id }} Date: {{ workout.date }}
                   <form action="{% url 'delete_workout' workout.id %}" method="POST" onsubmit="return confirm('Are you sure?')">
                         {% csrf_token %}
                         <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
+                        <a href="{% url 'workout_detail' workout.id %}" class="btn btn-outline-danger btn-sm">Edit</a>
                   </form>
-
-                  </a>
                 {% endfor %}
               <p id="create_account">
                   <a href="{% url 'workout_detail' 'add' %}" class="btn btn-outline-danger btn-sm">Create new workout</a>
