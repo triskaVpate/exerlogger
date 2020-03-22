@@ -58,7 +58,7 @@ main {
 
 .navbar{
     border-top: 0.1em solid #CD5C5C;
-    border-bottom: 0.1em solid #CD5C5C
+    border-bottom: 0.1em solid #CD5C5C;
 }
 
 .navbar-nav {
@@ -67,6 +67,14 @@ main {
 
 .navbar-toggler:focus{
     outline: none;
+}
+
+.nav-link:hover{
+    color: #CD5C5C !important;
+}
+
+.nav-link{
+    color: #212529 !important;
 }
 
 #logo {
