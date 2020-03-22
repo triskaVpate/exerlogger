@@ -44,6 +44,15 @@ def attendance(request):
     all_trainings = Training.objects.filter(lesson=request.user.lesson).order_by('-date')
     context = {'user_trainings': user_trainings, 'list_user_trainings': list_user_trainings,
                'all_trainings': all_trainings}
+
+    # calendar
+    d = datetime.date.today()
+    cal = Calendar(d.year, d.month)
+
+    # Call the formatmonth method, which returns our calendar as a table
+    html_cal = cal.formatmonth(withyear=True)
+    context['calendar'] = mark_safe(html_cal)
+
     return render(request, 'attendance/attendance.html', context)
 
 

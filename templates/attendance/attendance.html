@@ -17,20 +17,10 @@
                 {% endif %}
 
             {% endfor %}
-
-<!--                {% for workout in user_workouts %}-->
-<!--                  <li><a href="{% url 'workout_detail' workout.id %}"> {{ workout.id}} {{ workout.date }}-->
-
-<!--                  <form action="{% url 'delete_workout' workout.id %}" method="POST" onsubmit="return confirm('Are you sure?')">-->
-<!--                        {% csrf_token %}-->
-<!--                        <input type="submit" value="Delete">-->
-<!--                  </form>-->
-
-<!--                  </a></li>-->
-<!--                {% endfor %}-->
-
-<!--              <p id="create_account"><a href="{% url 'workout_detail' 'add' %}">Create new workout</a></p>-->
         </div>
+
+        {{ calendar }}
+
         {% endblock %}
     </body>
 </html>
