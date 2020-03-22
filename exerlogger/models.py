@@ -69,8 +69,8 @@ class CustomUser(AbstractUser):
     # add additional fields in here
     lesson = models.ForeignKey(Lesson, verbose_name=_("lesson"), on_delete=models.SET_NULL, blank=True, null=True)
     # taking care of phone number
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
-                                 message="Phone number must be entered in the format: '+420123456789'. Up to 15 digits allowed.")
+    phone_regex = RegexValidator(regex=r'^\+\d{12}$',
+                                 message="Phone number must be entered in the format: +420123456789.")
     phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)  # validators should be a list
     # var number unique for every user will be used for payments
     var_num = models.IntegerField(_("var_num"), unique=True, null=True)
