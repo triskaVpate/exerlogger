@@ -12,6 +12,7 @@ from .utils import Calendar
 from calendar import HTMLCalendar
 # from datetime import datetime
 import datetime
+from dateutil.relativedelta import relativedelta
 
 
 @login_required
@@ -47,11 +48,26 @@ def attendance(request):
 
     # calendar
     d = datetime.date.today()
+
+    # calendar movement start
+    move = request.GET.get('move', None)
+    month_id = request.GET.get('month_id', None)
+    year_id = request.GET.get('year_id', None)
+
+    if month_id is not None and move == "previous_month":
+        d = d.replace(month=int(month_id))+relativedelta(months=-1, year=int(year_id))
+    elif month_id is not None and move == "next_month":
+        d = d.replace(month=int(month_id))+relativedelta(months=+1, year=int(year_id))
+    # calendar movement end
+
     cal = Calendar(d.year, d.month)
 
     # Call the formatmonth method, which returns our calendar as a table
     html_cal = cal.formatmonth(withyear=True)
     context['calendar'] = mark_safe(html_cal)
+    # this exist cause of moving to diferent months
+    context['month_id'] = d.month
+    context['year_id'] = d.year
 
     return render(request, 'attendance/attendance.html', context)
 

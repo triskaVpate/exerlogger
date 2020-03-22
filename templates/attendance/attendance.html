@@ -19,6 +19,12 @@
             {% endfor %}
         </div>
 
+
+        <div class="clearfix">
+            <a class="btn btn-outline-danger btn-sm left" href="{% url 'attendance' %}?year_id={{ year_id}}&month_id={{ month_id }}&move=previous_month"> Previous Month </a>
+            <a class="btn btn-outline-danger btn-sm right" href="{% url 'attendance' %}?year_id={{ year_id}}&month_id={{ month_id }}&move=next_month"> Next Month </a>
+        </div>
+        <br>
         {{ calendar }}
 
         {% endblock %}
