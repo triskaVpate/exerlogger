@@ -12,7 +12,6 @@
                                 {% csrf_token %}
                                 {{ exercise_form.as_p }}
                                 <input type="submit" value="Save" class="btn btn-outline-danger">
-                                <input type="reset" value="Clear" class="btn btn-outline-danger">
                             </form>
                         {% endif %}
                         <a href="{% url 'workouts' %}" class="btn btn-outline-danger" id="workout-done">Done</a>
