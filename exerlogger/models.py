@@ -10,11 +10,9 @@ from django_extensions.db.models import TimeStampedModel
 from datetime import date
 
 
-# from phonenumber_field.modelfields import PhoneNumberField
-
-
 class Drill(TimeStampedModel):
     name: CharField = models.CharField(_("name"), max_length=255)
+    kb5_level = models.IntegerField(_("kb5_level"), max_length=1, null=True, blank=True)
 
     class Meta:
         verbose_name = _("drill")

@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class DrillAdmin(admin.ModelAdmin):
-    list_display = ('created', 'name')
+    list_display = ('created', 'name', 'kb5_level')
     list_filter = ()
     search_fields = ()
     date_hierarchy = 'created'
