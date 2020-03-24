@@ -37,12 +37,12 @@ class CustomUserAdmin(UserAdmin):
 # fieldsets are used for choosing what should be visible in admin page
 # I used it here to hide access rights setup
     fieldsets = (
-        (_('Personal info'), {'fields': ('username', 'first_name', 'last_name', 'email', 'phone_number', 'var_num')}),
+        (_('Personal info'), {'fields': ('username', 'first_name', 'last_name', 'email', 'phone_number')}),
         (_('Permissions'), {
-            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups'),
+            'fields': ('is_active', 'is_staff', 'is_superuser'),
         }),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
-        (_('KB5'), {'fields': ('lesson',)})
+        (_('KB5'), {'fields': ('lesson', 'var_num', 'groups')})
     )
 
     def groups_(self, obj):
@@ -75,6 +75,11 @@ class TrainingAdmin(admin.ModelAdmin):
         return ", ".join(
             user.username for user in obj.participants.all()
         )
+
+    # def participants_(self, obj):
+    #     return ", ".join(
+    #         user.username for user in obj.participants.filter(lesson=self.lesson)
+    #     )
 
 
 class PaymentAdmin(admin.ModelAdmin):
