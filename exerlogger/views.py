@@ -5,11 +5,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 from django.utils.safestring import mark_safe
 
-from exerlogger.forms import NewExerciseForm, CustomUserCreationForm, CustomUserChangeForm, CustomUserEmailChangeForm, \
-    CustomUserAdvancedChangeForm
+from exerlogger.forms import NewExerciseForm, CustomUserCreationForm, CustomUserAdvancedChangeForm
 from .models import Exercise, Workout, CustomUser, Training, Payment
 from .utils import Calendar
-from calendar import HTMLCalendar
 # from datetime import datetime
 import datetime
 from dateutil.relativedelta import relativedelta
@@ -23,21 +21,8 @@ def payments(request):
 
 
 @login_required
-def calendar_view(request):
-    context = {}
-    # Instantiate our calendar class with today's year and date
-
-    d = datetime.date.today()
-    cal = HTMLCalendar()
-
-    # Call the formatmonth method, which returns our calendar as a table
-    html_cal = cal.formatmonth(d.year, d.month, withyear=True)
-    context['calendar'] = mark_safe(html_cal)
-    return render(request, 'calendar/calendar.html', context)
-
-
-@login_required
 def attendance(request):
+    # list of training sessions for loging that user is present or missing
     user_trainings = request.user.training_set.all()
     list_user_trainings = []
     for training in user_trainings:
@@ -46,7 +31,7 @@ def attendance(request):
     context = {'user_trainings': user_trainings, 'list_user_trainings': list_user_trainings,
                'all_trainings': all_trainings}
 
-    # calendar
+    # calendar part
     d = datetime.date.today()
 
     # calendar movement start
@@ -65,7 +50,7 @@ def attendance(request):
     # Call the formatmonth method, which returns our calendar as a table
     html_cal = cal.formatmonth(withyear=True, username=request.user)
     context['calendar'] = mark_safe(html_cal)
-    # this exist cause of moving to diferent months
+    # this exist cause of moving to different months
     context['month_id'] = d.month
     context['year_id'] = d.year
 
@@ -132,7 +117,6 @@ def workout_detail(request, workout_id, exercise_id=None):
     # New workout branch
     if workout_id == "add":
         # show empty form
-        submitted = False
         exercise_form = NewExerciseForm()
         # when POST is initialized for the first time, create workout and use it for form
         if request.method == 'POST':
