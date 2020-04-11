@@ -74,7 +74,7 @@ class CustomUser(AbstractUser):
     # var number unique for every user will be used for payments
     var_num = models.IntegerField(_("var_num"), unique=True, null=True)
     # list of months user paid for
-    membership = JSONField(_('membership'), null=True)
+    membership = JSONField(_('membership'), null=True, blank=True)
 
     def __str__(self):
         return self.username
