@@ -159,3 +159,8 @@ main {
 .list-exercises {
     display: flex;
 }
+
+.table-bordered {
+width: -moz-available;
+text-align: center;
+}

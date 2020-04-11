@@ -3,13 +3,36 @@
     <body>
         {% block content %}
         <div id="workouts">
-            <h3>List of User Payments</h3>
+            <h3>Paid membership</h3>
+                <div class="table-responsive">
+                    <table class="table-bordered">
+                        <th scope="col">2020</th>
+                        {% for month in months_list %}
+                            {% if month in user_membership %}
+                                    <td class="table-success"> {{ month }} </td>
+                            {% else %}
+                                    <td class="table-active"> {{ month }} </td>
+                            {% endif %}
+                        {% endfor %}
 
-                {% for payment in user_payments %}
-                  <li>
-                      {{ payment.date}} {{ payment.money }} CZK
-                  </li>
-                {% endfor %}
+                    </table>
+                </div>
+            <br>
+            <h3>List of User Payments</h3>
+                <div class="table-responsive">
+                    <table class="table-bordered">
+                        <thead>
+                            <tr>
+                              <th scope="col">Date</th>
+                              <th scope="col">Ammount</th>
+                            </tr>
+                        </thead>
+                        {% for payment in user_payments %}
+                            <td> {{ payment.date}} </td>
+                            <td> {{ payment.money }} CZK </td>
+                        {% endfor %}
+                    </table>
+                </div>
         </div>
         {% endblock %}
     </body>

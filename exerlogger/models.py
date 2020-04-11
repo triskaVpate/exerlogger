@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
+from django.contrib.postgres.fields import JSONField
 from django.db import models
 
 # Create your models here.
@@ -12,7 +13,7 @@ from datetime import date
 
 class Drill(TimeStampedModel):
     name: CharField = models.CharField(_("name"), max_length=255)
-    kb5_level = models.IntegerField(_("kb5_level"), max_length=1, null=True, blank=True)
+    kb5_level = models.IntegerField(_("kb5_level"), null=True, blank=True)
 
     class Meta:
         verbose_name = _("drill")
@@ -69,9 +70,11 @@ class CustomUser(AbstractUser):
     # taking care of phone number
     phone_regex = RegexValidator(regex=r'^\+\d{12}$',
                                  message="Phone number must be entered in the format: +420123456789.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)  # validators should be a list
+    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
     # var number unique for every user will be used for payments
     var_num = models.IntegerField(_("var_num"), unique=True, null=True)
+    # list of months user paid for
+    membership = JSONField(_('membership'), null=True)
 
     def __str__(self):
         return self.username

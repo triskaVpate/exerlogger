@@ -16,7 +16,10 @@ from dateutil.relativedelta import relativedelta
 @login_required
 def payments(request):
     user_payments = Payment.objects.filter(var_num=request.user.var_num).order_by('-date')
-    context = {'user_payments': user_payments}
+    user_membership = request.user.membership['2020']
+    months_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+
+    context = {'user_payments': user_payments, 'months_list': months_list, 'user_membership': user_membership}
     return render(request, 'payments/payments.html', context)
 
 

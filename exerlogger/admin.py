@@ -42,7 +42,7 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('is_active', 'is_staff', 'is_superuser'),
         }),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
-        (_('KB5'), {'fields': ('lesson', 'var_num', 'groups')})
+        (_('KB5'), {'fields': ('lesson', 'var_num', 'groups', 'membership')})
     )
 
     def groups_(self, obj):
