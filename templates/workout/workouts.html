@@ -4,14 +4,32 @@
         {% block content %}
         <div id="workouts">
             <h3>List of User Workouts</h3>
-                {% for workout in user_workouts %}
-                    ID: {{ workout.id }} Date: {{ workout.date }}
-                  <form action="{% url 'delete_workout' workout.id %}" method="POST" onsubmit="return confirm('Are you sure?')">
-                        {% csrf_token %}
-                        <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
-                        <a href="{% url 'workout_detail' workout.id %}" class="btn btn-outline-danger btn-sm">Edit</a>
-                  </form>
-                {% endfor %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                              <th scope="col">Date</th>
+                              <th scope="col">Workout ID</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for workout in user_workouts %}
+                            <tr>
+                                <td>{{ workout.date }} </td>
+                                <td>Workout {{workout.id }}</td>
+                                <td>
+                                    <form action="{% url 'delete_workout' workout.id %}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
+                                        <a href="{% url 'workout_detail' workout.id %}" class="btn btn-outline-danger btn-sm">Edit</a>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
               <p id="create_account">
                   <a href="{% url 'workout_detail' 'add' %}" class="btn btn-outline-danger btn-sm">Create new workout</a>
               </p>
