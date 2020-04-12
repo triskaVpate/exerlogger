@@ -161,6 +161,6 @@ main {
 }
 
 .table-bordered {
-width: -moz-available;
+width: 100%;
 text-align: center;
 }
