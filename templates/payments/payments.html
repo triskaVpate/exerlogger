@@ -27,10 +27,14 @@
                               <th scope="col">Ammount</th>
                             </tr>
                         </thead>
-                        {% for payment in user_payments %}
-                            <td> {{ payment.date}} </td>
-                            <td> {{ payment.money }} CZK </td>
-                        {% endfor %}
+                        <tbody>
+                            {% for payment in user_payments %}
+                                <tr>
+                                    <td> {{ payment.date}} </td>
+                                    <td> {{ payment.money }} CZK </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
                     </table>
                 </div>
         </div>
