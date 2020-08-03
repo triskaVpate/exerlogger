@@ -100,6 +100,11 @@ class Payment(TimeStampedModel):
 ######################
 
 class Workout(TimeStampedModel):
+    """
+    Relation:
+        Each Workout belongs to one User.
+        User can perform one and more Workouts.
+    """
     date = models.DateField(_("date"), default=date.today)
     user = models.ForeignKey(CustomUser, verbose_name=_("user"), on_delete=models.CASCADE, default=1)
 
@@ -115,7 +120,12 @@ class Workout(TimeStampedModel):
 
 class Form(models.Model):
     """
-    Each Drill can have Form.
+    Relation:
+        Each Form belongs to one and more Drills.
+
+    Example:
+        Onearm (Drill.form.name) Swing (Drill.name)
+        Onearm (Drill.form.name) Deadlift (Drill.name)
     """
     name = models.CharField(max_length=256, unique=True)   # One form can be shared between one and more Drills thus it has to be unique.
 
@@ -128,10 +138,18 @@ class Form(models.Model):
 
 
 class Drill(TimeStampedModel):
+    """
+    Relation:
+        Each Drill can have a Form.
+
+    Example:
+        Onearm (Drill.form.name) Swing (Drill.name)
+    """
+
     name: CharField = models.CharField(_("name"), max_length=255)
     bilateral = models.BooleanField()
     kb5_level = models.IntegerField(_("kb5_level"), null=True, blank=True)
-    forms = models.ForeignKey(Form, related_name='forms', blank=True, on_delete=models.CASCADE)   # Drill can have a form, but doesn't have to.
+    form = models.ForeignKey(Form, related_name='forms', blank=True, on_delete=models.CASCADE)   # Drill can have a form, but doesn't have to.
 
     class Meta:
         verbose_name = _("drill")
@@ -147,7 +165,12 @@ class Drill(TimeStampedModel):
 
 class Program(models.Model):
     """
-    Each Workout can follow a Program.
+    Relation:
+        Each Workout can follow a Program.
+
+    Example:
+        Simple and Sinister Full body program(Program.name) consists(Program.consists)
+        of Onearm Swing, Snatch and Pull Ups. It's great for advanced ... (Program.description)
     """
     name = models.CharField(max_length=256)
     description = models.CharField(max_length=512)
@@ -158,6 +181,11 @@ class Program(models.Model):
 
 
 class Exercise(TimeStampedModel):
+    """
+    Relation:
+        During each Exercise User performs a Drill.
+        Each Exercise belongs to a Workout.
+    """
     workout = models.ForeignKey(Workout, verbose_name=_("workout"), on_delete=models.CASCADE)
     drill = models.ForeignKey(Drill, verbose_name=_("drill"), on_delete=models.SET("Drill no longer exists"))
 
@@ -173,7 +201,12 @@ class Exercise(TimeStampedModel):
 
 class Property(models.Model):
     """
-    Each Equipment can have one Property.
+    Relation:
+        Each Equipment can have a property.
+
+    Example:
+        Kettlebell(Equipment.name) has weight(Property.name) of 20(Property.value)Kg(Property.unit)
+        Stool(Equipment.name) has a height(Property.name) of 30(Property.value)cm(Property.unit)
     """
     name = models.CharField(max_length=128)
     unit = models.CharField(max_length=8)
@@ -186,6 +219,11 @@ class Property(models.Model):
 
 class Equipment(models.Model):
     """
+    Relation:
+        Each Exercise can be Performed with an Equipment.
+
+    Example:
+        Kettlebell(Equipment.name)
     """
     property = models.ForeignKey(Property, verbose_name=_("property"), on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
@@ -195,13 +233,23 @@ class Equipment(models.Model):
         verbose_name_plural = _("equipments")
 
 
-
 class Performance(models.Model):
     """
-    Each exercise is performed once and more with different Equipment.
+    Relation:
+        Each Exercise is Performed once and more times with different Equipment
+        and different number of times.
+
+    Example:
+        Swing(Performance.exercise.drill.name) is Performed 1(Performance.order)st time
+        2(Performance.sets) sets of 5(Performance.reps) reps
+        with kettlebell(Performance.eqipment.name) during (Performance.workout)
+
+        Swing(Performance.exercise.drill.name) is Performed 2(Performance.order)nd
+        time 1(Performance.sets) sets of 7(Performance.reps) reps
+        with kettlebell(Performance.eqipment.name) during (Performance.workout)
     """
     exercise = models.ForeignKey(Exercise, verbose_name=_("exercise"), on_delete=models.CASCADE)
     equipment = models.ForeignKey(Equipment, verbose_name=_("equipment"), blank=True, on_delete=models.CASCADE)
     order = models.IntegerField()
-    sets = models.IntegerField(_("round"), default=1)
-    reps = models.IntegerField(_("repetition"), default=1)
+    sets = models.IntegerField(_("sets"), default=1)
+    reps = models.IntegerField(_("reps"), default=1)
