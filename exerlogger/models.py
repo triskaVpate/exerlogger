@@ -101,6 +101,12 @@ class Payment(TimeStampedModel):
 
 class Workout(TimeStampedModel):
     """
+    Attributes:
+        date(date): The date when the Workout was created.
+                    Today is set as default.
+        user(FK): The User who performed the Workout.
+                  When User is deleted all his Workouts are deleted (CASCADE).
+
     Relation:
         Each Workout belongs to one User.
         User can perform one and more Workouts.
@@ -120,6 +126,9 @@ class Workout(TimeStampedModel):
 
 class Form(models.Model):
     """
+    Attributes:
+        name(str): Name of the form. It must be unique, which ensures reuseability.
+
     Relation:
         Each Form belongs to one and more Drills.
 
@@ -139,6 +148,12 @@ class Form(models.Model):
 
 class Drill(TimeStampedModel):
     """
+    Attributes:
+        name(str): Name of the Drill.
+        bilateral(bool): True when bilateral and False if not.
+        kb5_level(int): Minimum KB5 level that you have to reach in order to practise this Drill.
+        form(FK): Form of the Exercise. It's optional.
+
     Relation:
         Each Drill can have a Form.
 
@@ -165,6 +180,11 @@ class Drill(TimeStampedModel):
 
 class Program(models.Model):
     """
+    Attributes:
+        name(str): Name of the Program.
+        description(str): Description of the Program.
+        consists(MTM): Table which stores which Drills are performed during the Program.
+
     Relation:
         Each Workout can follow a Program.
 
@@ -182,6 +202,10 @@ class Program(models.Model):
 
 class Exercise(TimeStampedModel):
     """
+    Attributes:
+        workout(FK): Workout to which this Exercise belongs.
+        drill(FK): Drill which is performed during this Exercise.
+
     Relation:
         During each Exercise User performs a Drill.
         Each Exercise belongs to a Workout.
@@ -201,8 +225,13 @@ class Exercise(TimeStampedModel):
 
 class Property(models.Model):
     """
+    Attributes:
+        name(str): Name of the Property.
+        unit(str): Unit in which that Property is measured.
+        value(int): Value of the Property.
+
     Relation:
-        Each Equipment can have a property.
+        Each Equipment can have a Property.
 
     Example:
         Kettlebell(Equipment.name) has weight(Property.name) of 20(Property.value)Kg(Property.unit)
@@ -219,6 +248,10 @@ class Property(models.Model):
 
 class Equipment(models.Model):
     """
+    Attributes:
+        property(FK): It can store the Property of the Equipment.
+        name(str): Name of the Equipment. It doesn't have to be unique.
+
     Relation:
         Each Exercise can be Performed with an Equipment.
 
@@ -235,8 +268,14 @@ class Equipment(models.Model):
 
 class Performance(models.Model):
     """
+    Attributes:
+        exercise(FK): Exercise this Performance belongs.
+        equipment(FK): Equipment that has been used.
+        sets(int): Number of Performed sets.
+        reps(int): Number of Performed reps.
+
     Relation:
-        Each Exercise is Performed once and more times with different Equipment
+        Each Exercise is Performed once and more times with different Equipment.
         and different number of times.
 
     Example:
@@ -250,6 +289,5 @@ class Performance(models.Model):
     """
     exercise = models.ForeignKey(Exercise, verbose_name=_("exercise"), on_delete=models.CASCADE)
     equipment = models.ForeignKey(Equipment, verbose_name=_("equipment"), blank=True, on_delete=models.CASCADE)
-    order = models.IntegerField()
     sets = models.IntegerField(_("sets"), default=1)
     reps = models.IntegerField(_("reps"), default=1)
