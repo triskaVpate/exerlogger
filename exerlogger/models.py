@@ -11,22 +11,6 @@ from django_extensions.db.models import TimeStampedModel
 from datetime import date
 
 
-class Drill(TimeStampedModel):
-    name: CharField = models.CharField(_("name"), max_length=255)
-    kb5_level = models.IntegerField(_("kb5_level"), null=True, blank=True)
-
-    class Meta:
-        verbose_name = _("drill")
-        verbose_name_plural = _("drills")
-        # unique_together = ()
-        # index_together = ()
-
-    objects = models.Manager()
-
-    def __str__(self):
-        return self.name
-
-
 class Gym(TimeStampedModel):
     name = models.CharField(_("name"), max_length=255)
 
@@ -96,6 +80,25 @@ class Training(TimeStampedModel):
         return str(self.date)
 
 
+class Payment(TimeStampedModel):
+    date = models.DateField(_("date"), default=date.today)
+    money = models.DecimalField(max_digits=6, decimal_places=2)
+    var_num = models.IntegerField(_("var_num"), null=True)
+
+    class Meta:
+        verbose_name = _("payment")
+        verbose_name_plural = _("payments")
+        # unique_together = ()
+        # index_together = ()w
+
+    def __string__(self):
+        return self.date
+
+
+######################
+### Logging System ###
+######################
+
 class Workout(TimeStampedModel):
     date = models.DateField(_("date"), default=date.today)
     user = models.ForeignKey(CustomUser, verbose_name=_("user"), on_delete=models.CASCADE, default=1)
@@ -110,12 +113,53 @@ class Workout(TimeStampedModel):
         return self.date
 
 
+class Form(models.Model):
+    """
+    Each Drill can have Form.
+    """
+    name = models.CharField(max_length=256, unique=True)   # One form can be shared between one and more Drills thus it has to be unique.
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _("form")
+        verbose_name_plural = _("forms")
+
+
+class Drill(TimeStampedModel):
+    name: CharField = models.CharField(_("name"), max_length=255)
+    bilateral = models.BooleanField()
+    kb5_level = models.IntegerField(_("kb5_level"), null=True, blank=True)
+    forms = models.ForeignKey(Form, related_name='forms', blank=True, on_delete=models.CASCADE)   # Drill can have a form, but doesn't have to.
+
+    class Meta:
+        verbose_name = _("drill")
+        verbose_name_plural = _("drills")
+        # unique_together = ()
+        # index_together = ()
+
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.name
+
+
+class Program(models.Model):
+    """
+    Each Workout can follow a Program.
+    """
+    name = models.CharField(max_length=256)
+    description = models.CharField(max_length=512)
+    consists = models.ManyToManyField(Drill)
+
+    def __str__(self):
+        return self.name
+
+
 class Exercise(TimeStampedModel):
     workout = models.ForeignKey(Workout, verbose_name=_("workout"), on_delete=models.CASCADE)
     drill = models.ForeignKey(Drill, verbose_name=_("drill"), on_delete=models.SET("Drill no longer exists"))
-    weight = models.IntegerField(_("weight"), blank=True, null=True)
-    round = models.IntegerField(_("round"), default=1)
-    repetition = models.IntegerField(_("repetition"), default=1)
 
     class Meta:
         verbose_name = _("exercise")
@@ -127,16 +171,37 @@ class Exercise(TimeStampedModel):
         return self.workout
 
 
-class Payment(TimeStampedModel):
-    date = models.DateField(_("date"), default=date.today)
-    money = models.DecimalField(max_digits=6, decimal_places=2)
-    var_num = models.IntegerField(_("var_num"), null=True)
+class Property(models.Model):
+    """
+    Each Equipment can have one Property.
+    """
+    name = models.CharField(max_length=128)
+    unit = models.CharField(max_length=8)
+    value = models.IntegerField()
 
     class Meta:
-        verbose_name = _("payment")
-        verbose_name_plural = _("payments")
-        # unique_together = ()
-        # index_together = ()w
+        verbose_name = _("property")
+        verbose_name_plural = _("properties")
 
-    def __string__(self):
-        return self.date
+
+class Equipment(models.Model):
+    """
+    """
+    property = models.ForeignKey(Property, verbose_name=_("property"), on_delete=models.CASCADE)
+    name = models.CharField(max_length=128)
+
+    class Meta:
+        verbose_name = _("equipment")
+        verbose_name_plural = _("equipments")
+
+
+
+class Performance(models.Model):
+    """
+    Each exercise is performed once and more with different Equipment.
+    """
+    exercise = models.ForeignKey(Exercise, verbose_name=_("exercise"), on_delete=models.CASCADE)
+    equipment = models.ForeignKey(Equipment, verbose_name=_("equipment"), blank=True, on_delete=models.CASCADE)
+    order = models.IntegerField()
+    sets = models.IntegerField(_("round"), default=1)
+    reps = models.IntegerField(_("repetition"), default=1)
