@@ -193,6 +193,10 @@ def workout_detail(request, workout_id, exercise_id=None):
 
 
 # Program
+class ProgramListView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
+    model = Program
+
 class ProgramCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Program
