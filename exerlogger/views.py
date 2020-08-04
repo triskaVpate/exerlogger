@@ -5,12 +5,22 @@ from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 from django.utils.safestring import mark_safe
 
-from exerlogger.forms import NewExerciseForm, CustomUserCreationForm, CustomUserAdvancedChangeForm
-from .models import Exercise, Workout, CustomUser, Training, Payment
+from exerlogger.forms import (NewExerciseForm, CustomUserCreationForm,
+                              CustomUserAdvancedChangeForm, DrillForm,
+                              ExerciseForm, WorkoutForm, PerformanceForm)
+from .models import (Exercise, Workout, CustomUser,
+                     Training, Payment, Program,
+                     Performance)
 from .utils import Calendar
 # from datetime import datetime
 import datetime
 from dateutil.relativedelta import relativedelta
+# Class Based Views imports
+from django.views.generic import (TmeplateView, ListView,
+                                  DetailView, CreateView,
+                                  UpdateView, DeleteView)
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
 @login_required
@@ -180,3 +190,85 @@ def workout_detail(request, workout_id, exercise_id=None):
         }
 
     return render(request, 'workout/workout_detail.html', context)
+
+
+# Program
+class ProgramCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    model = Program
+    redirect_field_name = # ADD
+    form_class = ProgramForm
+
+
+class ProgramDetailView(LoginRequiredMixin, DetailView):
+    login_url = '/login/'
+    model = Program
+
+
+class ProgramUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    model = Program
+    redirect_field_name = # ADD
+    form_class = ProogramForm
+
+
+class ProgramDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy('post_list')
+
+
+# Workout
+class WorkoutListView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
+    model = Workout
+
+
+class WorkoutDetailView(LoginRequiredMixin, DetailView):
+    login_url = '/login/'
+    model = Workout
+
+
+class WorkoutCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    model = Workout
+    redirect_field_name = # ADD
+    form_class = WorkoutForm
+
+
+class WorkoutUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    model = Workout
+    redirect_field_name = # ADD
+    form_class =WorkoutForm
+
+
+class WorkoutDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = '/login/'
+    model = Workout
+    success_url = # ADD
+
+
+# Performance
+class PerformanceCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    model = Performance
+    redirect_field_name = # ADD
+    form_class = PerformanceForm
+
+
+class PerformanceDetailView(LoginRequiredMixin, DetailView):
+    login_url = '/login/'
+    model = Performance
+
+
+class PerformanceUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    model = Performance
+    redirect_field_name = # ADD
+    form_class = PerformanceForm
+
+
+class PerformanceDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = '/login/'
+    model = Performance
+    success_url = reverse_lazy() # ADD
