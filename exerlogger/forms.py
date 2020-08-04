@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from exerlogger.models import Exercise, Workout, CustomUser
+from exerlogger.models import (Exercise, Workout, CustomUser,
+                               Performance, Drill, Program)
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -44,3 +45,24 @@ class CustomUserAdvancedChangeForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['first_name', 'last_name', 'email', 'phone_number']
+
+
+class PerformanceForm(forms.ModelForm):
+
+    class Meta:
+        model = Performance
+        fields = ('equipment','sets','reps')
+
+
+class DrillForm(forms.ModelForm):
+
+    class Meta:
+        model = Drill
+        fields = ('name')
+
+
+class ProgramForm(forms.ModelForm):
+
+    class Meta:
+        model = Program
+        fields = ('name', 'description')
