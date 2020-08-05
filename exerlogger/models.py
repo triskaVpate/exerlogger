@@ -128,9 +128,7 @@ class Form(models.Model):
     """
     Attributes:
         name(str): Name of the form. It must be unique, which ensures reuseability.
-        bilateral(bool): True if both limbs are used in unison to contract the muscles.
-                         False if is when each limb works independently of the other
-                         to create the desired movement.
+
     Relation:
         Each Form belongs to one and more Drills.
 
@@ -139,7 +137,6 @@ class Form(models.Model):
         Onearm (Drill.form.name) Deadlift (Drill.name)
     """
     name = models.CharField(max_length=256, unique=True)   # One form can be shared between one and more Drills thus it has to be unique.
-    bilateral = models.BooleanField()
 
     def __str__(self):
         return self.name
@@ -155,6 +152,9 @@ class Drill(TimeStampedModel):
         name(str): Name of the Drill.
         kb5_level(int): Minimum KB5 level that you have to reach in order to practise this Drill.
         form(FK): Form of the Exercise. It's optional.
+        bilateral(bool): True if both limbs are used in unison to contract the muscles.
+                         False if is when each limb works independently of the other
+                         to create the desired movement.
 
     Relation:
         Each Drill can have a Form.
@@ -166,6 +166,7 @@ class Drill(TimeStampedModel):
     name: CharField = models.CharField(_("name"), max_length=255)
     kb5_level = models.IntegerField(_("kb5_level"), null=True, blank=True)
     form = models.ForeignKey(Form, related_name='forms', blank=True, on_delete=models.CASCADE)   # Drill can have a form, but doesn't have to.
+    bilateral = models.BooleanField()
 
     class Meta:
         verbose_name = _("drill")
