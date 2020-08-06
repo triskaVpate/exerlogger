@@ -115,110 +115,41 @@ def signup_view(request):
     return render(request, 'signup.html', {'form': form})
 
 
-@login_required
-def workouts(request):
-    # workouts only for user
-    user_workouts = Workout.objects.filter(user=request.user).order_by('-id')
-    context = {'user_workouts': user_workouts}
-    return render(request, 'workout/workouts.html', context)
-
-
-@login_required
-def delete_item(request, workout_id=None, exercise_id=None):
-    if request.method == 'POST':
-        if exercise_id:
-            get_object_or_404(Exercise, id=exercise_id).delete()
-            return redirect(workout_detail, workout_id=workout_id)
-        else:
-            get_object_or_404(Workout, id=workout_id).delete()
-            return redirect(workouts)
-
-
-@login_required
-def workout_detail(request, workout_id, exercise_id=None):
-    # New workout branch
-    if workout_id == "add":
-        # show empty form
-        exercise_form = NewExerciseForm()
-        # when POST is initialized for the first time, create workout and use it for form
-        if request.method == 'POST':
-            workout_current = Workout.objects.create(user=request.user)
-            exercise_form = NewExerciseForm(request.POST)
-            exercise_form.instance = Exercise(workout=workout_current)
-            if exercise_form.is_valid():
-                exercise_form.save(commit=True)
-                # when first exercise is saved, redirect to the other branch of this view
-                return redirect(workout_detail, workout_id=workout_current.id)
-        context = {
-            'exercise_form': exercise_form
-        }
-
-    # editing exercise - load exercise parameter in form
-    elif exercise_id is not None:
-        workout = get_object_or_404(Workout, pk=workout_id)
-        exercises = Exercise.objects.filter(workout=workout_id)
-        exercise_item = get_object_or_404(Exercise, id=exercise_id)
-        exercise_form = NewExerciseForm(request.POST or None, instance=exercise_item)
-
-        if exercise_form.is_valid():
-            exercise_form.save()
-            # once form is saved, redirect on the same page to have clear form ready
-            return redirect(workout_detail, workout_id=workout.id)
-        context = {
-            'workout': workout,
-            'exercises': exercises,
-            'exercise_form': exercise_form
-        }
-    # workout details?
-    else:
-        workout = get_object_or_404(Workout, pk=workout_id)
-        exercises = Exercise.objects.filter(workout=workout_id)
-
-        exercise_form = NewExerciseForm(
-            request.POST or None,
-            instance=Exercise(workout=workout)
-        )
-        if exercise_form.is_valid():
-            exercise_form.save(commit=True)
-            # once form is saved, redirect on the same page to have clear form ready
-            return redirect(workout_detail, workout_id=workout.id)
-
-        context = {
-            'workout': workout,
-            'exercises': exercises,
-            'exercise_form': exercise_form
-        }
-
-    return render(request, 'workout/workout_detail.html', context)
-
-
+"""
+Logging
+"""
 # Program
 class ProgramListView(LoginRequiredMixin, ListView):
     login_url = '/login/'
     model = Program
 
+
+## Create - Program
 class ProgramCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Program
-    redirect_field_name = # ADD
+    redirect_field_name = 'logging/program_detail.html'
     form_class = ProgramForm
 
 
+## Detail - Program
 class ProgramDetailView(LoginRequiredMixin, DetailView):
     login_url = '/login/'
     model = Program
 
 
+## Update - Program
 class ProgramUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = Program
-    redirect_field_name = # ADD
+    redirect_field_name = 'logging/program_detail.html'
     form_class = ProogramForm
 
 
+## Delete - Program
 class ProgramDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
-    success_url = reverse_lazy('post_list')
+    success_url = reverse_lazy('program_list')
 
 
 # Workout
@@ -227,52 +158,59 @@ class WorkoutListView(LoginRequiredMixin, ListView):
     model = Workout
 
 
+## Detail - Workout
 class WorkoutDetailView(LoginRequiredMixin, DetailView):
     login_url = '/login/'
     model = Workout
 
 
+## Create - Workout
 class WorkoutCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Workout
-    redirect_field_name = # ADD
+    redirect_field_name = 'logging/workout_detail.html'
     form_class = WorkoutForm
 
 
+## Update - Workout
 class WorkoutUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = Workout
-    redirect_field_name = # ADD
+    redirect_field_name = 'logging/workout_detail.html'
     form_class =WorkoutForm
 
 
+## Delete - Workout
 class WorkoutDeleteView(LoginRequiredMixin, DeleteView):
     login_url = '/login/'
     model = Workout
-    success_url = # ADD
+    success_url = reverse_lazy('workout_list')
 
 
 # Performance
 class PerformanceCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Performance
-    redirect_field_name = # ADD
+    redirect_field_name = 'logging/performance_detail.html'
     form_class = PerformanceForm
 
 
+## Detail - Performance
 class PerformanceDetailView(LoginRequiredMixin, DetailView):
     login_url = '/login/'
     model = Performance
 
 
+## Update - Performance
 class PerformanceUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = Performance
-    redirect_field_name = # ADD
+    redirect_field_name = 'logging/performance_detail.html'
     form_class = PerformanceForm
 
 
+## Delete - Performance
 class PerformanceDeleteView(LoginRequiredMixin, DeleteView):
     login_url = '/login/'
     model = Performance
-    success_url = reverse_lazy() # ADD
+    success_url = reverse_lazy('performance_list')
