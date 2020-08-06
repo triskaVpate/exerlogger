@@ -5,9 +5,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 from django.utils.safestring import mark_safe
 
-from exerlogger.forms import (NewExerciseForm, CustomUserCreationForm,
-                              CustomUserAdvancedChangeForm, DrillForm,
-                              ExerciseForm, WorkoutForm, PerformanceForm)
+from exerlogger.forms import (CustomUserCreationForm, CustomUserChangeForm,
+                              CustomUserEmailChangeForm, CustomUserAdvancedChangeForm,
+                              WorkoutForm, PerformanceForm,
+                              DrillForm, ProgramForm)
 from .models import (Exercise, Workout, CustomUser,
                      Training, Payment, Program,
                      Performance)
@@ -16,7 +17,7 @@ from .utils import Calendar
 import datetime
 from dateutil.relativedelta import relativedelta
 # Class Based Views imports
-from django.views.generic import (TmeplateView, ListView,
+from django.views.generic import (TemplateView, ListView,
                                   DetailView, CreateView,
                                   UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -143,12 +144,12 @@ class ProgramUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = Program
     redirect_field_name = 'logging/program_detail.html'
-    form_class = ProogramForm
+    form_class = ProgramForm
 
 
 ## Delete - Program
 class ProgramDeleteView(LoginRequiredMixin, DeleteView):
-    model = Post
+    model = Program
     success_url = reverse_lazy('program_list')
 
 

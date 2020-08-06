@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.conf.urls import url
 
 from exerlogger import views
-from exerlogger.views # import user_homepage, signup_view
+import exerlogger.views
 
 app_name = 'exerlogger'
 urlpatterns = [
