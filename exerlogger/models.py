@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.models import TimeStampedModel
 from datetime import date
 
+from django.urls import reverse
 
 class Gym(TimeStampedModel):
     name = models.CharField(_("name"), max_length=255)
@@ -119,6 +120,9 @@ class Workout(TimeStampedModel):
         verbose_name_plural = _("workouts")
         # unique_together = ()
         # index_together = ()w
+
+    def get_absolute_url(self):
+        return reverse('workout_detail',kwargs={'pk':self.pk})
 
     def __string__(self):
         return self.date
