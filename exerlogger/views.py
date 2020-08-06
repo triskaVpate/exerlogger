@@ -129,7 +129,7 @@ class ProgramListView(LoginRequiredMixin, ListView):
 class ProgramCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Program
-    redirect_field_name = 'logging/program_detail.html'
+    redirect_field_name = 'exerlogger/program_detail.html'
     form_class = ProgramForm
 
 
@@ -143,7 +143,7 @@ class ProgramDetailView(LoginRequiredMixin, DetailView):
 class ProgramUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = Program
-    redirect_field_name = 'logging/program_detail.html'
+    redirect_field_name = 'exerlogger/program_detail.html'
     form_class = ProgramForm
 
 
@@ -169,7 +169,7 @@ class WorkoutDetailView(LoginRequiredMixin, DetailView):
 class WorkoutCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Workout
-    redirect_field_name = 'logging/workout_detail.html'
+    redirect_field_name = 'exerlogger/workout_detail.html'
     form_class = WorkoutForm
 
 
@@ -177,7 +177,7 @@ class WorkoutCreateView(LoginRequiredMixin, CreateView):
 class WorkoutUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = Workout
-    redirect_field_name = 'logging/workout_detail.html'
+    redirect_field_name = 'exerlogger/workout_detail.html'
     form_class =WorkoutForm
 
 
@@ -192,7 +192,7 @@ class WorkoutDeleteView(LoginRequiredMixin, DeleteView):
 class PerformanceCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Performance
-    redirect_field_name = 'logging/performance_detail.html'
+    redirect_field_name = 'exerlogger/performance_detail.html'
     form_class = PerformanceForm
 
 
@@ -206,7 +206,7 @@ class PerformanceDetailView(LoginRequiredMixin, DetailView):
 class PerformanceUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = Performance
-    redirect_field_name = 'logging/performance_detail.html'
+    redirect_field_name = 'exerlogger/performance_detail.html'
     form_class = PerformanceForm
 
 
