@@ -32,6 +32,17 @@ class CustomUserAdvancedChangeForm(forms.ModelForm):
         model = CustomUser
         fields = ['first_name', 'last_name', 'email', 'phone_number']
 
+"""
+Logging
+"""
+# Workout
+class WorkoutForm(forms.ModelForm):
+
+    class Meta:
+        model = Workout
+        fields = ()
+
+
 # Performance
 class PerformanceForm(forms.ModelForm):
 
@@ -45,7 +56,7 @@ class DrillForm(forms.ModelForm):
 
     class Meta:
         model = Drill
-        fields = ('name')
+        fields = ('name',)  # There has to be a comma. Otherwise it's read a string not tuple as it should be.
 
 
 # Program
