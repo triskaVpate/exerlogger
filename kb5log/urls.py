@@ -16,18 +16,16 @@ Including another URL conf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-
 from exerlogger import views
-import exerlogger.views
 
 app_name = 'exerlogger'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('signup/', signup_view, name="signup"),
+    path('signup/', views.signup_view, name="signup"),
 
     # User homepage
-    path('', user_homepage, name='home'),
+    path('', views.user_homepage, name='home'),
     # Program
     ## List - Program
     path('programs/',views.ProgramListView.as_view(), name='program_list'),
