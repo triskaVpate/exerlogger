@@ -26,27 +26,13 @@ class CustomUserEmailChangeForm(forms.ModelForm):
         fields = ['email']
 
 
-class NewWorkoutForm(forms.ModelForm):
-
-    class Meta:
-        model = Workout
-        fields = ["date"]
-
-
-class NewExerciseForm(forms.ModelForm):
-
-    class Meta:
-        model = Exercise
-        fields = ["drill", "weight", "round", "repetition"]
-
-
 class CustomUserAdvancedChangeForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
         fields = ['first_name', 'last_name', 'email', 'phone_number']
 
-
+# Performance
 class PerformanceForm(forms.ModelForm):
 
     class Meta:
@@ -54,6 +40,7 @@ class PerformanceForm(forms.ModelForm):
         fields = ('equipment','sets','reps')
 
 
+# Drill
 class DrillForm(forms.ModelForm):
 
     class Meta:
@@ -61,6 +48,7 @@ class DrillForm(forms.ModelForm):
         fields = ('name')
 
 
+# Program
 class ProgramForm(forms.ModelForm):
 
     class Meta:
