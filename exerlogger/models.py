@@ -95,9 +95,9 @@ class Payment(TimeStampedModel):
         return self.date
 
 
-######################
-### Logging System ###
-######################
+"""
+Logging
+"""
 
 class Workout(TimeStampedModel):
     """
