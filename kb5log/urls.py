@@ -48,7 +48,7 @@ urlpatterns = [
     ## New - Workout
     path('workouts/new/', views.WorkoutCreateView.as_view(), name='workout_new'),
     ## Detail - Workout
-    path('workouts/<int:workout_id>', views.WorkoutDetailView.as_view(), name='workout_detail'),
+    path('workouts/<int:pk>', views.WorkoutDetailView.as_view(), name='workout_detail'),
     ## Edit - Workout
     path('workouts/<int:workout_id>/edit', views.WorkoutUpdateView.as_view(), name='workout_edit'),
     ## Delete - Workout
