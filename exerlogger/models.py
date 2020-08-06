@@ -165,8 +165,8 @@ class Drill(TimeStampedModel):
 
     name: CharField = models.CharField(_("name"), max_length=255)
     kb5_level = models.IntegerField(_("kb5_level"), null=True, blank=True)
-    form = models.ForeignKey(Form, related_name='forms', blank=True, on_delete=models.CASCADE)   # Drill can have a form, but doesn't have to.
-    bilateral = models.BooleanField()
+    form = models.ForeignKey(Form, related_name='forms', blank=True, on_delete=models.CASCADE, null=True)   # Drill can have a form, but doesn't have to.
+    bilateral = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _("drill")
