@@ -1,4 +1,0 @@
-{% extends 'userspace/base.html' %}
-
-{% block content %}
-{% endblock %}

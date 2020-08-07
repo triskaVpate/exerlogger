@@ -4,11 +4,7 @@
 <form method="post">
   {% csrf_token %}
   <p>Are you sure you want to delete? </p>
-  <h2>Performance</h2>
-  <p>Exercise: {{ performance.exercise }}</p>
-  <p>Equipment: {{ performance.equipment }}</p>
-  <p>Sets: {{ performance.sets }}</p>
-  <p>Reps: {{ performance.reps }}</p>
+  <h2>Workout from: {{ workout.date }}</h2>
   <input type="submit" class="btn btn-danger" value="Confirm">
 </form>
 {% endblock %}
