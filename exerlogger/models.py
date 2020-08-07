@@ -219,7 +219,7 @@ class Exercise(TimeStampedModel):
         During each Exercise User performs a Drill.
         Each Exercise belongs to a Workout.
     """
-    workout = models.ForeignKey(Workout, verbose_name=_("workout"), on_delete=models.CASCADE)
+    workout = models.ForeignKey(Workout, verbose_name=_("workout"), related_name='exercises', on_delete=models.CASCADE)
     drill = models.ForeignKey(Drill, verbose_name=_("drill"), on_delete=models.SET("Drill no longer exists"))
 
     class Meta:
@@ -232,7 +232,7 @@ class Exercise(TimeStampedModel):
         return reverse('exercise_detail',kwargs={'exercise_id':self.pk})
 
     def __string__(self):
-        return self.workout
+        return self.drill.name
 
 
 class Property(models.Model):
@@ -299,7 +299,7 @@ class Performance(models.Model):
         time 1(Performance.sets) sets of 7(Performance.reps) reps
         with kettlebell(Performance.eqipment.name) during (Performance.workout)
     """
-    exercise = models.ForeignKey(Exercise, verbose_name=_("exercise"), on_delete=models.CASCADE)
+    exercise = models.ForeignKey(Exercise, verbose_name=_("exercise"), related_name='performances',on_delete=models.CASCADE)
     equipment = models.ForeignKey(Equipment, verbose_name=_("equipment"), blank=True, on_delete=models.CASCADE)
     sets = models.IntegerField(_("sets"), default=1)
     reps = models.IntegerField(_("reps"), default=1)
