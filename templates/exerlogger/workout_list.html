@@ -1,1 +1,12 @@
 {% extends 'userspace/base.html' %}
+
+{% block content %}
+<h1>Workouts</h1>
+{% for workout in workout_list %}
+<div class="program">
+  <h1>
+    <a href="{% url 'workout_detail' workout_id=workout.pk %}">Workout from: {{ workout.date }}</a>
+  </h1>
+</div>
+{% endfor %}
+{% endblock %}

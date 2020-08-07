@@ -1,1 +1,8 @@
 {% extends 'userspace/base.html' %}
+
+{% block content %}
+  <p>Exercise: {{ performance.exercise }}</p>
+  <p>Equipment: {{ performance.equipment }}</p>
+  <p>Sets: {{ performance.sets }}</p>
+  <p>Reps: {{ performance.reps }}</p>
+{% endblock %}

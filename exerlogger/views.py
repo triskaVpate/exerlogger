@@ -138,7 +138,7 @@ class ProgramCreateView(LoginRequiredMixin, CreateView):
 class ProgramDetailView(LoginRequiredMixin, DetailView):
     login_url = '/login/'
     model = Program
-    pk_url_kwarg = 'workout_id'
+    pk_url_kwarg = 'program_id'
 
 
 ## Update - Program
@@ -147,14 +147,14 @@ class ProgramUpdateView(LoginRequiredMixin, UpdateView):
     model = Program
     redirect_field_name = 'exerlogger/program_detail.html'
     form_class = ProgramForm
-    pk_url_kwarg = 'workout_id'
+    pk_url_kwarg = 'program_id'
 
 
 ## Delete - Program
 class ProgramDeleteView(LoginRequiredMixin, DeleteView):
     model = Program
     success_url = reverse_lazy('program_list')
-    pk_url_kwarg = 'workout_id'
+    pk_url_kwarg = 'program_id'
 
 
 # Workout
