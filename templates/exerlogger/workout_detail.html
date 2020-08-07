@@ -3,6 +3,18 @@
 {% block content %}
   <div class="workout">
     <h1>Workout from {{ workout.date }}</h1>
+    {# Exercises #}
+    {% for exercise in workout.exerices.all %}
+      {{ exercise.drill.name }}
+      {# Performances #}
+      {% for performance in exercise.performances.all %}
+        <p>Equipment: {{ performance.equipment.name }}</p>
+        <p>Sets: {{ performance.sets }}</p>
+        <p>Reps: {{ performance.reps }}</p>
+        <a class="btn btn-primary" href="{% url 'performance_edit' performance_id=performance.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+        <a class="btn btn-danger" href="{% url 'performance_delete' performance_id=performance.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+      {% endfor %}
+    {% endfor %}
     {# Buttons #}
     <a class="btn btn-primary" href="{% url 'workout_edit' workout_id=workout.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
     <a class="btn btn-danger" href="{% url 'workout_delete' workout_id=workout.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
