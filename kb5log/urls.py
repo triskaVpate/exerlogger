@@ -32,11 +32,11 @@ urlpatterns = [
     ## New - Program
     path('programs/new/',views.ProgramCreateView.as_view(), name='program_new'),
     ## Detail - Program
-    path('programs/<int:program_id>/', views.ProgramDetailView.as_view(), name='program_detail'),
+    path('programs/<int:pk>/', views.ProgramDetailView.as_view(), name='program_detail'),
     ## Edit - Program
-    path('programs/<int:program_id>/edit', views.ProgramUpdateView.as_view(), name='program_edit'),
+    path('programs/<int:pk>/edit', views.ProgramUpdateView.as_view(), name='program_edit'),
     ## Delete - Program
-    path('programs/<int:program_id>/delete', views.ProgramDeleteView.as_view(), name='program_delete'),
+    path('programs/<int:pk>/delete', views.ProgramDeleteView.as_view(), name='program_delete'),
     # Drill - Program
     ## Add - Drill
     # path('programs/<int:program_id>/drills/add', , name='drill_add'), # ADD View
@@ -50,18 +50,18 @@ urlpatterns = [
     ## Detail - Workout
     path('workouts/<int:pk>', views.WorkoutDetailView.as_view(), name='workout_detail'),
     ## Edit - Workout
-    path('workouts/<int:workout_id>/edit', views.WorkoutUpdateView.as_view(), name='workout_edit'),
+    path('workouts/<int:pk>/edit', views.WorkoutUpdateView.as_view(), name='workout_edit'),
     ## Delete - Workout
-    path('workouts/<int:workout_id>/delete', views.WorkoutDeleteView.as_view(), name='workout_delete'),
+    path('workouts/<int:pk>/delete', views.WorkoutDeleteView.as_view(), name='workout_delete'),
     # Performance - Workout
     ## New - Performance
-    path('workout/<int:workout_id/Performances/new/', views.PerformanceCreateView.as_view(), name='performance_new'),
+    path('workout/<int:pk>/Performances/new/', views.PerformanceCreateView.as_view(), name='performance_new'),
     ## Detail - Performance
-    path('workout/<int:workout_id/Performances/<int:performance_id>', views.PerformanceDetailView.as_view(), name='performance_detail'),
+    path('workout/<int:pk>/Performances/<int:pk>', views.PerformanceDetailView.as_view(), name='performance_detail'),
     ## Edit - Performance
-    path('workout/<int:workout_id/Performances/<int:performance_id>/edit', views.PerformanceUpdateView.as_view(), name='performance_edit'),
+    path('workout/<int:pk>/Performances/<int:pk>/edit', views.PerformanceUpdateView.as_view(), name='performance_edit'),
     ## Delete - Performance
-    path('workout/<int:workout_id/Performances/<int:performance_id>/delete', views.PerformanceDeleteView.as_view(), name='performance_delete'),
+    path('workout/<int:pk>/Performances/<int:pk>/delete', views.PerformanceDeleteView.as_view(), name='performance_delete'),
     # Email change
     path('change_profile', views.user_profile_change, name='user_profile_change'),
     # User attendance
