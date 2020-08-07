@@ -120,6 +120,7 @@ def signup_view(request):
 Logging
 """
 # Program
+## List - Program
 class ProgramListView(LoginRequiredMixin, ListView):
     login_url = '/login/'
     model = Program
@@ -137,6 +138,7 @@ class ProgramCreateView(LoginRequiredMixin, CreateView):
 class ProgramDetailView(LoginRequiredMixin, DetailView):
     login_url = '/login/'
     model = Program
+    pk_url_kwarg = 'workout_id'
 
 
 ## Update - Program
@@ -145,12 +147,14 @@ class ProgramUpdateView(LoginRequiredMixin, UpdateView):
     model = Program
     redirect_field_name = 'exerlogger/program_detail.html'
     form_class = ProgramForm
+    pk_url_kwarg = 'workout_id'
 
 
 ## Delete - Program
 class ProgramDeleteView(LoginRequiredMixin, DeleteView):
     model = Program
     success_url = reverse_lazy('program_list')
+    pk_url_kwarg = 'workout_id'
 
 
 # Workout
@@ -163,6 +167,7 @@ class WorkoutListView(LoginRequiredMixin, ListView):
 class WorkoutDetailView(LoginRequiredMixin, DetailView):
     login_url = '/login/'
     model = Workout
+    pk_url_kwarg = 'workout_id'
 
 
 ## Create - Workout
@@ -171,6 +176,7 @@ class WorkoutCreateView(LoginRequiredMixin, CreateView):
     model = Workout
     redirect_field_name = 'exerlogger/workout_detail.html'
     form_class = WorkoutForm
+    pk_url_kwarg = 'workout_id'
 
 
 ## Update - Workout
@@ -179,6 +185,7 @@ class WorkoutUpdateView(LoginRequiredMixin, UpdateView):
     model = Workout
     redirect_field_name = 'exerlogger/workout_detail.html'
     form_class =WorkoutForm
+    pk_url_kwarg = 'workout_id'
 
 
 ## Delete - Workout
@@ -186,9 +193,11 @@ class WorkoutDeleteView(LoginRequiredMixin, DeleteView):
     login_url = '/login/'
     model = Workout
     success_url = reverse_lazy('workout_list')
+    pk_url_kwarg = 'workout_id'
 
 
 # Performance
+## Create - Performance
 class PerformanceCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Performance
@@ -200,6 +209,7 @@ class PerformanceCreateView(LoginRequiredMixin, CreateView):
 class PerformanceDetailView(LoginRequiredMixin, DetailView):
     login_url = '/login/'
     model = Performance
+    pk_url_kwarg = 'performance_id'
 
 
 ## Update - Performance
@@ -208,6 +218,7 @@ class PerformanceUpdateView(LoginRequiredMixin, UpdateView):
     model = Performance
     redirect_field_name = 'exerlogger/performance_detail.html'
     form_class = PerformanceForm
+    pk_url_kwarg = 'performance_id'
 
 
 ## Delete - Performance
@@ -215,3 +226,4 @@ class PerformanceDeleteView(LoginRequiredMixin, DeleteView):
     login_url = '/login/'
     model = Performance
     success_url = reverse_lazy('performance_list')
+    pk_url_kwarg = 'performance_id'

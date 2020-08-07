@@ -122,7 +122,7 @@ class Workout(TimeStampedModel):
         # index_together = ()w
 
     def get_absolute_url(self):
-        return reverse('workout_detail',kwargs={'pk':self.pk})
+        return reverse('workout_detail',kwargs={'workout_id':self.pk})
 
     def __string__(self):
         return self.date
@@ -202,6 +202,9 @@ class Program(models.Model):
     description = models.CharField(max_length=512)
     consists = models.ManyToManyField(Drill)
 
+    def get_absolute_url(self):
+        return reverse('program_detail',kwargs={'program_id':self.pk})
+
     def __str__(self):
         return self.name
 
@@ -224,6 +227,9 @@ class Exercise(TimeStampedModel):
         verbose_name_plural = _("exercises")
         # unique_together = ()
         # index_together = ()
+
+    def get_absolute_url(self):
+        return reverse('exercise_detail',kwargs={'exercise_id':self.pk})
 
     def __string__(self):
         return self.workout
@@ -297,3 +303,6 @@ class Performance(models.Model):
     equipment = models.ForeignKey(Equipment, verbose_name=_("equipment"), blank=True, on_delete=models.CASCADE)
     sets = models.IntegerField(_("sets"), default=1)
     reps = models.IntegerField(_("reps"), default=1)
+
+    def get_absolute_url(self):
+        return reverse('workout_detail',kwargs={'performance_id':self.pk})
