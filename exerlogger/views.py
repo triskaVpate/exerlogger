@@ -11,12 +11,13 @@ from exerlogger.forms import (CustomUserCreationForm, CustomUserChangeForm,
                               DrillForm, ProgramForm)
 from .models import (Exercise, Workout, CustomUser,
                      Training, Payment, Program,
-                     Performance)
+                     Performance, Drill)
 from .utils import Calendar
 # from datetime import datetime
 import datetime
 from dateutil.relativedelta import relativedelta
 # Class Based Views imports
+from django.views import View
 from django.views.generic import (TemplateView, ListView,
                                   DetailView, CreateView,
                                   UpdateView, DeleteView)
@@ -135,6 +136,19 @@ class ProgramCreateView(LoginRequiredMixin, CreateView):
     form_class = ProgramForm
     template_name = 'exerlogger/logging/program_form.html'
 
+    """
+    def form_valid(self, form):
+        name = form.cleaned_data['name']
+        description = form.cleaned_data['description']
+        drills = form.cleaned_data['drills']
+
+        program = Program(name=name, description=description)
+        program.save()
+        drills_list = Book.objects.filter(pk__in=drills)
+        for book in drills_list:
+            author.book_set.add(book)
+    """
+
 
 ## Detail - Program
 class ProgramDetailView(LoginRequiredMixin, DetailView):
@@ -152,7 +166,6 @@ class ProgramUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProgramForm
     pk_url_kwarg = 'program_id'
     template_name = 'exerlogger/logging/program_form.html'
-
 
 ## Delete - Program
 class ProgramDeleteView(LoginRequiredMixin, DeleteView):
@@ -206,6 +219,11 @@ class WorkoutDeleteView(LoginRequiredMixin, DeleteView):
     pk_url_kwarg = 'workout_id'
     template_name = 'exerlogger/logging/workout_confirm_delete.html'
 
+# Exercise
+## Create - Exercise
+## Detail - Exercise
+## Update - Exercise
+## Delete - Exercise
 
 # Performance
 ## Create - Performance
@@ -242,3 +260,46 @@ class PerformanceDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('performance_list')
     pk_url_kwarg = 'performance_id'
     template_name = 'exerlogger/logging/performance_confirm_delete.html'
+
+
+# Drill
+## List - Drill
+class DrillListView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
+    model = Drill
+    template_name = 'exerlogger/logging/drill_list.html'
+
+
+## Create - Drill
+class DrillCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    model = Drill
+    redirect_field_name = 'exerlogger/logging/drill_detail.html'
+    form_class = DrillForm
+    template_name = 'exerlogger/logging/drill_form.html'
+
+
+## Detail - Drill
+class DrillDetailView(LoginRequiredMixin, DetailView):
+    login_url = '/login/'
+    model = Drill
+    pk_url_kwarg = 'drill_id'
+    template_name = 'exerlogger/logging/drill_detail.html'
+
+
+## Update - Drill
+class DrillUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    model = Drill
+    redirect_field_name = 'exerlogger/logging/drill_detail.html'
+    form_class = DrillForm
+    pk_url_kwarg = 'drill_id'
+    template_name = 'exerlogger/logging/drill_form.html'
+
+
+## Delete - Drill
+class DrillDeleteView(LoginRequiredMixin, DeleteView):
+    model = Drill
+    success_url = reverse_lazy('drill_list')
+    pk_url_kwarg = 'drill_id'
+    template_name = 'exerlogger/logging/drill_confirm_delete.html'

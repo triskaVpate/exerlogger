@@ -5,6 +5,11 @@
     <h1>{{ program.name }}</h1>
     <p> {{ program.description }}</p>
     {# List of Drills #}
+    <ul>
+      {% for drill in program.drills.all %}
+        <li>{{ drill.name }}</li>
+      {% endfor %}
+    </ul>
     {# Buttons #}
     <a class="btn btn-primary" href="{% url 'program_edit' program_id=program.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
     <a class="btn btn-danger" href="{% url 'program_delete' program_id=program.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

@@ -64,4 +64,7 @@ class ProgramForm(forms.ModelForm):
 
     class Meta:
         model = Program
-        fields = ('name', 'description')
+        fields = ('name', 'description', 'drills')
+        widgets = {
+            'drills': forms.CheckboxSelectMultiple,
+        }

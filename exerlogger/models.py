@@ -180,6 +180,9 @@ class Drill(TimeStampedModel):
 
     objects = models.Manager()
 
+    def get_absolute_url(self):
+        return reverse('drill_detail',kwargs={'drill_id':self.pk})
+
     def __str__(self):
         return self.name
 
@@ -200,7 +203,7 @@ class Program(models.Model):
     """
     name = models.CharField(max_length=256)
     description = models.CharField(max_length=512)
-    consists = models.ManyToManyField(Drill)
+    drills = models.ManyToManyField(Drill)
 
     def get_absolute_url(self):
         return reverse('program_detail',kwargs={'program_id':self.pk})

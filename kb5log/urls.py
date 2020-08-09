@@ -37,11 +37,17 @@ urlpatterns = [
     path('programs/<int:program_id>/edit', views.ProgramUpdateView.as_view(), name='program_edit'),
     ## Delete - Program
     path('programs/<int:program_id>/delete', views.ProgramDeleteView.as_view(), name='program_delete'),
-    # Drill - Program
-    ## Add - Drill
-    # path('programs/<int:program_id>/drills/add', , name='drill_add'), # ADD View
-    ## Remove - Drill
-    # path('programs/<int:program_id>/drills/<id_drill>/remove', ,name='drill_remove') # ADD View
+    # Drill
+    ## List - Drill
+    path('drills/', views.DrillListView.as_view(), name='drill_list'),
+    ## New - Drill
+    path('drills/new/', views.DrillCreateView.as_view(), name='drill_new'),
+    ## Detail - Drill
+    path('drills/<int:drill_id>', views.DrillDetailView.as_view(), name='drill_detail'),
+    ## Edit - Drill
+    path('drills/<int:drill_id>/edit', views.DrillUpdateView.as_view(), name='drill_edit'),
+    ## Delete - Drill
+    path('drills/<int:drill_id>/delete', views.DrillDeleteView.as_view(), name='drill_delete'),
     # Workout
     ## List - Workout
     path('workouts/', views.WorkoutListView.as_view(), name='workout_list'),
@@ -53,7 +59,8 @@ urlpatterns = [
     path('workouts/<int:workout_id>/edit', views.WorkoutUpdateView.as_view(), name='workout_edit'),
     ## Delete - Workout
     path('workouts/<int:workout_id>/delete', views.WorkoutDeleteView.as_view(), name='workout_delete'),
-    # Performance - Workout
+    # Exercise - Workout
+    # Performance - Exercise
     ## New - Performance
     path('workouts/<int:workout_id>/performances/new/', views.PerformanceCreateView.as_view(), name='performance_new'),
     ## Detail - Performance
