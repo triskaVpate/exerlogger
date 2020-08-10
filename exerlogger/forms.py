@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from exerlogger.models import (Exercise, Workout, CustomUser,
-                               Performance, Drill, Program)
+                               Performance, Drill, Program,
+                               Exercise)
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -41,6 +42,14 @@ class WorkoutForm(forms.ModelForm):
     class Meta:
         model = Workout
         fields = ()
+
+
+# Exercise
+class ExerciseForm(forms.ModelForm):
+
+    class Meta:
+        model = Exercise
+        fields = ('drill',)
 
 
 # Performance

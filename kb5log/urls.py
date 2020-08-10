@@ -60,15 +60,25 @@ urlpatterns = [
     ## Delete - Workout
     path('workouts/<int:workout_id>/delete', views.WorkoutDeleteView.as_view(), name='workout_delete'),
     # Exercise - Workout
+    ## List - Exercise
+    path('workouts/<int:workout_id>/exercises/', views.ExerciseListView.as_view(), name='exercise_list'),
+    ## New - Exercise
+    path('workouts/<int:workout_id>/exercises/new/', views.ExerciseCreateView.as_view(), name='exercise_new'),
+    ## Detail - Exercise
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>', views.ExerciseDetailView.as_view(), name='exercise_detail'),
+    ## Edit - Exercise
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/edit', views.ExerciseUpdateView.as_view(), name='exercise_edit'),
+    ## Delete - Exercise
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/delete', views.ExerciseDeleteView.as_view(), name='exercise_delete'),
     # Performance - Exercise
     ## New - Performance
-    path('workouts/<int:workout_id>/performances/new/', views.PerformanceCreateView.as_view(), name='performance_new'),
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/new/', views.PerformanceCreateView.as_view(), name='performance_new'),
     ## Detail - Performance
-    path('workouts/<int:workout_id>/performances/<int:performance_id>', views.PerformanceDetailView.as_view(), name='performance_detail'),
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>', views.PerformanceDetailView.as_view(), name='performance_detail'),
     ## Edit - Performance
-    path('workouts/<int:workout_id>/performances/<int:performance_id>/edit', views.PerformanceUpdateView.as_view(), name='performance_edit'),
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>/edit', views.PerformanceUpdateView.as_view(), name='performance_edit'),
     ## Delete - Performance
-    path('workouts/<int:workout_id>/performances/<int:performance_id>/delete', views.PerformanceDeleteView.as_view(), name='performance_delete'),
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>/delete', views.PerformanceDeleteView.as_view(), name='performance_delete'),
     # Email change
     path('change_profile', views.user_profile_change, name='user_profile_change'),
     # User attendance

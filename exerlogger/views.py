@@ -8,10 +8,10 @@ from django.utils.safestring import mark_safe
 from exerlogger.forms import (CustomUserCreationForm, CustomUserChangeForm,
                               CustomUserEmailChangeForm, CustomUserAdvancedChangeForm,
                               WorkoutForm, PerformanceForm,
-                              DrillForm, ProgramForm)
+                              DrillForm, ProgramForm, ExerciseForm)
 from .models import (Exercise, Workout, CustomUser,
                      Training, Payment, Program,
-                     Performance, Drill)
+                     Performance, Drill, Exercise)
 from .utils import Calendar
 # from datetime import datetime
 import datetime
@@ -136,19 +136,6 @@ class ProgramCreateView(LoginRequiredMixin, CreateView):
     form_class = ProgramForm
     template_name = 'exerlogger/logging/program_form.html'
 
-    """
-    def form_valid(self, form):
-        name = form.cleaned_data['name']
-        description = form.cleaned_data['description']
-        drills = form.cleaned_data['drills']
-
-        program = Program(name=name, description=description)
-        program.save()
-        drills_list = Book.objects.filter(pk__in=drills)
-        for book in drills_list:
-            author.book_set.add(book)
-    """
-
 
 ## Detail - Program
 class ProgramDetailView(LoginRequiredMixin, DetailView):
@@ -220,10 +207,52 @@ class WorkoutDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'exerlogger/logging/workout_confirm_delete.html'
 
 # Exercise
+## List - Exercise
+class ExerciseListView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
+    model = Exercise
+    template_name = 'exerlogger/logging/exercise_list.html'
+
+
 ## Create - Exercise
+class ExerciseCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    model = Exercise
+    redirect_field_name = 'exerlogger/logging/exercise_detail.html'
+    form_class = ExerciseForm
+    template_name = 'exerlogger/logging/exercise_form.html'
+
+    def form_valid(self, form):
+        # Get Workout id store it in form
+        form.instance.workout = get_object_or_404(Workout, pk=self.kwargs['workout_id'])
+        return super(ExerciseCreateView, self).form_valid(form)
+
+
 ## Detail - Exercise
+class ExerciseDetailView(LoginRequiredMixin, DetailView):
+    login_url = '/login/'
+    model = Exercise
+    pk_url_kwarg = 'exercise_id'
+    template_name = 'exerlogger/logging/exercise_detail.html'
+
+
 ## Update - Exercise
+class ExerciseUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    model = Exercise
+    redirect_field_name = 'exerlogger/logging/exercise_detail.html'
+    form_class = ExerciseForm
+    pk_url_kwarg = 'exercise_id'
+    template_name = 'exerlogger/logging/exercise_form.html'
+
+
 ## Delete - Exercise
+class ExerciseDeleteView(LoginRequiredMixin, DeleteView):
+        model = Exercise
+        success_url = reverse_lazy('exercise_list')
+        pk_url_kwarg = 'exercise_id'
+        template_name = 'exerlogger/logging/exercise_confirm_delete.html'
+
 
 # Performance
 ## Create - Performance
