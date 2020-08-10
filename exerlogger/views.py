@@ -223,7 +223,7 @@ class ExerciseCreateView(LoginRequiredMixin, CreateView):
     template_name = 'exerlogger/logging/exercise_form.html'
 
     def form_valid(self, form):
-        # Get Workout id store it in form
+        # Get workout_id and store Workout in form
         form.instance.workout = get_object_or_404(Workout, pk=self.kwargs['workout_id'])
         return super(ExerciseCreateView, self).form_valid(form)
 
@@ -262,6 +262,11 @@ class PerformanceCreateView(LoginRequiredMixin, CreateView):
     redirect_field_name = 'exerlogger/logging/performance_detail.html'
     form_class = PerformanceForm
     template_name = 'exerlogger/logging/performance_form.html'
+
+    def form_valid(self, form):
+        # Get exercise_id and store Exercise in form
+        form.instance.workout = get_object_or_404(Exercise, pk=self.kwargs['exercise_id'])
+        return super(PerformanceCreateView, self).form_valid(form)
 
 
 ## Detail - Performance
