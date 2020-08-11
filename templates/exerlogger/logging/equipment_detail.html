@@ -1,0 +1,20 @@
+{% extends 'userspace/base.html' %}
+
+{% block content %}
+<div class="equipment">
+  <h1>Equipment</h1>
+  <p>Name: {{ equipment.name }}</p>
+  <div class="property">
+    <h2>Property</h2>
+    <ul>
+      <li>{{ equipment.property.name }}</li>
+      <li>{{ equipment.property.unit }}</li>
+      <li>{{ equipment.property.value }}</li>
+      {# Button #}
+    </ul>
+  </div>
+  {# Buttons #}
+  <a class="btn btn-primary" href="{% url 'equipment_edit' equipment_id=equipment.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+  <a class="btn btn-danger" href="{% url 'equipment_delete' equipment_id=equipment.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+</div>
+{% endblock %}

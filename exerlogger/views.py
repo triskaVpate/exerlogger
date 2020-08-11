@@ -8,10 +8,12 @@ from django.utils.safestring import mark_safe
 from exerlogger.forms import (CustomUserCreationForm, CustomUserChangeForm,
                               CustomUserEmailChangeForm, CustomUserAdvancedChangeForm,
                               WorkoutForm, PerformanceForm,
-                              DrillForm, ProgramForm, ExerciseForm)
+                              DrillForm, ProgramForm, ExerciseForm,
+                              EquipmentForm, PropertyForm)
 from .models import (Exercise, Workout, CustomUser,
                      Training, Payment, Program,
-                     Performance, Drill, Exercise)
+                     Performance, Drill, Exercise,
+                     Equipment, Property)
 from .utils import Calendar
 # from datetime import datetime
 import datetime
@@ -276,6 +278,17 @@ class ExerciseDeleteView(LoginRequiredMixin, DeleteView):
         return reverse_lazy('exercise_list', kwargs={'workout_id' : self.kwargs['workout_id']})
 
 # Performance
+## List - Performance
+class PerformanceListView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
+    model = Performance
+    template_name = 'exerlogger/logging/performance_list.html'
+
+    def get_queryset(self):
+        # Find all Exercises that belong to the same Workout
+        return Performance.objects.filter(exercise=self.kwargs['exercise_id'])
+
+
 ## Create - Performance
 class PerformanceCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
@@ -286,8 +299,12 @@ class PerformanceCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         # Get exercise_id and store Exercise in form
-        form.instance.workout = get_object_or_404(Exercise, pk=self.kwargs['exercise_id'])
+        form.instance.exercise = get_object_or_404(Exercise, pk=self.kwargs['exercise_id'])
         return super(PerformanceCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        # Send exercise_id too
+        return reverse('performance_detail', kwargs={'performance_id': self.object.pk, 'exercise_id': self.kwargs['exercise_id']})
 
 
 ## Detail - Performance
@@ -307,6 +324,15 @@ class PerformanceUpdateView(LoginRequiredMixin, UpdateView):
     pk_url_kwarg = 'performance_id'
     template_name = 'exerlogger/logging/performance_form.html'
 
+    def form_valid(self, form):
+        # Get exercise_id and store Exercise in form
+        form.instance.exercise = get_object_or_404(Exercise, pk=self.kwargs['exercise_id'])
+        return super(PerformanceCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        # Send exercise_id too
+        return reverse('performance_detail', kwargs={'performance_id': self.object.pk, 'exercise_id': self.kwargs['exercise_id']})
+
 
 ## Delete - Performance
 class PerformanceDeleteView(LoginRequiredMixin, DeleteView):
@@ -315,6 +341,10 @@ class PerformanceDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('performance_list')
     pk_url_kwarg = 'performance_id'
     template_name = 'exerlogger/logging/performance_confirm_delete.html'
+
+    def get_success_url(self):
+        # Send exercise_id
+        return reverse_lazy('performance_list', kwargs={'exercise_id' : self.kwargs['exercise_id']})
 
 
 # Drill
@@ -358,3 +388,93 @@ class DrillDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('drill_list')
     pk_url_kwarg = 'drill_id'
     template_name = 'exerlogger/logging/drill_confirm_delete.html'
+
+# Equipment
+## List - Equipment
+class EquipmentListView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
+    model = Equipment
+    template_name = 'exerlogger/logging/equipment_list.html'
+
+
+## Create - Equipment
+class EquipmentCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    model = Equipment
+    redirect_field_name = 'exerlogger/logging/equipment_detail.html'
+    form_class = EquipmentForm
+    template_name = 'exerlogger/logging/equipment_form.html'
+
+
+## Detail - Equipment
+class EquipmentDetailView(LoginRequiredMixin, DetailView):
+    login_url = '/login/'
+    model = Equipment
+    pk_url_kwarg = 'equipment_id'
+    template_name = 'exerlogger/logging/equipment_detail.html'
+
+
+## Update - Equipment
+class EquipmentUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    model = Equipment
+    redirect_field_name = 'exerlogger/logging/equipment_detail.html'
+    form_class = EquipmentForm
+    pk_url_kwarg = 'equipment_id'
+    template_name = 'exerlogger/logging/equipment_form.html'
+
+
+## Delete - Equipment
+class EquipmentDeleteView(LoginRequiredMixin, DeleteView):
+    model = Equipment
+    success_url = reverse_lazy('equipment_list')
+    pk_url_kwarg = 'equipment_id'
+    template_name = 'exerlogger/logging/equipment_confirm_delete.html'
+
+
+# Property - Equipment
+## List - Property // Not needed
+## Create - Property
+class PropertyCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    model = Property
+    redirect_field_name = 'exerlogger/logging/property_detail.html'
+    form_class = PropertyForm
+    template_name = 'exerlogger/logging/property_form.html'
+
+    def get_success_url(self):
+        # Send equipment_id too
+        return reverse('property_detail', kwargs={'property_id': self.object.pk, 'equipment_id': self.kwargs['equipment_id']})
+
+
+## Detail - Property
+class PropertyDetailView(LoginRequiredMixin, DetailView):
+    login_url = '/login/'
+    model = Property
+    pk_url_kwarg = 'property_id'
+    template_name = 'exerlogger/logging/property_detail.html'
+
+
+## Update - Property
+class PropertyUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    model = Property
+    redirect_field_name = 'exerlogger/logging/property_detail.html'
+    form_class = PropertyForm
+    template_name = 'exerlogger/logging/property_form.html'
+
+    def get_success_url(self):
+        # Send equipment_id too
+        return reverse('property_detail', kwargs={'property_id': self.object.pk, 'equipment_id': self.kwargs['equipment_id']})
+
+## Delete - Property
+class PropertyDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = '/login/'
+    model = Property
+    success_url = reverse_lazy('property_list')
+    pk_url_kwarg = 'property_id'
+    template_name = 'exerlogger/logging/property_confirm_delete.html'
+
+    def get_success_url(self):
+        # Send exercise_id
+        return reverse_lazy('property_list', kwargs={'property_id' : self.kwargs['property_id']})   # CHANGE to Equipment

@@ -1,0 +1,12 @@
+{% extends 'userspace/base.html' %}
+
+{% block content %}
+<h1>Equipments</h1>
+{% for equipment in equipment_list %}
+<div class="equipment">
+  <h1>
+    <a href="{% url 'equipment_detail' equipment_id=equipment.pk %}">{{ drill.name }}</a>
+  </h1>
+</div>
+{% endfor %}
+{% endblock %}

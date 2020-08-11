@@ -79,6 +79,27 @@ urlpatterns = [
     path('exercises/<int:exercise_id>/performances/<int:performance_id>/edit', views.PerformanceUpdateView.as_view(), name='performance_edit'),
     ## Delete - Performance
     path('exercises/<int:exercise_id>/performances/<int:performance_id>/delete', views.PerformanceDeleteView.as_view(), name='performance_delete'),
+    # Equipment
+    ## List - Equipment
+    path('equipments/', views.EquipmentListView.as_view(), name='equipment_list'),
+    ## New - Equipment
+    path('equipments/new/', views.EquipmentCreateView.as_view(), name='equipment_new'),
+    ## Detail - Equipment
+    path('equipments/<int:equipment_id>', views.EquipmentDetailView.as_view(), name='equipment_detail'),
+    ## Edit - Equipment
+    path('equipments/<int:equipment_id>/edit', views.EquipmentUpdateView.as_view(), name='equipment_edit'),
+    ## Delete - Equipment
+    path('equipments/<int:equipment_id>/delete', views.EquipmentDeleteView.as_view(), name='equipment_delete'),
+    # Property - Equipment
+    ## List - Property
+    ## New - Property
+    path('equipments/<int:equipment_id>/properties/new/', views.PropertyCreateView.as_view(), name='property_new'),
+    ## Detail - Property
+    path('equipments/<int:equipment_id>/properties/<int:property_id>', views.PropertyDetailView.as_view(), name='property_detail'),
+    ## Edit - Property
+    path('equipments/<int:equipment_id>/properties/<int:property_id>/edit', views.PropertyUpdateView.as_view(), name='property_edit'),
+    ## Delete - Property
+    path('equipments/<int:equipment_id>/properties/<int:property_id>/delete', views.PropertyDeleteView.as_view(), name='property_delete'),
     # Email change
     path('change_profile', views.user_profile_change, name='user_profile_change'),
     # User attendance

@@ -1,0 +1,17 @@
+{% extends 'userspace/base.html' %}
+
+{% block content %}
+<form class="" method="post">
+  {% csrf_token %}
+  <p>Are you sure you want to delete?</p>
+  <div class="property">
+    <h2>Property</h2>
+    <ul>
+      <li>{{ property.name }}</li>
+      <li>{{ property.unit }}</li>
+      <li>{{ property.value }}</li>
+    </ul>
+  </div>
+  <input type="submit" class="btn btn-danger" value="Confirm">
+</form>
+{% endblock %}

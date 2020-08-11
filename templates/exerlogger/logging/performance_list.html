@@ -1,0 +1,11 @@
+{% extends 'userspace/base.html' %}
+
+{% block content %}
+<h1>Performances</h1>
+{% for performance in performance_list %}
+<div class="performance">
+  <h1>
+    <a href="{% url 'performance_detail' performance_id=performance.pk exercise_id=performance.exercise.id%}">Performance</a>
+  </h1>
+</div>
+{% endblock %}

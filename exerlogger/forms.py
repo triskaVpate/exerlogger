@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from exerlogger.models import (Exercise, Workout, CustomUser,
                                Performance, Drill, Program,
-                               Exercise)
+                               Exercise, Equipment, Property)
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -77,3 +77,19 @@ class ProgramForm(forms.ModelForm):
         widgets = {
             'drills': forms.CheckboxSelectMultiple,
         }
+
+
+# Equipment
+class EquipmentForm(forms.ModelForm):
+
+    class Meta:
+        model = Equipment
+        fields = ('name',)
+
+
+# Property - Equipment
+class PropertyForm(forms.ModelForm):
+
+    class Meta:
+        model = Property
+        fields = ('name', 'unit', 'value')
