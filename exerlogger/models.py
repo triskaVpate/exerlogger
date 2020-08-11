@@ -231,8 +231,10 @@ class Exercise(TimeStampedModel):
         # unique_together = ()
         # index_together = ()
 
+    """
     def get_absolute_url(self):
         return reverse('exercise_detail',kwargs={'exercise_id':self.pk})
+    """
 
     def __string__(self):
         return self.drill.name

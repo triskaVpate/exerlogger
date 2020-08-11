@@ -5,7 +5,7 @@
 {% for exercise in exercise_list %}
 <div class="exercise">
   <h1>
-    <a href="{% url 'exercise_detail' exercise_id=exercise.pk %}">{{ exercise.drill.name }}</a>
+    <a href="{% url 'exercise_detail' exercise_id=exercise.pk workout_id=exercise.workout.id %}">{{ exercise.drill.name }}</a>
   </h1>
 </div>
 {% endfor %}

@@ -4,7 +4,7 @@
 <div class="exercise">
   <h1>{{ exercise.drill }}</h1>
   {# List of Performances #}
-  {% for performance in program.performances.all %}
+  {% for performance in exercise.performances.all %}
   <div class="performance">
     <ul>
       <li>{{ performance.equipment.name }}</li>
@@ -12,12 +12,12 @@
       <li>{{ performance.reps }}</li>
     </ul>
     {# Buttons #}
-    <a class="btn btn-primary" href="{% url 'performance_edit' performance_id=performance.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
-    <a class="btn btn-danger" href="{% url 'performance_delete' performance_id=performance.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+    <a class="btn btn-primary" href="{% url 'performance_edit' performance_id=performance.pk exercise_id=exercise.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+    <a class="btn btn-danger" href="{% url 'performance_delete' performance_id=performance.pk exercise_id=exercise.id %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
   </div>
   {% endfor %}
   {# Buttons #}
-  <a class="btn btn-primary" href="{% url 'exercise_edit' exercise_id=exercise.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
-  <a class="btn btn-danger" href="{% url 'exercise_delete' exercise_id=exercise.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+  <a class="btn btn-primary" href="{% url 'exercise_edit' workout_id=exercise.workout.id exercise_id=exercise.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+  <a class="btn btn-danger" href="{% url 'exercise_delete' workout_id=exercise.workout.id exercise_id=exercise.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 </div>
 {% endblock %}

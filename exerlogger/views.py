@@ -23,6 +23,7 @@ from django.views.generic import (TemplateView, ListView,
                                   UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.urls import reverse
 
 
 @login_required
@@ -213,6 +214,10 @@ class ExerciseListView(LoginRequiredMixin, ListView):
     model = Exercise
     template_name = 'exerlogger/logging/exercise_list.html'
 
+    def get_queryset(self):
+        # Find all Exercises that belong to the same Workout
+        return Exercise.objects.filter(workout=self.kwargs['workout_id'])
+
 
 ## Create - Exercise
 class ExerciseCreateView(LoginRequiredMixin, CreateView):
@@ -226,6 +231,10 @@ class ExerciseCreateView(LoginRequiredMixin, CreateView):
         # Get workout_id and store Workout in form
         form.instance.workout = get_object_or_404(Workout, pk=self.kwargs['workout_id'])
         return super(ExerciseCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        # Send workout_id too
+        return reverse('exercise_detail', kwargs={'exercise_id': self.object.pk, 'workout_id': self.kwargs['workout_id']})
 
 
 ## Detail - Exercise
@@ -245,14 +254,26 @@ class ExerciseUpdateView(LoginRequiredMixin, UpdateView):
     pk_url_kwarg = 'exercise_id'
     template_name = 'exerlogger/logging/exercise_form.html'
 
+    def form_valid(self, form):
+        # Get workout_id and store Workout in form
+        form.instance.workout = get_object_or_404(Workout, pk=self.kwargs['workout_id'])
+        return super(ExerciseUpdateView, self).form_valid(form)
+
+    def get_success_url(self):
+        # Send workout_id too
+        return reverse('exercise_detail', kwargs={'exercise_id': self.object.pk, 'workout_id': self.kwargs['workout_id']})
+
 
 ## Delete - Exercise
 class ExerciseDeleteView(LoginRequiredMixin, DeleteView):
-        model = Exercise
-        success_url = reverse_lazy('exercise_list')
-        pk_url_kwarg = 'exercise_id'
-        template_name = 'exerlogger/logging/exercise_confirm_delete.html'
+    model = Exercise
+    success_url = reverse_lazy('exercise_list')
+    pk_url_kwarg = 'exercise_id'
+    template_name = 'exerlogger/logging/exercise_confirm_delete.html'
 
+    def get_success_url(self):
+        # Send workout_id
+        return reverse_lazy('exercise_list', kwargs={'workout_id' : self.kwargs['workout_id']})
 
 # Performance
 ## Create - Performance

@@ -74,11 +74,11 @@ urlpatterns = [
     ## New - Performance
     path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/new/', views.PerformanceCreateView.as_view(), name='performance_new'),
     ## Detail - Performance
-    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>', views.PerformanceDetailView.as_view(), name='performance_detail'),
+    path('exercises/<int:exercise_id>/performances/<int:performance_id>', views.PerformanceDetailView.as_view(), name='performance_detail'),
     ## Edit - Performance
-    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>/edit', views.PerformanceUpdateView.as_view(), name='performance_edit'),
+    path('exercises/<int:exercise_id>/performances/<int:performance_id>/edit', views.PerformanceUpdateView.as_view(), name='performance_edit'),
     ## Delete - Performance
-    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>/delete', views.PerformanceDeleteView.as_view(), name='performance_delete'),
+    path('exercises/<int:exercise_id>/performances/<int:performance_id>/delete', views.PerformanceDeleteView.as_view(), name='performance_delete'),
     # Email change
     path('change_profile', views.user_profile_change, name='user_profile_change'),
     # User attendance
