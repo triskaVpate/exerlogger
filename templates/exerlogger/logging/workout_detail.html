@@ -16,13 +16,15 @@
       </thead>
       <tbody>
       {% with False as first_row %}  {# To add drill.name ONLY on first row of exercise #}
-      {% for exercise in workout.exerices.all %}
-        <tr>
+      {% for exercise in workout.exercises.all %}
         {% update_variable True as first_row %}
         {# Performances #}
         {% for performance in exercise.performances.all %}
+        <tr>
           {% if first_row %}
-            <td>{{ exercise.drill.name }}<td>
+            <td>
+              <a href="{% url 'exercise_detail' exercise_id=exercise.pk workout_id=workout.id %}">{{ exercise.drill.name }}</a>
+            </td>
             {% update_variable False as first_row %}
           {% else %}
             <td></td>
@@ -31,8 +33,6 @@
           <td>{{ performance.sets }}</td>
           <td>{{ performance.reps }}</td>
         </tr>
-        <a class="btn btn-primary" href="{% url 'performance_edit' performance_id=performance.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
-        <a class="btn btn-danger" href="{% url 'performance_delete' performance_id=performance.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
         {% endfor %}
       {% endfor %}
       {% endwith %}

@@ -5,7 +5,7 @@
 {% for equipment in equipment_list %}
 <div class="equipment">
   <h1>
-    <a href="{% url 'equipment_detail' equipment_id=equipment.pk %}">{{ drill.name }}</a>
+    <a href="{% url 'equipment_detail' equipment_id=equipment.pk %}">{{ equipment.name }}</a>
   </h1>
 </div>
 {% endfor %}

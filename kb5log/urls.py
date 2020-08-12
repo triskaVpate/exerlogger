@@ -71,14 +71,16 @@ urlpatterns = [
     ## Delete - Exercise
     path('workouts/<int:workout_id>/exercises/<int:exercise_id>/delete', views.ExerciseDeleteView.as_view(), name='exercise_delete'),
     # Performance - Exercise
+    ## List - Performance
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances', views.PerformanceListView.as_view(), name='performance_list'),
     ## New - Performance
     path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/new/', views.PerformanceCreateView.as_view(), name='performance_new'),
     ## Detail - Performance
-    path('exercises/<int:exercise_id>/performances/<int:performance_id>', views.PerformanceDetailView.as_view(), name='performance_detail'),
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>', views.PerformanceDetailView.as_view(), name='performance_detail'),
     ## Edit - Performance
-    path('exercises/<int:exercise_id>/performances/<int:performance_id>/edit', views.PerformanceUpdateView.as_view(), name='performance_edit'),
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>/edit', views.PerformanceUpdateView.as_view(), name='performance_edit'),
     ## Delete - Performance
-    path('exercises/<int:exercise_id>/performances/<int:performance_id>/delete', views.PerformanceDeleteView.as_view(), name='performance_delete'),
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>/delete', views.PerformanceDeleteView.as_view(), name='performance_delete'),
     # Equipment
     ## List - Equipment
     path('equipments/', views.EquipmentListView.as_view(), name='equipment_list'),

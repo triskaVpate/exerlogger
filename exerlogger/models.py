@@ -236,13 +236,38 @@ class Exercise(TimeStampedModel):
         return reverse('exercise_detail',kwargs={'exercise_id':self.pk})
     """
 
-    def __string__(self):
+    def __str__(self):
         return self.drill.name
+
+
+class Equipment(models.Model):
+    """
+    Attributes:
+        name(str): Name of the Equipment. It doesn't have to be unique.
+
+    Relation:
+        Each Exercise can be Performed with an Equipment.
+
+    Example:
+        Kettlebell(Equipment.name)
+    """
+    name = models.CharField(max_length=128)
+
+    class Meta:
+        verbose_name = _("equipment")
+        verbose_name_plural = _("equipments")
+
+    def get_absolute_url(self):
+        return reverse('equipment_detail',kwargs={'equipment_id':self.pk})
+
+    def __str__(self):
+        return self.name
 
 
 class Property(models.Model):
     """
     Attributes:
+        equipment(FK): Equipment this Property belongs.
         name(str): Name of the Property.
         unit(str): Unit in which that Property is measured.
         value(int): Value of the Property.
@@ -254,6 +279,7 @@ class Property(models.Model):
         Kettlebell(Equipment.name) has weight(Property.name) of 20(Property.value)Kg(Property.unit)
         Stool(Equipment.name) has a height(Property.name) of 30(Property.value)cm(Property.unit)
     """
+    equipment = models.ForeignKey(Equipment, verbose_name=_("property"), related_name='properties', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=128)
     unit = models.CharField(max_length=8)
     value = models.IntegerField()
@@ -261,26 +287,6 @@ class Property(models.Model):
     class Meta:
         verbose_name = _("property")
         verbose_name_plural = _("properties")
-
-
-class Equipment(models.Model):
-    """
-    Attributes:
-        property(FK): It can store the Property of the Equipment.
-        name(str): Name of the Equipment. It doesn't have to be unique.
-
-    Relation:
-        Each Exercise can be Performed with an Equipment.
-
-    Example:
-        Kettlebell(Equipment.name)
-    """
-    property = models.ForeignKey(Property, verbose_name=_("property"), on_delete=models.CASCADE)
-    name = models.CharField(max_length=128)
-
-    class Meta:
-        verbose_name = _("equipment")
-        verbose_name_plural = _("equipments")
 
 
 class Performance(models.Model):

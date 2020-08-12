@@ -3,12 +3,12 @@
 {% block content %}
   <div class="performance">
     <h1>Performance</h1>
-    <ol>
-      <li>Equipment: {{ performance.equipment }}</li>
+    <ul>
+      <li>Equipment: {{ performance.equipment.name }}</li>
       <li>Sets: {{ performance.sets }}</li>
       <li>Reps: {{ performance.reps }}</li>
-    </ol>
-    <a class="btn btn-primary" href="{% url 'performance_edit' performance_id=performance.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
-    <a class="btn btn-danger" href="{% url 'performance_delete' performance_id=performance.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+    </ul>
+    <a class="btn btn-primary" href="{% url 'performance_edit' performance_id=performance.pk exercise_id=performance.exercise.id workout_id=performance.exercise.workout.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+    <a class="btn btn-danger" href="{% url 'performance_delete' performance_id=performance.pk exercise_id=performance.exercise.id workout_id=performance.exercise.workout.id %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
   </div>
 {% endblock %}
