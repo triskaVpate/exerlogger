@@ -2,10 +2,7 @@
 
 {% block content %}
 <div class="drill">
-  <h1>Drill</h1>
-  <ul>
-    <li>Name: {{ drill.name }}</li>
-  </ul>
+    <h1>{{ drill.name }}</h1>
   <a class="btn btn-primary" href="{% url 'drill_edit' drill_id=drill.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
   <a class="btn btn-danger" href="{% url 'drill_delete' drill_id=drill.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 </div>

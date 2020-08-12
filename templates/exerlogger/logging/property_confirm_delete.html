@@ -5,13 +5,9 @@
   {% csrf_token %}
   <p>Are you sure you want to delete?</p>
   <div class="property">
-    <h2>Property</h2>
-    <ul>
-      <li>{{ property.name }}</li>
-      <li>{{ property.unit }}</li>
-      <li>{{ property.value }}</li>
-    </ul>
+    <h2>{{ property.name }} {{ property.value }}{{ property.unit }}</h2>
   </div>
   <input type="submit" class="btn btn-danger" value="Confirm">
+  <a class="btn btn-primary" href="{% url 'property_detail' property_id=property.pk equipment_id=property.equipment.pk %}">Cancel</a>
 </form>
 {% endblock %}

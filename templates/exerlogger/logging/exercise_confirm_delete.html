@@ -7,5 +7,6 @@
   <h2>Exercise</h2>
   <p>{{ exercise.drill }}</p>
   <input type="submit" class="btn btn-danger" value="Confirm">
+  <a class="btn btn-primary" href="{% url 'exercise_detail' exercise_id=exercise.id workout_id=exercise.workout.id %}">Cancel</a>
 </form>
 {% endblock %}

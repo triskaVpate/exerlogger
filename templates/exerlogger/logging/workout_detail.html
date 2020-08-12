@@ -2,6 +2,7 @@
 {% load extras %} {# Loaded for custom tags and filters #}
 
 {% block content %}
+  <a class="btn btn-primary" href="{% url 'workout_list' %}"><i class="fa fa-reply" aria-hidden="true"></i></a>
   <div class="workout">
     <h1>Workout from {{ workout.date }}</h1>
     {# Exercises #}
@@ -29,7 +30,14 @@
           {% else %}
             <td></td>
           {% endif %}
-          <td>{{ performance.equipment.name }}</td>
+          <td>{{ performance.equipment.name }}
+            {% for property in performance.equipment.properties.all %} {# Temporary fix #}
+              (
+              {{ property.value }}
+              {{ property.unit }}
+              )
+            {% endfor %}
+          </td>
           <td>{{ performance.sets }}</td>
           <td>{{ performance.reps }}</td>
         </tr>

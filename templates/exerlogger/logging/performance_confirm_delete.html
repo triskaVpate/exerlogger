@@ -10,5 +10,6 @@
   <p>Sets: {{ performance.sets }}</p>
   <p>Reps: {{ performance.reps }}</p>
   <input type="submit" class="btn btn-danger" value="Confirm">
+  <a class="btn btn-primary" href="{% url 'performance_detail' performance_id=performance.pk exercise_id=performance.exercise.id workout_id=performance.exercise.workout.id %}">Cancel</a>
 </form>
 {% endblock %}

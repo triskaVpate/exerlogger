@@ -1,6 +1,7 @@
 {% extends 'userspace/base.html' %}
 
 {% block content %}
+  <a class="btn btn-primary" href="{% url 'exercise_detail' exercise_id=performance.exercise.id workout_id=performance.exercise.workout.id %}"><i class="fa fa-reply" aria-hidden="true"></i></a>
   <div class="performance">
     <h1>Performance</h1>
     <ul>

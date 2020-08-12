@@ -5,7 +5,13 @@
 {% for equipment in equipment_list %}
 <div class="equipment">
   <h1>
-    <a href="{% url 'equipment_detail' equipment_id=equipment.pk %}">{{ equipment.name }}</a>
+    <a href="{% url 'equipment_detail' equipment_id=equipment.pk %}">{{ equipment.name }}
+      {% for property in equipment.properties.all %} {# Temporary fix #}
+        (
+        {{ property.value }}
+        {{ property.unit }}
+        )
+      {% endfor %}
   </h1>
 </div>
 {% endfor %}
