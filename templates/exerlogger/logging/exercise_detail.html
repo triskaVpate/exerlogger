@@ -30,6 +30,7 @@
     </tbody>
   </table>
   {# Buttons #}
+  <a class="btn btn-primary" href="{% url 'performance_new' workout_id=exercise.workout.id exercise_id=exercise.pk %}"><i class="fa fa-plus" aria-hidden="true"></i></a>
   <a class="btn btn-primary" href="{% url 'exercise_edit' workout_id=exercise.workout.id exercise_id=exercise.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
   <a class="btn btn-danger" href="{% url 'exercise_delete' workout_id=exercise.workout.id exercise_id=exercise.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 </div>

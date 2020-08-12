@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>Drills</h1>
+<a class="btn btn-primary" href="{% url 'drill_new' %}"><i class="fa fa-plus" aria-hidden="true"></i></a>
 {% for drill in drill_list %}
 <div class="drill">
   <h1>
