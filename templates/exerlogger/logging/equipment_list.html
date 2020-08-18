@@ -7,12 +7,13 @@
 <div class="equipment">
   <h1>
     <a href="{% url 'equipment_detail' equipment_id=equipment.pk %}">{{ equipment.name }}
-      {% for property in equipment.properties.all %} {# Temporary fix #}
+      {% if equipment.property %}
         (
-        {{ property.value }}
-        {{ property.unit }}
+        {{ equipment.property.value }}
+        {{ equipment.property.unit }}
         )
-      {% endfor %}
+      {% endif %}
+    </a>
   </h1>
 </div>
 {% endfor %}

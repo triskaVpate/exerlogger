@@ -261,7 +261,10 @@ class Equipment(models.Model):
         return reverse('equipment_detail',kwargs={'equipment_id':self.pk})
 
     def __str__(self):
-        return self.name
+        if hasattr(self, 'property'):
+            return "{} ({}{})".format(self.name, self.property.value, self.property.unit)
+        else:
+            return self.name
 
 
 class Property(models.Model):
@@ -279,7 +282,7 @@ class Property(models.Model):
         Kettlebell(Equipment.name) has weight(Property.name) of 20(Property.value)Kg(Property.unit)
         Stool(Equipment.name) has a height(Property.name) of 30(Property.value)cm(Property.unit)
     """
-    equipment = models.ForeignKey(Equipment, verbose_name=_("property"), related_name='properties', on_delete=models.CASCADE, null=True)
+    equipment = models.OneToOneField(Equipment, verbose_name=_("equipment"), related_name='property', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=128)
     unit = models.CharField(max_length=8)
     value = models.IntegerField()
@@ -287,6 +290,9 @@ class Property(models.Model):
     class Meta:
         verbose_name = _("property")
         verbose_name_plural = _("properties")
+
+    def __str__(self):
+        return self.name + str(self.value) + self.unit
 
 
 class Performance(models.Model):
@@ -310,10 +316,12 @@ class Performance(models.Model):
         time 1(Performance.sets) sets of 7(Performance.reps) reps
         with kettlebell(Performance.eqipment.name) during (Performance.workout)
     """
-    exercise = models.ForeignKey(Exercise, verbose_name=_("exercise"), related_name='performances',on_delete=models.CASCADE)
-    equipment = models.ForeignKey(Equipment, verbose_name=_("equipment"), blank=True, on_delete=models.CASCADE)
+    exercise = models.ForeignKey(Exercise, verbose_name=_("exercise"), related_name='performances',
+                                 on_delete=models.CASCADE)
+    equipment = models.ForeignKey(Equipment, verbose_name=_("equipment"), blank=True, on_delete=models.CASCADE,
+                                  null=True)
     sets = models.IntegerField(_("sets"), default=1)
     reps = models.IntegerField(_("reps"), default=1)
 
     def get_absolute_url(self):
-        return reverse('workout_detail',kwargs={'performance_id':self.pk})
+        return reverse('workout_detail', kwargs={'performance_id': self.pk})

@@ -6,17 +6,9 @@
   <p>Are you sure you want to delete?</p>
   <h2>Equipment</h2>
   <p>{{ equipment.name }}</p>
-  {% for property in equipment.properties.all %}
   <div class="property">
-    <h2>Property</h2>
-    <ul>
-      <li>{{ property.name }}</li>
-      <li>{{ property.unit }}</li>
-      <li>{{ property.value }}</li>
-      {# Button #}
-    </ul>
+      <h2>{{ equipment.property.name }} {{ equipment.property.value }}{{ equipment.property.unit }}</h2>
   </div>
-  {% endfor %}
   <input type="submit" class="btn btn-danger" value="Confirm">
   <a class="btn btn-primary" href="{% url 'equipment_detail' equipment_id=equipment.pk %}">Cancel</a>
 </form>
