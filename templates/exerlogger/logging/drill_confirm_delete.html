@@ -5,7 +5,12 @@
   {% csrf_token %}
   <p>Are you sure you want to delete?</p>
   <h2>Drill</h2>
-  <p>{{ drill.name }}</p>
+  <p>
+    {% if drill.form %}
+        {{ drill.form }}
+    {% endif %}
+    {{ drill.name }}
+  </p>
   <input type="submit" class="btn btn-danger" value="Confirm">
   <a class="btn btn-primary" href="{% url 'drill_detail' drill_id=drill.pk %}">Cancel</a>
 </form>

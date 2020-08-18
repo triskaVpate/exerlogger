@@ -6,7 +6,12 @@
 {% for drill in drill_list %}
 <div class="drill">
   <h1>
-    <a href="{% url 'drill_detail' drill_id=drill.pk %}">{{ drill.name }}</a>
+    <a href="{% url 'drill_detail' drill_id=drill.pk %}">
+      {% if drill.form %}
+        {{ drill.form }}
+      {% endif %}
+      {{ drill.name }}
+    </a>
   </h1>
 </div>
 {% endfor %}

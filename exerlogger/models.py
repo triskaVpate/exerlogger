@@ -12,6 +12,7 @@ from datetime import date
 
 from django.urls import reverse
 
+
 class Gym(TimeStampedModel):
     name = models.CharField(_("name"), max_length=255)
 
@@ -100,6 +101,7 @@ class Payment(TimeStampedModel):
 Logging
 """
 
+
 class Workout(TimeStampedModel):
     """
     Attributes:
@@ -122,7 +124,7 @@ class Workout(TimeStampedModel):
         # index_together = ()w
 
     def get_absolute_url(self):
-        return reverse('workout_detail',kwargs={'workout_id':self.pk})
+        return reverse('workout_detail', kwargs={'workout_id': self.pk})
 
     def __string__(self):
         return self.date
@@ -140,7 +142,8 @@ class Form(models.Model):
         Onearm (Drill.form.name) Swing (Drill.name)
         Onearm (Drill.form.name) Deadlift (Drill.name)
     """
-    name = models.CharField(max_length=256, unique=True)   # One form can be shared between one and more Drills thus it has to be unique.
+    name = models.CharField(max_length=256,
+                            unique=True)  # One form can be shared between one and more Drills thus it has to be unique.
 
     def __str__(self):
         return self.name
@@ -154,22 +157,20 @@ class Drill(TimeStampedModel):
     """
     Attributes:
         name(str): Name of the Drill.
+        form(str): Drill's form.
         kb5_level(int): Minimum KB5 level that you have to reach in order to practise this Drill.
         form(FK): Form of the Exercise. It's optional.
         bilateral(bool): True if both limbs are used in unison to contract the muscles.
                          False if is when each limb works independently of the other
                          to create the desired movement.
 
-    Relation:
-        Each Drill can have a Form.
-
     Example:
-        Onearm (Drill.form.name) Swing (Drill.name)
+        Onearm (Drill.form) Swing (Drill.name)
     """
 
-    name: CharField = models.CharField(_("name"), max_length=255)
+    name = models.CharField(_("name"), max_length=255)
+    form = models.CharField(max_length=256, null=True)  # Drill can have a form, but doesn't have to.
     kb5_level = models.IntegerField(_("kb5_level"), null=True, blank=True)
-    form = models.ForeignKey(Form, related_name='forms', blank=True, on_delete=models.CASCADE, null=True)   # Drill can have a form, but doesn't have to.
     bilateral = models.BooleanField(default=True)
 
     class Meta:
@@ -181,10 +182,13 @@ class Drill(TimeStampedModel):
     objects = models.Manager()
 
     def get_absolute_url(self):
-        return reverse('drill_detail',kwargs={'drill_id':self.pk})
+        return reverse('drill_detail', kwargs={'drill_id': self.pk})
 
     def __str__(self):
-        return self.name
+        if self.form is not None:
+            return f'{self.form} {self.name}'
+        else:
+            return self.name
 
 
 class Program(models.Model):
@@ -206,7 +210,7 @@ class Program(models.Model):
     drills = models.ManyToManyField(Drill)
 
     def get_absolute_url(self):
-        return reverse('program_detail',kwargs={'program_id':self.pk})
+        return reverse('program_detail', kwargs={'program_id': self.pk})
 
     def __str__(self):
         return self.name
@@ -258,7 +262,7 @@ class Equipment(models.Model):
         verbose_name_plural = _("equipments")
 
     def get_absolute_url(self):
-        return reverse('equipment_detail',kwargs={'equipment_id':self.pk})
+        return reverse('equipment_detail', kwargs={'equipment_id': self.pk})
 
     def __str__(self):
         if hasattr(self, 'property'):
@@ -282,7 +286,8 @@ class Property(models.Model):
         Kettlebell(Equipment.name) has weight(Property.name) of 20(Property.value)Kg(Property.unit)
         Stool(Equipment.name) has a height(Property.name) of 30(Property.value)cm(Property.unit)
     """
-    equipment = models.OneToOneField(Equipment, verbose_name=_("equipment"), related_name='property', on_delete=models.CASCADE, null=True)
+    equipment = models.OneToOneField(Equipment, verbose_name=_("equipment"), related_name='property',
+                                     on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=128)
     unit = models.CharField(max_length=8)
     value = models.IntegerField()

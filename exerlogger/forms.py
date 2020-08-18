@@ -65,7 +65,8 @@ class DrillForm(forms.ModelForm):
 
     class Meta:
         model = Drill
-        fields = ('name',)  # There has to be a comma. Otherwise it's read a string not tuple as it should be.
+        fields = ('name', 'form', 'bilateral')  # There has to be a comma. Otherwise it's read a string not tuple as
+        # it should be.
 
 
 # Program
