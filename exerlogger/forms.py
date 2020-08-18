@@ -33,9 +33,11 @@ class CustomUserAdvancedChangeForm(forms.ModelForm):
         model = CustomUser
         fields = ['first_name', 'last_name', 'email', 'phone_number']
 
+
 """
 Logging
 """
+
 # Workout
 class WorkoutForm(forms.ModelForm):
 

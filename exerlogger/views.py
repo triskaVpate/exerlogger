@@ -123,6 +123,7 @@ def signup_view(request):
 """
 Logging
 """
+
 # Program
 ## List - Program
 class ProgramListView(LoginRequiredMixin, ListView):
@@ -171,6 +172,10 @@ class WorkoutListView(LoginRequiredMixin, ListView):
     login_url = '/login/'
     model = Workout
     template_name = 'exerlogger/logging/workout_list.html'
+
+    def get_queryset(self):
+        # Find all Workouts that belong to the same User
+        return Workout.objects.filter(user=self.request.user.id)
 
 
 ## Create - Workout
