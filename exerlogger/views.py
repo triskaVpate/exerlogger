@@ -182,6 +182,11 @@ class WorkoutCreateView(LoginRequiredMixin, CreateView):
     pk_url_kwarg = 'workout_id'
     template_name = 'exerlogger/logging/workout_form.html'
 
+    def form_valid(self, form):
+        # Get user_id and store CustomUser in form
+        form.instance.user = self.request.user
+        return super(WorkoutCreateView, self).form_valid(form)
+
 
 ## Detail - Workout
 class WorkoutDetailView(LoginRequiredMixin, DetailView):
@@ -199,6 +204,11 @@ class WorkoutUpdateView(LoginRequiredMixin, UpdateView):
     form_class =WorkoutForm
     pk_url_kwarg = 'workout_id'
     template_name = 'exerlogger/logging/workout_form.html'
+
+    def form_valid(self, form):
+        # Get user_id and store CustomUser in form
+        form.instance.user = self.request.user
+        return super(WorkoutUpdateView, self).form_valid(form)
 
 
 ## Delete - Workout
