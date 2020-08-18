@@ -179,7 +179,7 @@ class Workout(TimeStampedModel):
         User can perform one and more Workouts.
     """
     date = models.DateField(_("date"), default=date.today)
-    user = models.ForeignKey(CustomUser, verbose_name=_("user"), on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(CustomUser, verbose_name=_("user"), on_delete=models.CASCADE)
     program = models.ForeignKey(Program, verbose_name=_("program"), related_name='program', on_delete=models.CASCADE,
                                 null=True, blank=True)
 
