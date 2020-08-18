@@ -12,13 +12,8 @@
       {% endfor %}
     </ul>
     {# Buttons #}
-    <a class="btn btn-primary" href="{% url 'program_edit' program_id=program.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+    <a class="btn btn-primary" href="{% url 'program_edit' program_id=program.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
     <a class="btn btn-danger" href="{% url 'program_delete' program_id=program.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
   </div>
-
 {% endblock %}
 
-<div class="workout">
-  <h1>Workout from {{ workout.date }}</h1>
-
-</div>

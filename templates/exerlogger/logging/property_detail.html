@@ -4,7 +4,7 @@
 <a class="btn btn-primary" href="{% url 'equipment_detail' equipment_id=property.equipment.id %}"><i class="fa fa-reply" aria-hidden="true"></i></a>
 <div class="property">
   <h2>{{ property.name }} {{ property.value }}{{ property.unit }}</h2>
-  <a class="btn btn-primary" href="{% url 'property_edit' property_id=property.pk equipment_id=property.equipment.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+  <a class="btn btn-primary" href="{% url 'property_edit' property_id=property.pk equipment_id=property.equipment.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
   <a class="btn btn-danger" href="{% url 'property_delete' property_id=property.pk equipment_id=property.equipment.id %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 </div>
 {% endblock %}

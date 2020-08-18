@@ -59,7 +59,7 @@
     </table>
     {# Buttons #}
     <a class="btn btn-primary" href="{% url 'exercise_new' workout_id=workout.pk %}"><i class="fa fa-plus" aria-hidden="true"></i></a>
-    <a class="btn btn-primary" href="{% url 'workout_edit' workout_id=workout.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+    <a class="btn btn-primary" href="{% url 'workout_edit' workout_id=workout.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
     <a class="btn btn-danger" href="{% url 'workout_delete' workout_id=workout.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
   </div>
 {% endblock %}
