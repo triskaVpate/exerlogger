@@ -1,0 +1,20 @@
+{% extends 'userspace/base.html' %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <div class="program">
+    <h1>{{ program.name }}</h1>
+    <p> {{ program.description }}</p>
+    {# List of Drills #}
+    <ul>
+      {% for drill in program.drills.all %}
+        <li>{{ drill.name }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {# Buttons #}
+  <input type="submit" class="btn btn-danger" value="Confirm">
+  <a class="btn btn-primary" href="{% url 'program_detail' program_id=program.pk %}">Cancel</a>
+</form>
+{% endblock %}

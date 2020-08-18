@@ -1,0 +1,65 @@
+{% extends 'userspace/base.html' %}
+{% load extras %} {# Loaded for custom tags and filters #}
+
+{% block content %}
+  <a class="btn btn-primary" href="{% url 'workout_list' %}"><i class="fa fa-reply" aria-hidden="true"></i></a>
+  <div class="workout">
+    <h1>Workout from {{ workout.date }}</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Drill</th>
+          <th>Equipment</th>
+          <th>Sets</th>
+          <th>Reps</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% with False as first_row %}  {# To add drill.name ONLY on first row of exercise #}
+      {# Exercises #}
+      {% for exercise in workout.exercises.all %}
+        {% update_variable True as first_row %}
+        {# Performances #}
+        {% if not exercise.performances.all %} {# In case an Exercise doesn't have a Performance #}
+          <tr>
+            <td>
+                <a href="{% url 'exercise_detail' exercise_id=exercise.pk workout_id=workout.id %}">{{ exercise.drill.name }}</a>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        {% else %}
+          {% for performance in exercise.performances.all %}
+          <tr>
+            {% if first_row %}
+              <td>
+                <a href="{% url 'exercise_detail' exercise_id=exercise.pk workout_id=workout.id %}">{{ exercise.drill.name }}</a>
+              </td>
+              {% update_variable False as first_row %}
+            {% else %}
+              <td></td>
+            {% endif %}
+            <td>{{ performance.equipment.name }}
+              {% for property in performance.equipment.properties.all %} {# Temporary fix #}
+                (
+                {{ property.value }}
+                {{ property.unit }}
+                )
+              {% endfor %}
+            </td>
+            <td>{{ performance.sets }}</td>
+            <td>{{ performance.reps }}</td>
+          </tr>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+      {% endwith %}
+      </tbody>
+    </table>
+    {# Buttons #}
+    <a class="btn btn-primary" href="{% url 'exercise_new' workout_id=workout.pk %}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    <a class="btn btn-primary" href="{% url 'workout_edit' workout_id=workout.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+    <a class="btn btn-danger" href="{% url 'workout_delete' workout_id=workout.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+  </div>
+{% endblock %}

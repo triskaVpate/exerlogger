@@ -1,0 +1,20 @@
+{% extends 'userspace/base.html' %}
+
+{% block content %}
+<div class="equipment">
+  <a class="btn btn-primary" href="{% url 'equipment_list' %}"><i class="fa fa-reply" aria-hidden="true"></i></a>
+  <h1>{{ equipment.name }}</h1>
+  {% if equipment.property %}
+    <div class="property">
+      <a href="{% url 'property_detail' property_id=equipment.property.pk equipment_id=equipment.pk %}">
+        <h2>{{ equipment.property.name }} {{ equipment.property.value }}{{ equipment.property.unit }}</h2>
+      </a>
+    </div>
+  {% else %}
+    {# Buttons #}
+    <a class="btn btn-primary" href="{% url 'property_new' equipment_id=equipment.pk %}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+  {% endif %}
+  <a class="btn btn-primary" href="{% url 'equipment_edit' equipment_id=equipment.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+  <a class="btn btn-danger" href="{% url 'equipment_delete' equipment_id=equipment.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+</div>
+{% endblock %}

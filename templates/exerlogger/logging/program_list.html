@@ -1,0 +1,14 @@
+{% extends 'userspace/base.html' %}
+
+{% block content %}
+<h1>Programs</h1>
+<a class="btn btn-primary" href="{% url 'program_new' %}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+{% for program in program_list %}
+<div class="program">
+  <h1>
+    <a href="{% url 'program_detail' program_id=program.pk %}">{{ program.name }}</a>
+  </h1>
+  <p>{{ program.description }}</p>
+</div>
+{% endfor %}
+{% endblock %}

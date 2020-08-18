@@ -7,7 +7,7 @@ from .models import Drill, Exercise, Workout, CustomUser, Gym, Lesson, Training,
 # used for fieldsets
 from django.utils.translation import ugettext_lazy as _
 
-
+"""
 class DrillAdmin(admin.ModelAdmin):
     list_display = ('created', 'name', 'kb5_level')
     list_filter = ()
@@ -97,3 +97,4 @@ admin.site.register(Gym, GymAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Training, TrainingAdmin)
 admin.site.register(Payment, PaymentAdmin)
+"""

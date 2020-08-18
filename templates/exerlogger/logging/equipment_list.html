@@ -1,0 +1,20 @@
+{% extends 'userspace/base.html' %}
+
+{% block content %}
+<h1>Equipments</h1>
+<a class="btn btn-primary" href="{% url 'equipment_new' %}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+{% for equipment in equipment_list %}
+<div class="equipment">
+  <h1>
+    <a href="{% url 'equipment_detail' equipment_id=equipment.pk %}">{{ equipment.name }}
+      {% if equipment.property %}
+        (
+        {{ equipment.property.value }}
+        {{ equipment.property.unit }}
+        )
+      {% endif %}
+    </a>
+  </h1>
+</div>
+{% endfor %}
+{% endblock %}

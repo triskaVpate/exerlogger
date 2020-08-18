@@ -1,0 +1,37 @@
+{% extends 'userspace/base.html' %}
+
+{% block content %}
+<a class="btn btn-primary" href="{% url 'workout_detail' workout_id=exercise.workout.id %}"><i class="fa fa-reply" aria-hidden="true"></i></a>
+<div class="exercise">
+  <h1>{{ exercise.drill }}</h1>
+  {# List of Performances #}
+  <table>
+    <thead>
+      <tr>
+        <th>Equipment</th>
+        <th>Sets</th>
+        <th>Reps</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for performance in exercise.performances.all %}
+    <div class="performance">
+      <tr>
+        <td>{{ performance.equipment.name }}</td>
+        <td>{{ performance.sets }}</td>
+        <td>{{ performance.reps }}</td>
+        <td>
+          <a class="btn btn-primary" href="{% url 'performance_detail' performance_id=performance.pk exercise_id=exercise.pk workout_id=exercise.workout.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+        </td>
+      </tr>
+    </div>
+    {% endfor %}
+    </tbody>
+  </table>
+  {# Buttons #}
+  <a class="btn btn-primary" href="{% url 'performance_new' workout_id=exercise.workout.id exercise_id=exercise.pk %}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+  <a class="btn btn-primary" href="{% url 'exercise_edit' workout_id=exercise.workout.id exercise_id=exercise.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+  <a class="btn btn-danger" href="{% url 'exercise_delete' workout_id=exercise.workout.id exercise_id=exercise.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+</div>
+{% endblock %}

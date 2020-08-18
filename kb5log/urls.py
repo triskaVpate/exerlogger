@@ -16,30 +16,92 @@ Including another URL conf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-
 from exerlogger import views
-from exerlogger.views import user_homepage, signup_view
 
 app_name = 'exerlogger'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('signup/', signup_view, name="signup"),
+    path('signup/', views.signup_view, name="signup"),
 
     # User homepage
-    path('', user_homepage, name='home'),
-    # List of workouts
-    path('workouts/', views.workouts, name='workouts'),
-    # New Workout
-    url(r'workouts/(add)/', views.workout_detail, name='workout_new'),
-    # List of exercises for single workout
-    path('workouts/<workout_id>/', views.workout_detail, name='workout_detail'),
-    # Edit single exercise in single workout
-    path('workouts/<int:workout_id>/<int:exercise_id>/', views.workout_detail, name='exercise_edit'),
-    # Delete exercise
-    path('workouts/<int:workout_id>/<int:exercise_id>/delete', views.delete_item, name='delete_exercise'),
-    # Delete Workout
-    path('workouts/<int:workout_id>/delete', views.delete_item, name='delete_workout'),
+    path('', views.user_homepage, name='home'),
+    # Program
+    ## List - Program
+    path('programs/',views.ProgramListView.as_view(), name='program_list'),
+    ## New - Program
+    path('programs/new/',views.ProgramCreateView.as_view(), name='program_new'),
+    ## Detail - Program
+    path('programs/<int:program_id>/', views.ProgramDetailView.as_view(), name='program_detail'),
+    ## Edit - Program
+    path('programs/<int:program_id>/edit', views.ProgramUpdateView.as_view(), name='program_edit'),
+    ## Delete - Program
+    path('programs/<int:program_id>/delete', views.ProgramDeleteView.as_view(), name='program_delete'),
+    # Drill
+    ## List - Drill
+    path('drills/', views.DrillListView.as_view(), name='drill_list'),
+    ## New - Drill
+    path('drills/new/', views.DrillCreateView.as_view(), name='drill_new'),
+    ## Detail - Drill
+    path('drills/<int:drill_id>', views.DrillDetailView.as_view(), name='drill_detail'),
+    ## Edit - Drill
+    path('drills/<int:drill_id>/edit', views.DrillUpdateView.as_view(), name='drill_edit'),
+    ## Delete - Drill
+    path('drills/<int:drill_id>/delete', views.DrillDeleteView.as_view(), name='drill_delete'),
+    # Workout
+    ## List - Workout
+    path('workouts/', views.WorkoutListView.as_view(), name='workout_list'),
+    ## New - Workout
+    path('workouts/new/', views.WorkoutCreateView.as_view(), name='workout_new'),
+    ## Detail - Workout
+    path('workouts/<int:workout_id>', views.WorkoutDetailView.as_view(), name='workout_detail'),
+    ## Edit - Workout
+    path('workouts/<int:workout_id>/edit', views.WorkoutUpdateView.as_view(), name='workout_edit'),
+    ## Delete - Workout
+    path('workouts/<int:workout_id>/delete', views.WorkoutDeleteView.as_view(), name='workout_delete'),
+    # Exercise - Workout
+    ## List - Exercise
+    path('workouts/<int:workout_id>/exercises/', views.ExerciseListView.as_view(), name='exercise_list'),
+    ## New - Exercise
+    path('workouts/<int:workout_id>/exercises/new/', views.ExerciseCreateView.as_view(), name='exercise_new'),
+    ## Detail - Exercise
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>', views.ExerciseDetailView.as_view(), name='exercise_detail'),
+    ## Edit - Exercise
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/edit', views.ExerciseUpdateView.as_view(), name='exercise_edit'),
+    ## Delete - Exercise
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/delete', views.ExerciseDeleteView.as_view(), name='exercise_delete'),
+    # Performance - Exercise
+    ## List - Performance
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances', views.PerformanceListView.as_view(), name='performance_list'),
+    ## New - Performance
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/new/', views.PerformanceCreateView.as_view(), name='performance_new'),
+    ## Detail - Performance
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>', views.PerformanceDetailView.as_view(), name='performance_detail'),
+    ## Edit - Performance
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>/edit', views.PerformanceUpdateView.as_view(), name='performance_edit'),
+    ## Delete - Performance
+    path('workouts/<int:workout_id>/exercises/<int:exercise_id>/performances/<int:performance_id>/delete', views.PerformanceDeleteView.as_view(), name='performance_delete'),
+    # Equipment
+    ## List - Equipment
+    path('equipments/', views.EquipmentListView.as_view(), name='equipment_list'),
+    ## New - Equipment
+    path('equipments/new/', views.EquipmentCreateView.as_view(), name='equipment_new'),
+    ## Detail - Equipment
+    path('equipments/<int:equipment_id>', views.EquipmentDetailView.as_view(), name='equipment_detail'),
+    ## Edit - Equipment
+    path('equipments/<int:equipment_id>/edit', views.EquipmentUpdateView.as_view(), name='equipment_edit'),
+    ## Delete - Equipment
+    path('equipments/<int:equipment_id>/delete', views.EquipmentDeleteView.as_view(), name='equipment_delete'),
+    # Property - Equipment
+    ## List - Property
+    ## New - Property
+    path('equipments/<int:equipment_id>/properties/new/', views.PropertyCreateView.as_view(), name='property_new'),
+    ## Detail - Property
+    path('equipments/<int:equipment_id>/properties/<int:property_id>', views.PropertyDetailView.as_view(), name='property_detail'),
+    ## Edit - Property
+    path('equipments/<int:equipment_id>/properties/<int:property_id>/edit', views.PropertyUpdateView.as_view(), name='property_edit'),
+    ## Delete - Property
+    path('equipments/<int:equipment_id>/properties/<int:property_id>/delete', views.PropertyDeleteView.as_view(), name='property_delete'),
     # Email change
     path('change_profile', views.user_profile_change, name='user_profile_change'),
     # User attendance

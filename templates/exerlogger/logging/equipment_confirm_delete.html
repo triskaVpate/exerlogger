@@ -1,0 +1,15 @@
+{% extends 'userspace/base.html' %}
+
+{% block content %}
+<form class="" method="post">
+  {% csrf_token %}
+  <p>Are you sure you want to delete?</p>
+  <h2>Equipment</h2>
+  <p>{{ equipment.name }}</p>
+  <div class="property">
+      <h2>{{ equipment.property.name }} {{ equipment.property.value }}{{ equipment.property.unit }}</h2>
+  </div>
+  <input type="submit" class="btn btn-danger" value="Confirm">
+  <a class="btn btn-primary" href="{% url 'equipment_detail' equipment_id=equipment.pk %}">Cancel</a>
+</form>
+{% endblock %}

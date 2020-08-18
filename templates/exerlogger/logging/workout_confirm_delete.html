@@ -1,0 +1,13 @@
+{% extends 'userspace/base.html' %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <p>Are you sure you want to delete? </p>
+  <div class="workout">
+    <h2>Workout from: {{ workout.date }}</h2>
+  </div>
+  <input type="submit" class="btn btn-danger" value="Confirm">
+  <a class="btn btn-primary" href="{% url 'workout_detail' workout_id=workout.id %}">Cancel</a>
+</form>
+{% endblock %}
