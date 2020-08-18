@@ -41,7 +41,7 @@ class WorkoutForm(forms.ModelForm):
 
     class Meta:
         model = Workout
-        fields = ()
+        fields = ('program',)
 
 
 # Exercise

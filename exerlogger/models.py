@@ -101,58 +101,6 @@ class Payment(TimeStampedModel):
 Logging
 """
 
-
-class Workout(TimeStampedModel):
-    """
-    Attributes:
-        date(date): The date when the Workout was created.
-                    Today is set as default.
-        user(FK): The User who performed the Workout.
-                  When User is deleted all his Workouts are deleted (CASCADE).
-
-    Relation:
-        Each Workout belongs to one User.
-        User can perform one and more Workouts.
-    """
-    date = models.DateField(_("date"), default=date.today)
-    user = models.ForeignKey(CustomUser, verbose_name=_("user"), on_delete=models.CASCADE, default=1)
-
-    class Meta:
-        verbose_name = _("workout")
-        verbose_name_plural = _("workouts")
-        # unique_together = ()
-        # index_together = ()w
-
-    def get_absolute_url(self):
-        return reverse('workout_detail', kwargs={'workout_id': self.pk})
-
-    def __string__(self):
-        return self.date
-
-
-class Form(models.Model):
-    """
-    Attributes:
-        name(str): Name of the form. It must be unique, which ensures reuseability.
-
-    Relation:
-        Each Form belongs to one and more Drills.
-
-    Example:
-        Onearm (Drill.form.name) Swing (Drill.name)
-        Onearm (Drill.form.name) Deadlift (Drill.name)
-    """
-    name = models.CharField(max_length=256,
-                            unique=True)  # One form can be shared between one and more Drills thus it has to be unique.
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _("form")
-        verbose_name_plural = _("forms")
-
-
 class Drill(TimeStampedModel):
     """
     Attributes:
@@ -214,6 +162,38 @@ class Program(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Workout(TimeStampedModel):
+    """
+    Attributes:
+        date(date): The date when the Workout was created.
+                    Today is set as default.
+        user(FK): The User who performed the Workout.
+                  When User is deleted all his Workouts are deleted (CASCADE).
+        program(FK): The Program the Workout belongs to. I's optional.
+
+
+    Relation:
+        Each Workout belongs to one User.
+        User can perform one and more Workouts.
+    """
+    date = models.DateField(_("date"), default=date.today)
+    user = models.ForeignKey(CustomUser, verbose_name=_("user"), on_delete=models.CASCADE, default=1)
+    program = models.ForeignKey(Program, verbose_name=_("program"), related_name='program', on_delete=models.CASCADE,
+                                null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("workout")
+        verbose_name_plural = _("workouts")
+        # unique_together = ()
+        # index_together = ()w
+
+    def get_absolute_url(self):
+        return reverse('workout_detail', kwargs={'workout_id': self.pk})
+
+    def __string__(self):
+        return self.date
 
 
 class Exercise(TimeStampedModel):
