@@ -62,9 +62,9 @@ def attendance(request):
     year_id = request.GET.get('year_id', None)
 
     if month_id is not None and move == "previous_month":
-        d = d.replace(month=int(month_id))+relativedelta(months=-1, year=int(year_id))
+        d = d.replace(month=int(month_id)) + relativedelta(months=-1, year=int(year_id))
     elif month_id is not None and move == "next_month":
-        d = d.replace(month=int(month_id))+relativedelta(months=+1, year=int(year_id))
+        d = d.replace(month=int(month_id)) + relativedelta(months=+1, year=int(year_id))
     # calendar movement end
 
     cal = Calendar(d.year, d.month)
@@ -124,6 +124,7 @@ def signup_view(request):
 Logging
 """
 
+
 # Program
 ## List - Program
 class ProgramListView(LoginRequiredMixin, ListView):
@@ -157,6 +158,7 @@ class ProgramUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProgramForm
     pk_url_kwarg = 'program_id'
     template_name = 'exerlogger/logging/program_form.html'
+
 
 ## Delete - Program
 class ProgramDeleteView(LoginRequiredMixin, DeleteView):
@@ -206,7 +208,7 @@ class WorkoutUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = Workout
     redirect_field_name = 'exerlogger/logging/workout_detail.html'
-    form_class =WorkoutForm
+    form_class = WorkoutForm
     pk_url_kwarg = 'workout_id'
     template_name = 'exerlogger/logging/workout_form.html'
 
@@ -223,6 +225,7 @@ class WorkoutDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('workout_list')
     pk_url_kwarg = 'workout_id'
     template_name = 'exerlogger/logging/workout_confirm_delete.html'
+
 
 # Exercise
 ## List - Exercise
@@ -251,7 +254,8 @@ class ExerciseCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         # Send workout_id too
-        return reverse('exercise_detail', kwargs={'exercise_id': self.object.pk, 'workout_id': self.kwargs['workout_id']})
+        return reverse('exercise_detail',
+                       kwargs={'exercise_id': self.object.pk, 'workout_id': self.kwargs['workout_id']})
 
 
 ## Detail - Exercise
@@ -278,7 +282,8 @@ class ExerciseUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         # Send workout_id too
-        return reverse('exercise_detail', kwargs={'exercise_id': self.object.pk, 'workout_id': self.kwargs['workout_id']})
+        return reverse('exercise_detail',
+                       kwargs={'exercise_id': self.object.pk, 'workout_id': self.kwargs['workout_id']})
 
 
 ## Delete - Exercise
@@ -290,7 +295,8 @@ class ExerciseDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         # Send workout_id
-        return reverse_lazy('exercise_list', kwargs={'workout_id' : self.kwargs['workout_id']})
+        return reverse_lazy('exercise_list', kwargs={'workout_id': self.kwargs['workout_id']})
+
 
 # Performance
 ## List - Performance
@@ -300,7 +306,7 @@ class PerformanceListView(LoginRequiredMixin, ListView):
     template_name = 'exerlogger/logging/performance_list.html'
 
     def get_queryset(self):
-        # Find all Exercises that belong to the same Workout
+        # Find all Performances that belong to the same Exercise
         return Performance.objects.filter(exercise=self.kwargs['exercise_id'])
 
 
@@ -321,7 +327,7 @@ class PerformanceCreateView(LoginRequiredMixin, CreateView):
         # Send exercise_id too
         return reverse('performance_detail', kwargs={'performance_id': self.object.pk,
                                                      'exercise_id': self.kwargs['exercise_id'],
-                                                     'workout_id' : self.kwargs['workout_id']})
+                                                     'workout_id': self.kwargs['workout_id']})
 
 
 ## Detail - Performance
@@ -350,7 +356,7 @@ class PerformanceUpdateView(LoginRequiredMixin, UpdateView):
         # Send exercise_id too
         return reverse('performance_detail', kwargs={'performance_id': self.object.pk,
                                                      'exercise_id': self.kwargs['exercise_id'],
-                                                     'workout_id' : self.kwargs['workout_id']})
+                                                     'workout_id': self.kwargs['workout_id']})
 
 
 ## Delete - Performance
@@ -363,8 +369,8 @@ class PerformanceDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         # Send exercise_id
-        return reverse_lazy('exercise_detail', kwargs={'exercise_id' : self.kwargs['exercise_id'],
-                                                        'workout_id' : self.kwargs['workout_id']})
+        return reverse_lazy('exercise_detail', kwargs={'exercise_id': self.kwargs['exercise_id'],
+                                                       'workout_id': self.kwargs['workout_id']})
 
 
 # Drill
@@ -408,6 +414,7 @@ class DrillDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('drill_list')
     pk_url_kwarg = 'drill_id'
     template_name = 'exerlogger/logging/drill_confirm_delete.html'
+
 
 # Equipment
 ## List - Equipment
@@ -469,7 +476,8 @@ class PropertyCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         # Send equipment_id too
-        return reverse('property_detail', kwargs={'property_id': self.object.pk, 'equipment_id': self.kwargs['equipment_id']})
+        return reverse('property_detail',
+                       kwargs={'property_id': self.object.pk, 'equipment_id': self.kwargs['equipment_id']})
 
 
 ## Detail - Property
@@ -496,7 +504,9 @@ class PropertyUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         # Send equipment_id too
-        return reverse('property_detail', kwargs={'property_id': self.object.pk, 'equipment_id': self.kwargs['equipment_id']})
+        return reverse('property_detail',
+                       kwargs={'property_id': self.object.pk, 'equipment_id': self.kwargs['equipment_id']})
+
 
 ## Delete - Property
 class PropertyDeleteView(LoginRequiredMixin, DeleteView):
@@ -508,4 +518,5 @@ class PropertyDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         # Send exercise_id
-        return reverse_lazy('equipment_detail', kwargs={'equipment_id' : self.kwargs['equipment_id']})   # CHANGE to Equipment
+        return reverse_lazy('equipment_detail',
+                            kwargs={'equipment_id': self.kwargs['equipment_id']})
